@@ -32,7 +32,29 @@
 
     </div>
 
-    <div class="tela-boot"></div> <!--Toda tela de boot-->
+    <div class="tela-boot"> <!--Toda tela de boot-->
+      <div class="efeito-tela">
+      <div class="noise"></div>
+      <div class="linhas"></div>
+      </div>
+
+      <div class="boot-conteudo">
+        
+        <h1 class="logo-mimiomia">mimiomia OS</h1>
+        
+        <div class="caixa-barra">
+          <div class="barra-preenchimento"></div>
+        </div>
+        
+        <p class="texto-monitor">Inicializando mimiomia kernel v1.0.0...</p>
+        <p class="texto-monitor">Carregando módulo [vaquinha.exe]... [ALERTA: Espaço insuficiente]</p>
+        <p class="texto-monitor">Carregando módulo [wunderkammer.exe]... [OK]</p>
+        <p class="texto-monitor">Carregando módulo [hyperfocus.exe]... [OK]</p>
+        <p class="texto-monitor">Ignorando boas práticas do CSS... [OK]</p>
+        <p class="texto-monitor">Farmando aura... [SUCESSO]</p>
+        
+      </div>
+    </div>
 
     <div class="tela-terminal" style="display: none"></div> <!--Toda tela de terminal com login e cadastro-->
 
@@ -49,22 +71,53 @@
     var telaMonitor = document.querySelector('.tela-pc');
     //Pegar a div da tela de boot
     var telaBoot = document.querySelector('.tela-boot');
+    //Pegar a div da tela terminal
+    var telaTerminal = document.querySelector('.tela-terminal');
 
     // Pegar os áudios
     var somClique = document.getElementById('som-clique');
     var somBoot = document.getElementById('som-boot');
     var somLogo = document.getElementById('som-logoreveal');
 
+    //Pegar a barra pra animar ela 
+    var barra = document.querySelector('.barra-preenchimento');
+
+    // Pega todas linhas de texto pra colcoar num "vetor"
+    var linhasDeTexto = document.querySelectorAll('.texto-monitor');
+
+    // Lógica de ir pra tela de terminal
+    function abrirTerminal() {
+      telaBoot.style.display = "none";
+      telaTerminal.style.display = "block"; 
+  }
+
     // Lógica de trocar as telas
-    function trocarTelas() {
-      telaMonitor.style.display = "none"; // Pra tirar a tela de vez
-      telaBoot.classList.add("aparecendo"); // Mostra a tela preta com a transição
+
+  function iniciarBoot() {
+      telaMonitor.style.display = "none"; 
+      telaBoot.classList.add("aparecendo"); 
+      
+      somLogo.play();
+      
+      // Adiciona a classe pra animar a barra
+      barra.classList.add("animar-barra");
+
+      // Lógica que faz os textos aparecerem um por um
+
+      for (i = 0; i < linhasDeTexto.length; i++) {
+        setTimeout(function() {
+          linhasDeTexto[i].style.opacity = "1";
+        }, i * 700)
+      }
+
+      //UUns 6 segundos pra abrir o terminal
+      setTimeout(abrirTerminal, 6000); 
   }
 
     // Lógica pra ligar o pc
     function ligarPC() {
 
-      botaoLigar.disabled = false;
+      botaoLigar.disabled = true;
 
       somClique.play(); /* Pra tocar o audio q pegou */
 
@@ -74,7 +127,7 @@
 
       somBoot.play(); /* Pra tocar o audio de som de pc ligando, com ventoinhas */
 
-      setTimeout (trocarTelas, 1000); /* VALIDAR - O que vai fazer e qual o tempo pra isso. Tem que bater com o tempo da transição definida no css*/ 
+      setTimeout (iniciarBoot, 1000); /* VALIDAR - O que vai fazer e qual o tempo pra isso. Tem que bater com o tempo da transição definida no css*/ 
     }
 
     //Chama a função pro botão

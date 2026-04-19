@@ -1,4 +1,13 @@
 /* Importações */
+@font-face {
+  font-family: "Heritage";
+  src: url("../assets/fonts/Heritage-Display.otf");
+}
+
+@font-face {
+  font-family: "Consolas";
+  src: url("../assets/fonts/Consola.ttf");
+}
 
 /* Resets */
 * {
@@ -7,16 +16,15 @@
   box-sizing: border-box; /* Pra não vazar pros lados */
 }
 
-
 /* Body */
 body {
   background-color: black;
-  cursor: url('../assets/img/index/cursornone.png'), auto;
-
+  cursor: url("../assets/img/index/cursornone.png"), auto;
 }
 
-button:hover, a:hover {
-  cursor: url('../assets/img/index/cursorpointer.png'), pointer; 
+button:hover,
+a:hover {
+  cursor: url("../assets/img/index/cursorpointer.png"), pointer;
 }
 
 #container {
@@ -27,7 +35,7 @@ button:hover, a:hover {
 
 /* Tela PC */
 .tela-pc {
-  background-image: url('../assets/img/index/universebg.gif');
+  background-image: url("../assets/img/index/universebg.gif");
   width: 100%;
   height: 100%; /* 100% do pai que é o container */
 
@@ -38,53 +46,147 @@ button:hover, a:hover {
 }
 
 .caixa-monitor {
-    position: relative; /*VALIDAR - Serve de âncora pro que tiver absoluto nele, ele meio que limita até onde o absoluto pode ir*/
-    height: 100%;
-    /*display: inline-block;*/
+  position: relative; /*VALIDAR - Serve de âncora pro que tiver absoluto nele, ele meio que limita até onde o absoluto pode ir*/
+  height: 100%;
+  /*display: inline-block;*/
 }
 
 .monitorcrt {
-    height: 100%;
-    object-fit: contain; /* Faz a imagem ser mostrada por inteiro idependente do tamanho da tela, deixa espaço em branco se precisar pra preservar o tamanho da imagem, diferente do "cover" que usa a imagem pra preencher o tamanho da div toda*/
+  height: 100%;
+  object-fit: contain; /* Faz a imagem ser mostrada por inteiro idependente do tamanho da tela, deixa espaço em branco se precisar pra preservar o tamanho da imagem, diferente do "cover" que usa a imagem pra preencher o tamanho da div toda*/
 }
 
 #btn-ligar {
   position: absolute; /* faz ele virar o balão de gás hélio, "incontrolado" se não tiver relativo a nada */
-  
+
   /* Controla a posição do "balão" referente a imagem q esta relativo */
-  bottom: 53.80%; /* Empurra X% de baixo pra cima */
+  bottom: 53.8%; /* Empurra X% de baixo pra cima */
   right: 69.42%;
-  
-  width: 31px;  
+
+  width: 31px;
   height: 31px;
-  
+
   /* Botão desligado */
-  background-color: rgba(255, 0, 0, 0.300); 
-  
+  background-color: rgba(255, 0, 0, 0.3);
+
   border: none;
   border-radius: 50%; /* Deixa o botão redondo (opcional) */
-
 }
 
-#btn-ligar:active{
+#btn-ligar:active {
   /* Botão ligado */
-  background-color: rgba(30, 255, 0, 0.3); 
+  background-color: rgba(30, 255, 0, 0.3);
 }
 
 /* Tela Boot */
 
 .tela-boot {
   opacity: 0; /* Começa invisível pra transição funcionar */
-  
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.boot-conteudo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-mimiomia {
+  font-family: "Heritage", Consolas, monospace;
+  font-weight: 400;
+  font-size: 365px;
+  letter-spacing: 0em;
+  color: #888888;
+
+  /* Efeito de brilho */
+  text-shadow:
+    0px 0px 40px #888888,
+    0px 0px 25px #888888,
+    0px 0px 8px #888888,
+    0px 0px 2px #888888,
+    0px 0px 1px #888888;
+
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.efeito-tela {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  background-blend-mode: overlay;
+  mix-blend-mode: soft-light;
 }
 
 
 
+.noise {
+  background-image: url("../assets/img/index/noise.png");
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-blend-mode: overlay;
+  mix-blend-mode: soft-light;
+}
 
+.caixa-barra {
+  width: 300px;
+  height: 20px;
+  border: 2px solid #888888;
+  padding: 2px;
+  margin: 0 auto; 
+  box-shadow: 0px 0px 10px #888888; 
+}
 
+/* O "líquido" que enche a barra */
+.barra-preenchimento {
+  height: 100%;
+  background-color: #888888;
+  width: 0%; /* Começa vazia */
+  box-shadow: 0px 0px 10px #888888; 
+}
+
+/* A animação mágica de encher! */
+.animar-barra {
+  animation: encherBarra 6s ease-in-out forwards; 
+}
+
+@keyframes encherBarra { /* VALIDAR */
+  0% { width: 0%; }
+  20% { width: 10%; } /* Dá umas travadinhas simulando PC velho */
+  50% { width: 60%; }
+  80% { width: 65%; }
+  100% { width: 100%; }
+}
+
+.texto-monitor {
+    opacity: 0;
+  transition: opacity 0.2s ease-in;
+  color: #888888;
+  font-family: Consolas, monospace;
+  width: 100%;
+  text-align: left;
+  margin-top: 15px;
+  font-size: 18px;
+
+  text-shadow:
+    0px 0px 40px #888888,
+    0px 0px 25px #888888,
+    0px 0px 8px #888888,
+    0px 0px 2px #888888,
+    0px 0px 1px #888888;
+}
 
 /* Classes pra transição */
-
 /* Estados da transição */
 .apagando {
   opacity: 0;
@@ -94,5 +196,10 @@ button:hover, a:hover {
 /* Estado da tela aparecendo */
 .aparecendo {
   opacity: 1;
-  transition: opacity 1.s ease-in;
+  transition: opacity 1s ease-in;
+}
+
+.piscando {
+  opacity: 0.1;
+  transition: opacity 0.5s ease-out;
 }
