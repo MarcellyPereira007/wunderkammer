@@ -32,13 +32,15 @@
 
     </div>
 
-    <div class="tela-boot" style="display: none"></div> <!--Toda tela de boot-->
+    <div class="tela-boot"></div> <!--Toda tela de boot-->
 
     <div class="tela-terminal" style="display: none"></div> <!--Toda tela de terminal com login e cadastro-->
 
   </div>
 
-
+  <audio id="som-clique" src="assets/audio/apertandobotao.mp3"></audio>
+  <audio id="som-boot" src="assets/audio/maquinaligando.mp3"></audio>
+  <audio id="som-logoreveal" src="assets/audio/logoreveal.mp3"></audio>
 
   <script>
     //Pegar o botão de btn-ligar 
@@ -48,27 +50,35 @@
     //Pegar a div da tela de boot
     var telaBoot = document.querySelector('.tela-boot');
 
+    // Pegar os áudios
+    var somClique = document.getElementById('som-clique');
+    var somBoot = document.getElementById('som-boot');
+    var somLogo = document.getElementById('som-logoreveal');
+
+    // Lógica de trocar as telas
+    function trocarTelas() {
+      telaMonitor.style.display = "none"; // Pra tirar a tela de vez
+      telaBoot.classList.add("aparecendo"); // Mostra a tela preta com a transição
+  }
+
     // Lógica pra ligar o pc
     function ligarPC() {
-      //Mudando o estado do botão
-      if (botaoLigar.disabled) {
-        botaoLigar.disabled = false; //Ativa
-      } else {
-        botaoLigar.disabled = true;  //Desativa
-      }
 
-      //Inverter a ordem da visibildade dependendo do que tiver ativo
-      if (telaMonitor.style.display == "none") {
-        telaBoot.style.display = "none";
-        telaMonitor.style.display = "block";
-      } else {
-        telaBoot.style.display = "block";
-        telaMonitor.style.display = "none";
-      }
+      botaoLigar.disabled = false;
+
+      somClique.play(); /* Pra tocar o audio q pegou */
+
+      //Inverter a ordem da visibildade aplicando as classes criadas no css mudando a opacidade e com a transição
+      //Tira a tela de monitor de visivel
+      telaMonitor.classList.add("apagando");
+
+      somBoot.play(); /* Pra tocar o audio de som de pc ligando, com ventoinhas */
+
+      setTimeout (trocarTelas, 1000); /* VALIDAR - O que vai fazer e qual o tempo pra isso. Tem que bater com o tempo da transição definida no css*/ 
     }
 
     //Chama a função pro botão
-    botaoLigar.onclick = ligarPC; //Se colocar parenteses ele executa na hora mesmo sem clicar. Ai muda a tela
+    botaoLigar.onclick = ligarPC; // Se colocar parenteses ele executa na hora mesmo sem clicar. Ai muda a tela
   </script>
 </body>
 

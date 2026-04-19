@@ -7,6 +7,8 @@
   box-sizing: border-box; /* Pra não vazar pros lados */
 }
 
+
+/* Body */
 body {
   background-color: black;
   cursor: url('../assets/img/index/cursornone.png'), auto;
@@ -23,6 +25,7 @@ button:hover, a:hover {
   overflow: hidden; /* Pra esconder qualquer coisa que tentar vazar do tamanho da tela */
 }
 
+/* Tela PC */
 .tela-pc {
   background-image: url('../assets/img/index/universebg.gif');
   width: 100%;
@@ -66,4 +69,30 @@ button:hover, a:hover {
 #btn-ligar:active{
   /* Botão ligado */
   background-color: rgba(30, 255, 0, 0.3); 
+}
+
+/* Tela Boot */
+
+.tela-boot {
+  opacity: 0; /* Começa invisível pra transição funcionar */
+  
+}
+
+
+
+
+
+
+/* Classes pra transição */
+
+/* Estados da transição */
+.apagando {
+  opacity: 0;
+  transition: opacity 1s ease-out; /* Demora 1s p ficar invisivel */
+}
+
+/* Estado da tela aparecendo */
+.aparecendo {
+  opacity: 1;
+  transition: opacity 1.s ease-in;
 }
