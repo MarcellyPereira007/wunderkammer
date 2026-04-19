@@ -104,7 +104,7 @@ a:hover {
   letter-spacing: 0em;
   color: #888888;
 
-  /* Efeito de brilho */
+  /* VALIDAR Efeito de brilho */
   text-shadow:
     0px 0px 40px #888888,
     0px 0px 25px #888888,
