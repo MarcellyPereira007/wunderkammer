@@ -11,7 +11,7 @@
     ||                                             ||
 </pre>
 
-<h1>Wunderkammer.exe</h1>
+<h1>mimiomia's Wunderkammer</h1>
 <p><i>"Onde o hiperfoco encontra seu gabinete de curiosidades."</i></p>
 
 <p>
