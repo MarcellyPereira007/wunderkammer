@@ -127,8 +127,6 @@ a:hover {
   mix-blend-mode: soft-light;
 }
 
-
-
 .noise {
   background-image: url("../assets/img/index/noise.png");
   position: absolute;
@@ -199,7 +197,13 @@ a:hover {
   transition: opacity 1s ease-in;
 }
 
-.piscando {
-  opacity: 0.1;
-  transition: opacity 0.5s ease-out;
+@keyframes efeitoLogo {
+  0% { opacity: 0.1; text-shadow: none; }
+  100% { opacity: 1; text-shadow: 0px 0px 40px #888888; }
+}
+
+/* A classe que vamos jogar na logo */
+.piscar-logo {
+  /* dura 0.15 segundos, e repete 8 vezes! */
+  animation: efeitoLogo 6s 1; 
 }
