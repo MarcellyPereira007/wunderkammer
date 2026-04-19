@@ -9,17 +9,22 @@
 
 body {
   background-color: black;
+  cursor: url('../assets/img/index/cursornone.png'), auto;
+
+}
+
+button:hover, a:hover {
+  cursor: url('../assets/img/index/cursorpointer.png'), pointer; 
 }
 
 #container {
   width: 100vw;
   height: 100vh;
   overflow: hidden; /* Pra esconder qualquer coisa que tentar vazar do tamanho da tela */
-  position: relative;
 }
 
 .tela-pc {
-  background-image: url(/web-data-viz/public/assets/img/index/universebg.gif);
+  background-image: url('../assets/img/index/universebg.gif');
   width: 100%;
   height: 100%; /* 100% do pai que é o container */
 
@@ -27,9 +32,38 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
 
-  img {
-    object-fit: cover;
+.caixa-monitor {
+    position: relative; /*VALIDAR - Serve de âncora pro que tiver absoluto nele, ele meio que limita até onde o absoluto pode ir*/
     height: 100%;
-  }
+    /*display: inline-block;*/
+}
+
+.monitorcrt {
+    height: 100%;
+    object-fit: contain; /* Faz a imagem ser mostrada por inteiro idependente do tamanho da tela, deixa espaço em branco se precisar pra preservar o tamanho da imagem, diferente do "cover" que usa a imagem pra preencher o tamanho da div toda*/
+}
+
+#btn-ligar {
+  position: absolute; /* faz ele virar o balão de gás hélio, "incontrolado" se não tiver relativo a nada */
+  
+  /* Controla a posição do "balão" referente a imagem q esta relativo */
+  bottom: 53.80%; /* Empurra X% de baixo pra cima */
+  right: 69.42%;
+  
+  width: 31px;  
+  height: 31px;
+  
+  /* Botão desligado */
+  background-color: rgba(255, 0, 0, 0.300); 
+  
+  border: none;
+  border-radius: 50%; /* Deixa o botão redondo (opcional) */
+
+}
+
+#btn-ligar:active{
+  /* Botão ligado */
+  background-color: rgba(30, 255, 0, 0.3); 
 }
