@@ -1,0 +1,86 @@
+/* Importações */
+.pixelify-sans {
+  font-family: "Pixelify Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Wondershine";
+  src: url("../assets/fonts/Wondershine.ttf");
+}
+
+/* resets */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+  cursor: url("../assets/img/index/cursornone.png"), auto;
+}
+
+button:hover,
+a:hover {
+  cursor: url("../assets/img/index/cursorpointer.png"), pointer;
+}
+
+#container {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden; /* Pra esconder qualquer coisa que tentar vazar do tamanho da tela */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url("../assets/img/home/wallpaper.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.barra-tarefas {
+    margin-top: auto;
+    height: 9%;
+    background-color: rgba(165, 42, 42, 0.384);
+    border-top: 1px solid white;
+    color: aliceblue;
+}
+
+.tela-home {
+    margin-top: auto;
+    height: 92%;
+    background-color: rgba(42, 165, 42, 0.171);
+    color: aliceblue;
+    position: relative;
+}
+
+.atalhos {
+    width: 40%;
+    height: 51%;
+    background-color: rgba(127, 255, 212, 0.493);
+    position: absolute;
+    top: 25%;
+    left: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.linha {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 5px;
+    flex: 1;
+    background-color: rgba(0, 0, 255, 0.199);
+}
+
+.coluna {
+    display: flex;
+    flex: 1;
+    background-color: rgba(226, 147, 43, 0.411);
+}
