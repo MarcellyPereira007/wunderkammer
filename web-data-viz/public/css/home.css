@@ -23,7 +23,8 @@ body {
 }
 
 button:hover,
-a:hover, .coluna img:hover {
+a:hover,
+.coluna img:hover, #iconstart:hover {
   cursor: url("../assets/img/index/cursorpointer.png"), pointer;
 }
 
@@ -42,62 +43,128 @@ a:hover, .coluna img:hover {
 }
 
 .barra-tarefas {
-    margin-top: auto;
-    height: 9%;
-    background-color: black;
-    border-top: 1px solid white;
-    color: aliceblue;
+  display: flex;
+  margin-top: auto;
+  height: 9%;
+  background-color: black;
+  color: white;
+  padding: 10px 20px 10px 20px; /*Relógio começando da meia noite*/
+  align-items: center;
+  justify-content: space-between;
+
+  box-shadow:
+    0px 0px 40px #888888,
+    0px 0px 25px #888888,
+    0px 0px 8px #888888,
+    0px 0px 2px #888888,
+    0px 0px 1px #888888;
+}
+
+.start {
+  height: 100%;
+  width: 3%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.start img {
+  height: 90%;
+  width: 100%;
+  border: 1px solid #888888;
+  border-radius: 100px;
+
+  box-shadow:
+    0px 0px 24.6456px #888888,
+    0px 0px 14.0832px #888888,
+    0px 0px 8.2152px #888888,
+    0px 0px 4.1076px #888888,
+    0px 0px 1.1736px #888888,
+    0px 0px 0.5868px #888888;
+}
+
+.infos {
+  height: 100%;
+  width: 12%;
+  display: flex;
+  flex-direction: row;
+}
+
+.sound {
+    height: 100%;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button {
+        background-color: transparent;
+        border: none;
+    }
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Pixelify Sans', Consolas, monospace;
+    line-height: 20px;
+    font-size: 18px;
+    width: 100%;
+    justify-content: center;
+    text-align: right;
+    letter-spacing: 0.1em;
 }
 
 .tela-home {
-    margin-top: auto;
-    height: 91%;
-    color: aliceblue;
-    position: relative;
+  margin-top: auto;
+  height: 91%;
+  color: aliceblue;
+  position: relative;
 }
 
 .atalhos {
-    width: 40%;
-    height: 51%;
-    position: absolute;
-    top: 25%;
-    left: 20%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 5px;
+  width: 40%;
+  height: 51%;
+  position: absolute;
+  top: 25%;
+  left: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 5px;
 }
 
 .linha {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 5px;
-    flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 5px;
+  flex: 1;
 }
 
 .coluna {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    gap: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  gap: 5px;
 }
 
 .coluna img {
-    height: 50px;
-    width: 50px;
+  height: 50px;
+  width: 50px;
 }
 
 .coluna p {
-    font-family: 'Wondershine', Consolas, monospace;
-    font-size: 16px;
-    line-height: 32px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    letter-spacing: 0.1em;
-    color: black;
-    font-weight: bold;
+  font-family: "Wondershine", Consolas, monospace;
+  font-size: 16px;
+  line-height: 32px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.1em;
+  color: black;
+  font-weight: bold;
 }

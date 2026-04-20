@@ -85,11 +85,124 @@
         </div>
 
         <div class="barra-tarefas">
-            coisas da barra
+            <div class="start">
+                <img id="iconstart" src="../public/assets/img/home/start.png">
+            </div>
+
+            <div class="infos">
+                <div class="sound">
+                    <button id="btn_sound">
+                        <img src="../public/assets/img/home/soundcom.png">
+                    </button>
+                </div>
+                <div class="info">
+                    <p id="hora_atual">Atualizando hora...</p>
+                    <p id="data_atual">Atualizando data...</p>
+                </div>
+            </div>
         </div>
 
     </div>
 
+    <audio id="desktop-song" src="../public/assets/audio/asokah - I always smile, but my eyes are sad.mp3" loop autoplay></audio>
 </body>
+
+<script>
+
+    // variaveis pra musica
+    var sound = document.getElementById('btn_sound');
+    var musica = document.getElementById('desktop-song');
+
+    //booleano pra controlar oq fazer quando clicar
+    let tocando = true;
+
+    sound.onclick = mutarDesmutar;
+
+    function mutarDesmutar() {
+        //Se não tiver tocando
+        if (!tocando) {
+            musica.play();
+            tocando = true;
+            sound.innerHTML = '<img src="../public/assets/img/home/soundcom.png">'
+        } else {
+            musica.pause();
+            tocando = false;
+            sound.innerHTML = '<img src="../public/assets/img/home/soundsem.png">'
+        }
+    }
+
+    //Lógica da data e hora
+    // pegar onde elas vao ser mostradas
+    var data = document.getElementById('data_atual');
+    var hora = document.getElementById('hora_atual');
+
+    //Criar uma função pra atualizar as infos
+    function mudarDataHora() {
+        //Pegar a data e hora de agora
+        var dataHoranovo = new Date(); // VALIDAR
+        var dataHora = dataHoranovo.toString();
+
+        //Extrair as partes da sainda com substring pq ta no meu nivel iniciante
+        //Modelo da saída padrão
+        //Mon Apr 20 2026 15:48:08 GMT-0300 (Horário Padrão de Brasília)
+
+        //let horas = dataHora.getHours(); VALIDAR
+        let horas = dataHora.substring(16, 18);
+        //let minutos = dataHora.getMinutes();
+        let minutos = dataHora.substring(19, 21);
+        //let dia = dataHora.getDay();
+        let dia = dataHora.substring(8, 10);
+        //let mes = dataHora.getMonth();
+        let mes = dataHora.substring(4, 7);
+        //let ano = dataHora.getFullYear
+        let ano = dataHora.substring(11, 15);
+
+        switch (mes) { // VALIDAR
+            case 'Jan':
+                mes = '01';
+                break;
+            case 'Feb':
+                mes = '02';
+                break;
+            case 'Mar':
+                mes = '03';
+                break;
+            case 'Apr':
+                mes = '04';
+                break;
+            case 'May':
+                mes = '05';
+                break;
+            case 'Jun':
+                mes = '06';
+                break;
+            case 'Jul':
+                mes = '07';
+                break;
+            case 'Aug':
+                mes = '08';
+                break;
+            case 'Sep':
+                mes = '09';
+                break;
+            case 'Oct':
+                mes = '10';
+                break;
+            case 'Nov':
+                mes = '11';
+                break;
+            case 'Dec':
+                mes = '12';
+                break;
+            default:
+                mes = 'XX';
+        }
+        //Levar formatado com innerhTML
+        hora.innerHTML = `${horas}:${minutos}`;
+        data.innerHTML = `${dia}/${mes}/${ano}`;
+    }
+    //Rodar a função de 1 em 1 segundo
+    setInterval(mudarDataHora, 1000);
+</script>
 
 </html>
