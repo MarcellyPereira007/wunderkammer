@@ -23,7 +23,7 @@ body {
 }
 
 button:hover,
-a:hover {
+a:hover, .coluna img:hover {
   cursor: url("../assets/img/index/cursorpointer.png"), pointer;
 }
 
@@ -44,15 +44,14 @@ a:hover {
 .barra-tarefas {
     margin-top: auto;
     height: 9%;
-    background-color: rgba(165, 42, 42, 0.384);
+    background-color: black;
     border-top: 1px solid white;
     color: aliceblue;
 }
 
 .tela-home {
     margin-top: auto;
-    height: 92%;
-    background-color: rgba(42, 165, 42, 0.171);
+    height: 91%;
     color: aliceblue;
     position: relative;
 }
@@ -60,7 +59,6 @@ a:hover {
 .atalhos {
     width: 40%;
     height: 51%;
-    background-color: rgba(127, 255, 212, 0.493);
     position: absolute;
     top: 25%;
     left: 20%;
@@ -76,11 +74,30 @@ a:hover {
     justify-content: space-between;
     gap: 5px;
     flex: 1;
-    background-color: rgba(0, 0, 255, 0.199);
 }
 
 .coluna {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     flex: 1;
-    background-color: rgba(226, 147, 43, 0.411);
+    gap: 5px;
+}
+
+.coluna img {
+    height: 50px;
+    width: 50px;
+}
+
+.coluna p {
+    font-family: 'Wondershine', Consolas, monospace;
+    font-size: 16px;
+    line-height: 32px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.1em;
+    color: black;
+    font-weight: bold;
 }
