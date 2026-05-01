@@ -1,19 +1,24 @@
-// Vetores só pra teste
-let usuarios = ["guest"];
-let emails = ["guest@mimiomia.os"];
-let senhas = ["guestsenha"];
-
 let etapaTerminal = "esperando_comando"; // Separar as etapas com uma variável de controle de "estados"
 let usuarioPendente = "";
 let emailPendente = "";
 let tentativasLogin = 0; // Contador de tentativas de senha
 
+let inputTerminal;
+let promptTexto;
+let historicoSaidas;
+let telaTodaTerminal;
+
+// Vetores só pra teste
+let usuarios = ["guest"];
+let emails = ["guest@mimiomia.os"];
+let senhas = ["guestsenha"];
+
 //Seleciona os elementos assim q a tela carregar e coloca o ouvinte do enter no campo de entrada
-window.onload = function() {
-    let inputTerminal = document.querySelector('.entradas input');
-    let promptTexto = document.querySelector('.entradas .texto-monitor');
-    let historicoSaidas = document.querySelector('.saidas');
-    let telaTodaTerminal = document.querySelector('.tela-terminal');
+window.onload = function () {
+    inputTerminal = document.querySelector('#inputTerminal');
+    promptTexto = document.querySelector('#promptTexto');
+    historicoSaidas = document.querySelector('#historicoSaidas');
+    telaTodaTerminal = document.querySelector('.terminal');
 
     inputTerminal.addEventListener('keydown', processarTecla);
 };
@@ -30,9 +35,9 @@ function resetarTerminal() {
 function processarTecla(evento) {
     if (evento.key == 'Enter') { //.key é uma propriedade usada com eventos q te retorna a representação em texto do caractere digitado nesse caso 
         let textoDigitado = inputTerminal.value.trim(); // Guarda o comando digitado
-        
+
         registrarHistorico(textoDigitado);// Joga o comando pro histórico
-        
+
         // Verifica qual etapa está pra guiar pro bloco certo
         if (etapaTerminal == "esperando_comando") {
             interpretarComando(textoDigitado);
@@ -62,7 +67,8 @@ function registrarHistorico(texto) {
 
 function limparTerminal() {
     inputTerminal.value = "";
-    telaTodaTerminal.scrollTop = telaTodaTerminal.scrollHeight;
+    let areaTerminal = document.querySelector('.terminal');
+    areaTerminal.scrollTop = areaTerminal.scrollHeight;
 }
 
 // Interpretar oq foi digitado
@@ -75,6 +81,8 @@ function interpretarComando(comando) {
         iniciarCadastro(comando);
     } else if (comando.startsWith("su ")) {
         iniciarLogin(comando);
+    } else if (comando == "users") {
+        listarUsuarios();
     } else if (comando != "") {
         historicoSaidas.innerHTML += `<p class="texto-monitor">O comando "${comando}" não existe. Digite 'help' para ver a lista de comandos disponíveis.</p>`;
     }
@@ -82,11 +90,12 @@ function interpretarComando(comando) {
 
 function exibirHelp() {
     historicoSaidas.innerHTML += `
-<pre class="texto-monitor" style="color: white;">
+<pre class="texto-monitor">
 [ LISTA DE COMANDOS ]
 ----------------------------------------------------------
 help                  : Exibe essa mensagem.
-mimi adduser [nome]   : Cria uma nova conta.
+users                : Lista todos os usuários cadastrados.
+mimi adduser [nome]  : Cria uma nova conta.
 su [nome]             : Realiza login na conta.
 clear                 : Limpa a tela do terminal.
 ----------------------------------------------------------
@@ -109,20 +118,20 @@ function iniciarCadastro(comando) {
 
     // Fazer as validações do nome
     // Se está vazio
-    if (usuario == ""){
+    if (usuario == "") {
         historicoSaidas.innerHTML += `<p class="texto-monitor">[ERRO] Digite um nome de usuário.</p>`;
-    } 
+    }
     // Se são só numeros (se é possivel converter pra number)
-    else if (Number(usuario) != NaN) {
-         historicoSaidas.innerHTML += `<p class="texto-monitor">[ERRO] O nome de usuário não pode ser um número.</p>`;
+    else if (!isNaN(usuario)) {
+        historicoSaidas.innerHTML += `<p class="texto-monitor">[ERRO] O nome de usuário não pode ser um número.</p>`;
     }
     // Se possui no minimo 3
-    else if (usuario.length < 3){
-         historicoSaidas.innerHTML += `<p class="texto-monitor">[ERRO] O usuário deve conter no mínimo 3 caracteres</p>`;
+    else if (usuario.length < 3) {
+        historicoSaidas.innerHTML += `<p class="texto-monitor">[ERRO] O usuário deve conter no mínimo 3 caracteres</p>`;
     }
     // Se existe no bd
-    else if (usuarios.includes(usuario)){
-         historicoSaidas.innerHTML += `<p class="texto-monitor">[ERRO] O usuário "${usuario}" já existe no sistema.</p>`;
+    else if (usuarios.includes(usuario)) {
+        historicoSaidas.innerHTML += `<p class="texto-monitor">[ERRO] O usuário "${usuario}" já existe no sistema.</p>`;
     }
     // Senão pode atualizar a variavel q vai ser inserida no bd, muda a etapa do terminal
     else {
@@ -133,34 +142,55 @@ function iniciarCadastro(comando) {
 }
 
 function processarEmailCadastro(email) {
-    emailPendente = email;
-    etapaTerminal = "cadastro_senha";
-    promptTexto.innerHTML = `Insira a senha para "${usuarioPendente}": `;
-    inputTerminal.type = "password"; // Pra censurar a senha
+    if (email == "" || !email.includes("@") || !email.includes(".")) {
+        historicoSaidas.innerHTML += `<p class="texto-monitor">[ERRO] Digite um email válido.</p>`;
+    } else if (emails.includes(email)) {
+        historicoSaidas.innerHTML += `<p class="texto-monitor">[ERRO] O email "${email}" já está associado a outra conta.</p>`;
+    } else {
+        emailPendente = email;
+        etapaTerminal = "cadastro_senha";
+        promptTexto.innerHTML = `Insira a senha para "${usuarioPendente}": `;
+        inputTerminal.type = "password";
+    }
 }
 
 function finalizarCadastro(senha) {
-    usuarios.push(usuarioPendente); // Coloca no "BD"
+    usuarios.push(usuarioPendente);
     emails.push(emailPendente);
     senhas.push(senha);
 
-    // a finalização envia tudo de uma vez pro indice ou id ficar batendo certinho nos 3 vetores
-    
     historicoSaidas.innerHTML += `<p class="texto-monitor">[SUCESSO] Usuário "${usuarioPendente}" registrado no mimiomia OS! Use "su ${usuarioPendente}" para fazer login.</p>`;
     resetarTerminal();
+}
+
+function listarUsuarios() {
+    let resultadoUsuarios = '<pre class="texto-monitor">[ USUÁRIOS CADASTRADOS ]\n';
+    resultadoUsuarios += '------------------------------\n';
+    resultadoUsuarios += '│ USUÁRIO                     │ \n';
+    resultadoUsuarios += '------------------------------\n';
+
+    // Laço for para iterar sobre os usuários
+    for (let i = 0; i < usuarios.length; i++) {
+        resultadoUsuarios += `│ ${usuarios[i].padEnd(25)}│\n`;
+    }
+
+    resultadoUsuarios += '--------------------------------\n';
+    resultadoUsuarios += `Total: ${usuarios.length} usuário(s)</pre>`;
+
+    historicoSaidas.innerHTML += resultadoUsuarios;
 }
 
 // Lógica do Login
 function iniciarLogin(comando) {
     let nomeLogin = comando.replace("su ", "").trim(); // Faz direto o processo de tirar o comando e deixar só o user
-    
+
     // Se o usuário estiver cadastrado, deixa o usuário pendente de confirmação atualizado e inicia o contador em 0, altera a etapa do terminal pro processo de inserir a senha
     if (usuarios.includes(nomeLogin)) {
         usuarioPendente = nomeLogin;
-        tentativasLogin = 0; 
+        tentativasLogin = 0;
         etapaTerminal = "login_senha";
         promptTexto.innerHTML = `Senha para "${nomeLogin}": `;
-        inputTerminal.type = "password"; 
+        inputTerminal.type = "password";
     }
     // Diz que o usuário nao existe no bd ou vetor
     else {
@@ -170,22 +200,22 @@ function iniciarLogin(comando) {
 
 function processarLogin(senha) {
     let posicaoNoVetor = usuarios.indexOf(usuarioPendente); // Verifica qual o indice pra poder bater com outros vetores
-    
+
     if (senha == senhas[posicaoNoVetor]) {
         historicoSaidas.innerHTML += `<p class="texto-monitor" >Acesso permitido. Autenticando ${usuarioPendente}...</p>`;
-        
+
         sessionStorage.setItem('usuarioLogado', usuarioPendente);
-        inputTerminal.disabled = true; 
-        
-        setTimeout(function() {
-            window.location.href = "home.html"; 
+        inputTerminal.disabled = true;
+
+        setTimeout(function () {
+            window.location.href = "home.html";
         }, 1500);
     } else {
-        tentativasLogin++; 
-        
+        tentativasLogin++;
+
         if (tentativasLogin >= 3) {
             historicoSaidas.innerHTML += `<p class="texto-monitor" >[CRÍTICO] Acesso bloqueado. 3 tentativas erradas.</p>`;
-            resetarTerminal(); 
+            resetarTerminal();
         } else {
             historicoSaidas.innerHTML += `<p class="texto-monitor" >Senha incorreta. Tentativa ${tentativasLogin}/3</p>`;
         }

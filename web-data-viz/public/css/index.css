@@ -220,7 +220,12 @@ a:hover {
   }
   100% {
     opacity: 1;
-    text-shadow: 0px 0px 40px #888888;
+    text-shadow:
+    0px 0px 40px #888888,
+    0px 0px 25px #888888,
+    0px 0px 8px #888888,
+    0px 0px 2px #888888,
+    0px 0px 1px #888888;
   }
 }
 
@@ -230,23 +235,35 @@ a:hover {
   animation: efeitoLogo 6s 1;
 }
 
+/* Tela de terminal  */
+
+.tela-terminal {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw; 
+  padding: 30px; 
+  box-sizing: border-box;
+  color: #888888;
+  overflow: hidden;
+}
+
+.header {
+  flex-shrink: 0; 
+  display: flex;
+  justify-content: center; 
+  margin-bottom: 20px; 
+}
+
 .asciiArt {
-  height: 100%;
-  width: 100%;
   font-family: "MonotypeCorsiva", Consolas, monospace;
   font-weight: bolder;
   font-size: 10px;
   line-height: 11px;
-  justify-content: center;
-  align-items: center;
-  display: flex;
   text-align: center;
   letter-spacing: 0.45em;
-
   color: #888888;
-
-  margin: 40px;
-
+  
   text-shadow:
     0px 0px 110px #888888,
     0px 0px 65px #888888,
@@ -256,36 +273,76 @@ a:hover {
     0px 0px 2px #888888;
 }
 
-.tela-terminal {
-  display: flex;
-  flex-direction: column;
-  margin: auto 0;
-  height: 100vh;
-  width: 90vw;
-  justify-content: center;
-  align-items: center;
-}
 
-.terminal{
+.terminal {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  flex-grow: 1;
   width: 100%;
-  
+  max-width: 1000px; 
+  margin: 0 auto; 
   text-align: left;
+  
+  overflow-y: auto;
+  padding-right: 15px; 
 }
 
-.entradas  {
+.saidas {
+  display: flex;
+  flex-direction: column;
+}
+
+.entradas {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  align-items: center; 
+  justify-content: flex-start; 
+  margin-top: 5px;
+}
 
-  input{
-    background: transparent;
-    border: none;
-    outline: none;
-    color: #888888;
-    font-family: 'Consolas', monospace;
-  }
+.entradas .texto-monitor {
+  width: auto !important; 
+}
+
+#inputTerminal {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  color: #888888 !important;
+  font-family: 'Consolas', monospace !important;
+  font-size: 16px !important; 
+  flex-grow: 1;
+  margin-left: 5px !important;
+  text-shadow:
+    0px 0px 110px #888888,
+    0px 0px 65px #888888,
+    0px 0px 35px #888888,
+    0px 0px 18px #888888,
+    0px 0px 5px #888888,
+    0px 0px 2px #888888!important;
+}
+
+.terminal .texto-monitor {
+  opacity: 1 !important; 
+  transition: none !important; 
+  font-size: 16px;
+  margin: 2px 0;
+  color: #888888;
+  text-shadow:
+    0px 0px 110px #888888,
+    0px 0px 65px #888888,
+    0px 0px 35px #888888,
+    0px 0px 18px #888888,
+    0px 0px 5px #888888,
+    0px 0px 2px #888888;
+}
+
+.terminal::-webkit-scrollbar {
+  width: 2px;
+}
+.terminal::-webkit-scrollbar-thumb {
+  background: black;
+}
+.terminal::-webkit-scrollbar-track {
+  background: black;
 }
