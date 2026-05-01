@@ -8,11 +8,6 @@ let promptTexto;
 let historicoSaidas;
 let telaTodaTerminal;
 
-// Vetores só pra teste
-let usuarios = ["guest"];
-let emails = ["guest@mimiomia.os"];
-let senhas = ["guestsenha"];
-
 //Seleciona os elementos assim q a tela carregar e coloca o ouvinte do enter no campo de entrada
 window.onload = function () {
     inputTerminal = document.querySelector('#inputTerminal');
@@ -129,10 +124,6 @@ function iniciarCadastro(comando) {
     else if (usuario.length < 3) {
         historicoSaidas.innerHTML += `<p class="texto-monitor">[ERRO] O usuário deve conter no mínimo 3 caracteres</p>`;
     }
-    // Se existe no bd
-    else if (usuarios.includes(usuario)) {
-        historicoSaidas.innerHTML += `<p class="texto-monitor">[ERRO] O usuário "${usuario}" já existe no sistema.</p>`;
-    }
     // Senão pode atualizar a variavel q vai ser inserida no bd, muda a etapa do terminal
     else {
         usuarioPendente = usuario;
@@ -144,40 +135,50 @@ function iniciarCadastro(comando) {
 function processarEmailCadastro(email) {
     if (email == "" || !email.includes("@") || !email.includes(".")) {
         historicoSaidas.innerHTML += `<p class="texto-monitor">[ERRO] Digite um email válido.</p>`;
-    } else if (emails.includes(email)) {
-        historicoSaidas.innerHTML += `<p class="texto-monitor">[ERRO] O email "${email}" já está associado a outra conta.</p>`;
-    } else {
-        emailPendente = email;
-        etapaTerminal = "cadastro_senha";
-        promptTexto.innerHTML = `Insira a senha para "${usuarioPendente}": `;
-        inputTerminal.type = "password";
+        return;
     }
+    emailPendente = email;
+    etapaTerminal = "cadastro_senha";
+    promptTexto.innerHTML = `Insira a senha para "${usuarioPendente}": `;
+    inputTerminal.type = "password";
 }
 
 function finalizarCadastro(senha) {
-    usuarios.push(usuarioPendente);
-    emails.push(emailPendente);
-    senhas.push(senha);
+    if (senha.length < 6) {
+        historicoSaidas.innerHTML += `<p class="texto-monitor" style="color: red;">[ERRO] A senha deve ter pelo menos 6 caracteres.</p>`;
+        return;
+    }
 
-    historicoSaidas.innerHTML += `<p class="texto-monitor">[SUCESSO] Usuário "${usuarioPendente}" registrado no mimiomia OS! Use "su ${usuarioPendente}" para fazer login.</p>`;
-    resetarTerminal();
+    fetch("/usuarios/cadastrar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            nomeServer: usuarioPendente,
+            emailServer: emailPendente,
+            senhaServer: senha
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            historicoSaidas.innerHTML += `<p class="texto-monitor">[SUCESSO] Usuário "${usuarioPendente}" registrado no mimiomia OS! Use "su ${usuarioPendente}" para fazer login.</p>`;
+            resetarTerminal();
+            limparTerminal();
+        } else {
+            historicoSaidas.innerHTML += `<p class="texto-monitor">[ERRO] Falha ao cadastrar. Verifique se o nome/email já existe no sistema.</p>`;
+            resetarTerminal();
+            limparTerminal();
+        }
+    }).catch(function (erro) {
+        historicoSaidas.innerHTML += `<p class="texto-monitor">[CRÍTICO] Servidor offline ou erro de rede.</p>`;
+        resetarTerminal();
+        limparTerminal();
+    });
+
 }
 
 function listarUsuarios() {
-    let resultadoUsuarios = '<pre class="texto-monitor">[ USUÁRIOS CADASTRADOS ]\n';
-    resultadoUsuarios += '------------------------------\n';
-    resultadoUsuarios += '│ USUÁRIO                     │ \n';
-    resultadoUsuarios += '------------------------------\n';
-
-    // Laço for para iterar sobre os usuários
-    for (let i = 0; i < usuarios.length; i++) {
-        resultadoUsuarios += `│ ${usuarios[i].padEnd(25)}│\n`;
-    }
-
-    resultadoUsuarios += '--------------------------------\n';
-    resultadoUsuarios += `Total: ${usuarios.length} usuário(s)</pre>`;
-
-    historicoSaidas.innerHTML += resultadoUsuarios;
+    historicoSaidas.innerHTML += `<p class="texto-monitor">[AVISO] A listagem local foi desativada. Os usuários agora estão protegidos no banco de dados.</p>`;
 }
 
 // Lógica do Login
@@ -185,39 +186,52 @@ function iniciarLogin(comando) {
     let nomeLogin = comando.replace("su ", "").trim(); // Faz direto o processo de tirar o comando e deixar só o user
 
     // Se o usuário estiver cadastrado, deixa o usuário pendente de confirmação atualizado e inicia o contador em 0, altera a etapa do terminal pro processo de inserir a senha
-    if (usuarios.includes(nomeLogin)) {
-        usuarioPendente = nomeLogin;
-        tentativasLogin = 0;
-        etapaTerminal = "login_senha";
-        promptTexto.innerHTML = `Senha para "${nomeLogin}": `;
-        inputTerminal.type = "password";
-    }
-    // Diz que o usuário nao existe no bd ou vetor
-    else {
-        historicoSaidas.innerHTML += `<p class="texto-monitor" >[ERRO] Usuário "${nomeLogin}" não encontrado.</p>`;
-    }
+    usuarioPendente = nomeLogin;
+    tentativasLogin = 0;
+    etapaTerminal = "login_senha";
+    promptTexto.innerHTML = `Senha para "${nomeLogin}": `;
+    inputTerminal.type = "password";
 }
 
 function processarLogin(senha) {
-    let posicaoNoVetor = usuarios.indexOf(usuarioPendente); // Verifica qual o indice pra poder bater com outros vetores
+    fetch("/usuarios/autenticar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            usernameServer: usuarioPendente,
+            senhaServer: senha
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                historicoSaidas.innerHTML += `<p class="texto-monitor">Acesso permitido. Autenticando ${usuarioPendente}...</p>`;
 
-    if (senha == senhas[posicaoNoVetor]) {
-        historicoSaidas.innerHTML += `<p class="texto-monitor" >Acesso permitido. Autenticando ${usuarioPendente}...</p>`;
+                sessionStorage.setItem('usuarioLogado', json.username);
+                sessionStorage.setItem('idUsuario', json.id_usuario);
 
-        sessionStorage.setItem('usuarioLogado', usuarioPendente);
-        inputTerminal.disabled = true;
+                inputTerminal.disabled = true;
+                limparTerminal();
 
-        setTimeout(function () {
-            window.location.href = "home.html";
-        }, 1500);
-    } else {
-        tentativasLogin++;
-
-        if (tentativasLogin >= 3) {
-            historicoSaidas.innerHTML += `<p class="texto-monitor" >[CRÍTICO] Acesso bloqueado. 3 tentativas erradas.</p>`;
-            resetarTerminal();
+                setTimeout(function () {
+                    window.location.href = "home.html";
+                }, 1500);
+            });
         } else {
-            historicoSaidas.innerHTML += `<p class="texto-monitor" >Senha incorreta. Tentativa ${tentativasLogin}/3</p>`;
+            tentativasLogin++;
+
+            if (tentativasLogin >= 3) {
+                historicoSaidas.innerHTML += `<p class="texto-monitor" >[CRÍTICO] Acesso bloqueado. 3 tentativas erradas.</p>`;
+                resetarTerminal();
+            } else {
+                historicoSaidas.innerHTML += `<p class="texto-monitor" >Senha incorreta. Tentativa ${tentativasLogin}/3</p>`;
+            }
+            limparTerminal();
         }
-    }
+    }).catch(function (erro) {
+        historicoSaidas.innerHTML += `<p class="texto-monitor">[CRÍTICO] Servidor offline ou erro de rede.</p>`;
+        resetarTerminal();
+        limparTerminal();
+    });
 }
