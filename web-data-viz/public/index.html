@@ -83,19 +83,28 @@
 ..................................................................................................................................................................
         </pre>
       </div>
+
       <div class="terminal">
-        <div class="entradas">
-          <p class="texto-monitor">guest@mimiomia:~$</p> <input type="text">
+        <!-- histórico do terminal -->
+        <div class="saidas">
+          <p class="texto-monitor">Digite 'help' para acessar a lista de comandos.</p>
         </div>
-        <div class="saidas"></div>
-        <p class="texto-monitor">Inicializando mimiomia kernel v1.0.0...</p>
+
+        <!-- Entradas no terminal -->
+        <div class="entradas">
+          <p class="texto-monitor">guest@mimiomia:~$</p>
+          <input type="text" autofocus>
+        </div>
       </div>
+
     </div>
 
   </div>
   <audio id="som-clique" src="assets/audio/apertandobotao.mp3"></audio>
   <audio id="som-boot" src="assets/audio/maquinaligando.mp3" loop></audio>
   <audio id="som-logoreveal" src="assets/audio/logoreveal.mp3"></audio>
+
+  <script src="js/terminal.js"></script>
 
   <script>
     //Pegar o botão de btn-ligar 
