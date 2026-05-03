@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="linha" id="linha3">
-                    <div class="coluna">
+                    <div class="coluna" onclick="abrirJanela()">
                         <img src="assets/img/home/appIcons/wunderkammer.png">
                         <p>wunderkammer.exe</p>
                     </div>
@@ -83,7 +83,7 @@
             </div>
 
             <!--Div da tela abrindo-->
-            <div class="janela">
+            <div class="janela" id="modal">
                 <!--Janela do wunderkammer-->
                 <div class="wunderkammer" id="janela-wunderkammer">
                     <div class="topo">
@@ -91,7 +91,7 @@
                             <img src="assets/img/home/appIcons/wunderkammer.png">
                             <p>wunderkammer.exe</p>
                         </div>
-                        <button id="fechar_wunderkammer">
+                        <button id="fechar_wunderkammer" onclick="fecharJanela()">
                             <img src="assets/img/home/fechar.png">
                         </button>
                     </div>
@@ -124,7 +124,8 @@
                                 <p>Quadrinhos</p>
                             </div>
 
-                            <div class="item-prateleira culturadainternet" onclick="abrirCategoria('Cultura da internet')">
+                            <div class="item-prateleira culturadainternet"
+                                onclick="abrirCategoria('Cultura da internet')">
                                 <img src="assets/img/home/culturadainternet.png">
                                 <p>Cultura da internet</p>
                             </div>
@@ -163,7 +164,7 @@
                                 <img src="assets/img/home/listas.png">
                                 <p>Listas</p>
                             </div>
-                            
+
                             <div class="item-prateleira marcelly" onclick="abrirCategoria('Marcelly')">
                                 <img src="assets/img/home/marcelly.png">
                                 <p>Marcelly</p>
@@ -182,32 +183,42 @@
 
         </div>
 
-    </div>
-
-    <div class="barra-tarefas">
-        <div class="start">
-            <img id="iconstart" src="assets/img/home/start.png">
-        </div>
-
-        <div class="infos">
-            <div class="sound">
-                <button id="btn_sound">
-                    <img src="assets/img/home/soundcom.png">
-                </button>
+        <div class="barra-tarefas">
+            <div class="start">
+                <img id="iconstart" src="assets/img/home/start.png">
             </div>
-            <div class="info">
-                <p id="hora_atual">Atualizando hora...</p>
-                <p id="data_atual">Atualizando data...</p>
+
+            <div class="infos">
+                <div class="sound">
+                    <button id="btn_sound">
+                        <img src="assets/img/home/soundcom.png">
+                    </button>
+                </div>
+                <div class="info">
+                    <p id="hora_atual">Atualizando hora...</p>
+                    <p id="data_atual">Atualizando data...</p>
+                </div>
             </div>
         </div>
-    </div>
-
     </div>
 
     <audio id="desktop-song" src="assets/audio/asokah - I always smile, but my eyes are sad.mp3" loop autoplay></audio>
 </body>
 
 <script>
+
+    // Função pra abrir janela
+    function abrirJanela() {
+        var janela = document.getElementById('modal');
+        janela.classList.add('aberta');
+    }
+
+    // Função pra fechar
+    function fecharJanela() {
+        var janela = document.getElementById('modal');
+        janela.classList.remove('aberta');
+    }
+
 
     // variaveis pra musica
     var sound = document.getElementById('btn_sound');

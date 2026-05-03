@@ -24,14 +24,17 @@ body {
 
 button:hover,
 a:hover,
-.coluna img:hover, #iconstart:hover, #fechar_wunderkammer:hover {
+.coluna img:hover,
+#iconstart:hover,
+#fechar_wunderkammer:hover {
   cursor: url("../assets/img/index/cursorpointer.png"), pointer;
 }
 
 #container {
   width: 100vw;
   height: 100vh;
-  overflow: hidden; /* Pra esconder qualquer coisa que tentar vazar do tamanho da tela */
+  overflow: hidden;
+  /* Pra esconder qualquer coisa que tentar vazar do tamanho da tela */
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -48,7 +51,8 @@ a:hover,
   height: 9%;
   background-color: black;
   color: white;
-  padding: 10px 20px 10px 20px; /*Relógio começando da meia noite*/
+  padding: 10px 20px 10px 20px;
+  /*Relógio começando da meia noite*/
   align-items: center;
   justify-content: space-between;
 
@@ -92,28 +96,28 @@ a:hover,
 }
 
 .sound {
-    height: 100%;
-    width: 30%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  height: 100%;
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    button {
-        background-color: transparent;
-        border: none;
-    }
+  button {
+    background-color: transparent;
+    border: none;
+  }
 }
 
 .info {
-    display: flex;
-    flex-direction: column;
-    font-family: 'Pixelify Sans', Consolas, monospace;
-    line-height: 20px;
-    font-size: 18px;
-    width: 100%;
-    justify-content: center;
-    text-align: right;
-    letter-spacing: 0.1em;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Pixelify Sans', Consolas, monospace;
+  line-height: 20px;
+  font-size: 18px;
+  width: 100%;
+  justify-content: center;
+  text-align: right;
+  letter-spacing: 0.1em;
 }
 
 .tela-home {
@@ -183,6 +187,17 @@ a:hover,
   display: flex;
   justify-content: center;
   align-items: center;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.janela.aberta {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
 }
 
 .wunderkammer {
@@ -210,7 +225,7 @@ a:hover,
     cursor: pointer;
   }
 
-  img{
+  img {
     height: 30px;
     width: 30px;
   }
@@ -222,7 +237,7 @@ a:hover,
   align-items: center;
   gap: 10px;
 
-  img{
+  img {
     height: 40px;
     width: 40px;
   }
@@ -256,22 +271,22 @@ a:hover,
 }
 
 .headerWunderkammer {
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: auto;
-    height: auto;
-    z-index: 15;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: auto;
+  z-index: 15;
 }
 
 .headerWunderkammer img {
-    height: 80px;
-    width: auto;
-    object-fit: contain;
+  height: 80px;
+  width: auto;
+  object-fit: contain;
 }
 
 .firoliro {
@@ -287,28 +302,28 @@ a:hover,
 }
 
 .firoliro img {
-    max-height: 100%;
-    max-width: 100%;
-    width: auto;
-    height: 100%;
-    object-fit: contain;
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: 100%;
+  object-fit: contain;
 }
 
 .armario {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: 85%; 
-    max-width: 1000px;
-    width: auto;
-    z-index: 2;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 85%;
+  max-width: 1000px;
+  width: auto;
+  z-index: 2;
 }
 
 .img-armario {
-    height: 100%;
-    width: auto;
-    display: block;
+  height: 100%;
+  width: auto;
+  display: block;
 }
 
 .navbarWunderkummar {
@@ -333,104 +348,104 @@ a:hover,
 }
 
 .item-prateleira {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: url("../assets/img/index/cursorpointer.png"), pointer;
-    transition: transform 0.2s ease-in-out, filter 0.2s ease; 
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: url("../assets/img/index/cursorpointer.png"), pointer;
+  transition: transform 0.2s ease-in-out, filter 0.2s ease;
 }
 
 .item-prateleira img {
-    height: 75px;
-    width: auto;
+  height: 75px;
+  width: auto;
 }
 
 .item-prateleira p {
-    font-family: "Wondershine", sans-serif;
-    color: #FDF7DF;
-    text-shadow: 1px 1px 2px black;
-    font-size: 18px;
-    margin-top: 0px;
-    opacity: 0;
-    transition: opacity 0.2s ease-in-out;
+  font-family: "Wondershine", sans-serif;
+  color: #FDF7DF;
+  text-shadow: 1px 1px 2px black;
+  font-size: 18px;
+  margin-top: 0px;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
 }
 
 .item-prateleira:hover p {
-    opacity: 1;
+  opacity: 1;
 }
 
 .item-prateleira:hover {
-    transform: rotate(5deg) scale(1.1); 
-    filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 0.8));
+  transform: rotate(5deg) scale(1.1);
+  filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 0.8));
 }
 
 .tecnologia {
-    top: 40%; 
-    left: 10%;
+  top: 40%;
+  left: 10%;
 }
 
 .linguistica {
-    top: 23%; 
-    left: 24%;
+  top: 23%;
+  left: 24%;
 }
 
 .filosofia {
-    top: 47%; 
-    left: 21%;
+  top: 47%;
+  left: 21%;
 }
 
 .quadrinhos {
-    top: 30%; 
-    left: 41%;
+  top: 30%;
+  left: 41%;
 }
 
 .culturadainternet {
-    top: 55%; 
-    left: 39%;
+  top: 55%;
+  left: 39%;
 }
 
 .cinematv {
-    top: 40%; 
-    left: 53%;
+  top: 40%;
+  left: 53%;
 }
 
 .animes {
-    top: 30%; 
-    left: 67%;
+  top: 30%;
+  left: 67%;
 }
 
 .literatura {
-    top: 55%; 
-    left: 69%;
+  top: 55%;
+  left: 69%;
 }
 
 .saudemental {
-    top: 30%; 
-    left: 86%;
+  top: 30%;
+  left: 86%;
 }
 
 .jogos {
-    top: 55%; 
-    left: 88%;
+  top: 55%;
+  left: 88%;
 }
 
 .variedades {
-    top: 76%; 
-    left: 10%;
+  top: 76%;
+  left: 10%;
 }
 
 .listas {
-    top: 76%; 
-    left: 30%;
+  top: 76%;
+  left: 30%;
 }
 
 .marcelly {
-    top: 76%; 
-    left: 68%;
+  top: 76%;
+  left: 68%;
 }
 
 .ensaios {
-    top: 76%; 
-    left: 87%;
+  top: 76%;
+  left: 87%;
 }
