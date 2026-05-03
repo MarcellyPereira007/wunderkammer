@@ -295,17 +295,142 @@ a:hover,
 }
 
 .armario {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 70%;
-  height: auto;
-  z-index: 10;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 85%; 
+    max-width: 1000px;
+    width: auto;
+    z-index: 2;
 }
 
-.armario img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
+.img-armario {
+    height: 100%;
+    width: auto;
+    display: block;
+}
+
+.navbarWunderkummar {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  z-index: 3;
+}
+
+.navbarWunderkummar .tecnologia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  top: 30px;
+  z-index: 3;
+}
+
+.item-prateleira {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: url("../assets/img/index/cursorpointer.png"), pointer;
+    transition: transform 0.2s ease-in-out, filter 0.2s ease; 
+}
+
+.item-prateleira img {
+    height: 75px;
+    width: auto;
+}
+
+.item-prateleira p {
+    font-family: "Wondershine", sans-serif;
+    color: #FDF7DF;
+    text-shadow: 1px 1px 2px black;
+    font-size: 18px;
+    margin-top: 0px;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.item-prateleira:hover p {
+    opacity: 1;
+}
+
+.item-prateleira:hover {
+    transform: rotate(5deg) scale(1.1); 
+    filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 0.8));
+}
+
+.tecnologia {
+    top: 40%; 
+    left: 10%;
+}
+
+.linguistica {
+    top: 23%; 
+    left: 24%;
+}
+
+.filosofia {
+    top: 47%; 
+    left: 21%;
+}
+
+.quadrinhos {
+    top: 30%; 
+    left: 41%;
+}
+
+.culturadainternet {
+    top: 55%; 
+    left: 39%;
+}
+
+.cinematv {
+    top: 40%; 
+    left: 53%;
+}
+
+.animes {
+    top: 30%; 
+    left: 67%;
+}
+
+.literatura {
+    top: 55%; 
+    left: 69%;
+}
+
+.saudemental {
+    top: 30%; 
+    left: 86%;
+}
+
+.jogos {
+    top: 55%; 
+    left: 88%;
+}
+
+.variedades {
+    top: 76%; 
+    left: 10%;
+}
+
+.listas {
+    top: 76%; 
+    left: 30%;
+}
+
+.marcelly {
+    top: 76%; 
+    left: 68%;
+}
+
+.ensaios {
+    top: 76%; 
+    left: 87%;
 }
