@@ -195,9 +195,9 @@ a:hover,
 }
 
 .janela.aberta {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .wunderkammer {
@@ -298,7 +298,8 @@ a:hover,
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .firoliro img {
@@ -448,4 +449,113 @@ a:hover,
 .ensaios {
   top: 76%;
   left: 87%;
+}
+
+/* CSS da tela de lista de posts */
+
+.tela-lista-posts {
+  width: 100%;
+  height: 100%;
+  background-image: url("../assets/img/home/wunderkammerbg.png");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.container-cards {
+  width: 90%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+  padding-right: 10px;
+}
+
+.card-post {
+  display: flex;
+  flex-direction: row;
+  border-radius: 10px;
+  padding: 15px;
+  background: rgba(254, 231, 207, 0.2);
+  box-shadow: 0px 4px 9.4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  cursor: url("../assets/img/index/cursorpointer.png"), pointer;
+  transition: transform 0.2s;
+}
+
+.card-post:hover {
+  transform: scale(1.02);
+}
+
+.card-imagem {
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  outline: 2px dotted rgba(100, 80, 50, 0.5);
+  outline-offset: 5px;
+  overflow: hidden;
+}
+
+.card-imagem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-texto {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card-texto h3 {
+  font-family: "Wondershine", serif;
+  font-size: 24px;
+  color: #1a1a1a;
+  margin-bottom: 5px;
+}
+
+.card-texto p {
+  font-family: serif;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.4;
+}
+
+.header-categoria {
+  display: flex;
+  position: relative;
+  z-index: 3;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  max-width: 700px;
+  margin-top: 80px;
+}
+
+.titulo-categoria-container {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  font-family: "Wondershine", serif;
+  font-size: 21px;
+}
+
+#nome-categoria-atual {
+  color: #4B554A;
+  margin: 0;
+  width: 300px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  outline: 2px dotted #4b554a9d;
+  outline-offset: 5px;
+  border-radius: 10px;
 }
