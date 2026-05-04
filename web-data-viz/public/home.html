@@ -158,6 +158,8 @@
 
     function abrirCategoria(nomeDaCategoria) {
 
+        indiceCategoriaAtual = listaCategorias.indexOf(nomeDaCategoria);
+
         fetch('./janelas/app-lista.html')
             .then(resposta => resposta.text())
             .then(html => {
@@ -176,6 +178,28 @@
                 document.getElementById('janela-conteudo').innerHTML = html;
             })
             .catch(erro => console.error('Erro ao voltar para o armário:', erro));
+    }
+
+    // navegar nas categorias com as setas
+    const listaCategorias = [
+        'Tecnologia', 'Linguística', 'Filosofia', 'Quadrinhos', 
+        'Cultura da internet', 'Cinema & TV', 'Animes', 'Literatura', 
+        'Saúde mental', 'Jogos', 'Variedades', 'Listas', 'Marcelly', 'Ensaios'
+    ];
+
+    let indiceCategoriaAtual = 0;
+
+    function mudarCategoria(direcao) {
+        indiceCategoriaAtual += direcao;
+
+        if (indiceCategoriaAtual >= listaCategorias.length) {
+            indiceCategoriaAtual = 0; 
+        } else if (indiceCategoriaAtual < 0) {
+            indiceCategoriaAtual = listaCategorias.length - 1;
+        }
+
+        let novaCategoria = listaCategorias[indiceCategoriaAtual];
+        abrirCategoria(novaCategoria);
     }
 
 
