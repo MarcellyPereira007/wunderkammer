@@ -185,10 +185,12 @@
 
                         // Criar um card pra cada maravilha.
                         for (let i = 0; i < listaMaravilhas.length; i++) {
-                            // PASSO 4: Montar o HTML do card dinâmico.
-                            var card = `<div class="card-post">
+
+                            let maravilha = listaMaravilhas[i];
+
+                            var card = `<div class="card-post" onclick="abrirPost('${maravilha.caminho_arquivo}')">
                                 <div class="card-imagem">
-                                <img src="../assets/img/home/capas/${maravilha.capa}" alt="${maravilha.titulo}">
+                                <img src="${maravilha.caminho_capa}" alt="${maravilha.titulo}">
                                 </div>
                                 <div class="card-texto">
                                 <h3>${maravilha.titulo}</h3>
@@ -202,6 +204,15 @@
                     .catch(erro => console.error('Erro na API buscando as maravilhas:', erro));
             })
             .catch(erro => console.error('Erro ao carregar a lista:', erro));
+    }
+
+    function abrirPost(caminho_arquivo){
+        fetch(`${caminho_arquivo}`)
+        .then(resposta => resposta.text())
+        .then(conteudoPost => {
+            document.getElementById('janela-conteudo').innerHTML = conteudoPost;
+        })
+        .catch(erro => console.error('Erro ao carregar o post:', erro));
     }
 
     function voltarArmario() {
