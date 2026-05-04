@@ -164,8 +164,42 @@
             .then(resposta => resposta.text())
             .then(html => {
                 document.getElementById('janela-conteudo').innerHTML = html;
-
                 document.getElementById('nome-categoria-atual').innerText = nomeDaCategoria;
+
+                fetch(`/categorias/buscar/${nomeDaCategoria}`)
+                    .then(resposta => {
+                        if (resposta.status == 404) {
+                            return [];
+                        }
+                        return resposta.json();
+                    })
+                    .then(listaMaravilhas => {
+
+                        console.log("Lista das maravilhas da categoria:", listaMaravilhas);
+
+                        // Pegar o container onde os cards vão ficar
+                        var containerCards = document.querySelector('.container-cards');
+
+                        // Tirar o conteúdo mocado dos 3 cards do Blue Prince).
+                        containerCards.innerHTML = '';
+
+                        // Criar um card pra cada maravilha.
+                        for (let i = 0; i < listaMaravilhas.length; i++) {
+                            // PASSO 4: Montar o HTML do card dinâmico.
+                            var card = `<div class="card-post">
+                                <div class="card-imagem">
+                                <img src="../assets/img/home/capas/${maravilha.capa}" alt="${maravilha.titulo}">
+                                </div>
+                                <div class="card-texto">
+                                <h3>${maravilha.titulo}</h3>
+                                <p>${maravilha.descricao}</p>
+                                </div>
+                                </div>`;
+
+                            containerCards.innerHTML += card;
+                        }
+                    })
+                    .catch(erro => console.error('Erro na API buscando as maravilhas:', erro));
             })
             .catch(erro => console.error('Erro ao carregar a lista:', erro));
     }
@@ -182,8 +216,8 @@
 
     // navegar nas categorias com as setas
     const listaCategorias = [
-        'Tecnologia', 'Linguística', 'Filosofia', 'Quadrinhos', 
-        'Cultura da internet', 'Cinema & TV', 'Animes', 'Literatura', 
+        'Tecnologia', 'Linguística', 'Filosofia', 'Quadrinhos',
+        'Cultura da internet', 'Cinema & TV', 'Animes', 'Literatura',
         'Saúde mental', 'Jogos', 'Variedades', 'Listas', 'Marcelly', 'Ensaios'
     ];
 
@@ -193,7 +227,7 @@
         indiceCategoriaAtual += direcao;
 
         if (indiceCategoriaAtual >= listaCategorias.length) {
-            indiceCategoriaAtual = 0; 
+            indiceCategoriaAtual = 0;
         } else if (indiceCategoriaAtual < 0) {
             indiceCategoriaAtual = listaCategorias.length - 1;
         }
