@@ -3,17 +3,20 @@ var database = require("../database/config");
 function buscarDadosDashboard() {
     var instrucaoSql = `
         SELECT 
-            (SELECT COUNT(*) FROM usuario) as totalUsuarios,
-            (SELECT COUNT(*) FROM maravilha) as totalPosts;
+            (SELECT COUNT(id_usuario) FROM usuario) as totalUsuarios,
+            (SELECT COUNT(id_maravilha) FROM maravilha) as totalPosts;
     `;
     return database.executar(instrucaoSql);
 }
 
 function buscarUltimosUsuarios() {
     var instrucaoSql = `
-        SELECT id, nome, DATE_FORMAT(data_cadastro, '%d/%m/%Y') as data_cadastro 
+        SELECT 
+            id_usuario AS id, 
+            username AS nome, 
+            DATE_FORMAT(dt_cadastro, '%d/%m/%Y') AS data_cadastro 
         FROM usuario 
-        ORDER BY id DESC;
+        ORDER BY id_usuario DESC;
     `;
     return database.executar(instrucaoSql);
 }

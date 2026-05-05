@@ -1,5 +1,5 @@
-CREATE DATABASE wunderkammer;
-USE wunderkammer;
+-- CREATE DATABASE wunderkammer;
+-- USE wunderkammer;
 
 CREATE TABLE usuario (
     id_usuario INT PRIMARY KEY AUTO_INCREMENT,
@@ -31,6 +31,8 @@ CREATE TABLE recomendacao (
 CREATE TABLE maravilha (
     id_maravilha INT PRIMARY KEY AUTO_INCREMENT,
     titulo VARCHAR(100) NOT NULL,
+    descricao VARCHAR(255) DEFAULT 'Sem descrição',
+    caminho_capa VARCHAR(100),
     caminho_arquivo VARCHAR(255) NOT NULL,
     data_publicacao DATETIME DEFAULT CURRENT_TIMESTAMP
 );
@@ -62,9 +64,38 @@ CREATE TABLE usuario_interesse (
     FOREIGN KEY (fk_interesse) REFERENCES interesse(id_interesse)
 );
 
--- Usuário pro site
-CREATE USER 'mimiomia_admin'@'localhost' IDENTIFIED BY 'vaquinhagordinhafofinha123';
-GRANT ALL PRIVILEGES ON wunderkammer.* TO 'mimiomia_admin'@'localhost';
-FLUSH PRIVILEGES;
+INSERT INTO categoria (nome_categoria) VALUES 
+('Tecnologia'),
+('Linguística'),
+('Filosofia'),
+('Quadrinhos'),
+('Cultura da internet'),
+('Cinema & TV'),
+('Animes'),
+('Literatura'),
+('Saúde mental'),
+('Jogos'),
+('Variedades'),
+('Listas'),
+('Marcelly'),
+('Ensaios');
+
+-- INSERTS exemplo
+INSERT INTO maravilha (titulo, descricao, caminho_capa, caminho_arquivo) VALUES ('Blue Prince', 'Conheça um jogo de puzzle, artístico e com muitas surpresa','../assets/img/home/capas/blueprince.png','../janelas/posts/blueprince.html');
+INSERT INTO maravilha_categoria (fk_maravilha, fk_categoria) VALUES (1,10);
+
+-- Mostrar nome da maravilha, nome da categoria
+SELECT 
+    m.titulo, 
+    m.descricao, 
+    m.caminho_capa, 
+    m.caminho_arquivo, 
+    c.nome_categoria 
+FROM maravilha m
+JOIN maravilha_categoria mc
+    ON mc.fk_maravilha = m.id_maravilha
+JOIN categoria c
+    ON mc.fk_categoria = c.id_categoria
+WHERE c.nome_categoria = 'Jogos';
 
 -- DROP DATABASE wunderkammer;
