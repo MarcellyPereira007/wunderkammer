@@ -16,7 +16,7 @@ var app = express();
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var categoriaRouter = require("./src/routes/categorias");
-var dashboardRouter = require("./routes/dashboard");
+var dashboardRouter = require("./src/routes/dashboard");
 
 
 app.use(express.json());
