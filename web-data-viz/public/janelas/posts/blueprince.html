@@ -1,4 +1,14 @@
 <style>
+    @font-face {
+        font-family: 'Charcuterie';
+        src: url('../assets/fonts/Charcuterie.ttf') format('opentype');
+    }
+
+    @font-face {
+        font-family: 'Sanchez';
+        src: url('../assets/fonts/Sanchez.otf') format('opentype');
+    }
+
     #janela-conteudo {
         background-image: url('../assets/img/home/posts/blueprince/blueprincebg.png') !important;
         background-color: black !important;
@@ -10,12 +20,13 @@
     }
 
     #header-post {
+        position: relative;
         background-image: url('../assets/img/home/posts/blueprince/blueprinceheader.png');
         background-size: fit-content;
         background-repeat: no-repeat;
         background-position: center;
         width: 100%;
-        height: 30vh;
+        height: 25vh;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -26,8 +37,11 @@
         outline-offset: 5px;
     }
 
+    /*Dps quero mudar pra botao de bolinha mas vou deixar assim por enquanto*/
     .btn-voltar {
-        margin-bottom: 10px;
+        position: absolute;
+        top: 15px;
+        left: 15px;
         padding: 8px 10px;
         background-color: #08396d;
         color: white;
@@ -35,7 +49,7 @@
         border-radius: 10px;
         cursor: pointer;
         font-size: 16px;
-        transition: opacity 0.2s ease-in-out;
+        transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
     }
 
     .btn-voltar:hover {
@@ -50,20 +64,111 @@
         filter: drop-shadow(0px 94px 38px rgba(0, 0, 0, 0.02)) drop-shadow(0px 53px 32px rgba(0, 0, 0, 0.08)) drop-shadow(0px 24px 24px rgba(0, 0, 0, 0.13)) drop-shadow(0px 6px 13px rgba(0, 0, 0, 0.15));
     }
 
-
-
     .post-conteudo {
         font-family: 'Courier New', monospace;
-        color: #b3d9ff;
+        color: white;
         padding-top: 30px;
+    }
+
+    .sobre {
+        display: flex;
+        flex-direction: row;
+        align-items: space-between;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 40px;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 10px;
+    }
+
+    .titulo-blueprint {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        background-image: url('../assets/img/home/posts/blueprince/blueprint.webp');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: left center;
+        width: 100%;
+        height: 80px;
+        margin-bottom: 20px;
+        padding-left: 40px;
+        filter: drop-shadow(0px 94px 38px rgba(0, 0, 0, 0.02)) drop-shadow(0px 53px 32px rgba(0, 0, 0, 0.08)) drop-shadow(0px 24px 24px rgba(0, 0, 0, 0.13)) drop-shadow(0px 6px 13px rgba(0, 0, 0, 0.15));
+    }
+
+    .texto-sobre h2 {
+        font-family: 'Charcuterie', serif;
+        font-size: 28px;
+        letter-spacing: 1px;
+        text-align: center;
+        margin: 0;
+    }
+
+    .texto-sobre {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding-right: 20px;
+        justify-content: center;
+
+        p {
+            font-family: 'Sanchez', serif;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+    }
+
+
+    .imagem-sobre {
+        width: 100%;
+        max-width: 200px;
+        min-width: 300px;
+        height: auto;
+        display: block;
+        margin: 20px auto 0 auto;
+        border-radius: 10px;
+        filter: drop-shadow(0px 94px 38px rgba(0, 0, 0, 0.02)) drop-shadow(0px 53px 32px rgba(0, 0, 0, 0.08)) drop-shadow(0px 24px 24px rgba(0, 0, 0, 0.13)) drop-shadow(0px 6px 13px rgba(0, 0, 0, 0.15));
     }
 </style>
 
 <div class="header" id="header-post">
-    <img src="../assets/img/home/posts/blueprince/blueprincelogo.png" alt="Blue Prince Logo" class="logo-post">
     <button onclick="abrirCategoria('Jogos')" class="btn-voltar">⬅ Voltar para Jogos</button>
+    <img src="../assets/img/home/posts/blueprince/blueprincelogo.png" alt="Blue Prince Logo" class="logo-post">
 </div>
 
 <div class="post-conteudo">
+    <div class="sobre">
+        <div class="texto-sobre">
+            <div class="titulo-blueprint">
+                <h2>Sobre o jogo</h2>
+            </div>
+            <p>Imagine herdar uma mansão gigantesca com 45 quartos, mas só vai ser sua com uma única condição estranha:
+                você precisa encontrar o <strong>Quarto 46</strong>. Essa é a premissa de <em>Blue Prince</em>. Você
+                assume o papel de Simon, que acaba de receber as chaves de Mt. Holly (nome da mansão do seu falecido tio
+                avô). O problema é que a mansão não tem uma planta baixa fixa. A cada dia, a casa muda de forma e os
+                segredos mudam de lugar. O que começa como uma simples exploração em busca do quarto 46 rapidamente se
+                transforma em uma descoberta de segredos familiares através da arquitetura (e RNG).</p>
+            <p>Diferente de jogos de exploração comuns, em <em>Blue Prince</em> você não só anda por um mapa
+                pronto; <strong>você constrói o mapa enquanto anda</strong>. Cada vez que você abre uma porta, o
+                jogo te dá opções de "peças" (quartos, bibliotecas, corredores) e você decide o que colocar.</p>
+            <p>Além disso, você tem um número limitado de passos por dia. Toda ação custa passos. Se você
+                se perder ou não planejar sua rota direito, o dia acaba, você desmaia e acorda no saguão. A mansão
+                "reseta" e você precisa construir um novo layout no dia seguinte. É uma mistura de puzzles e
+                <em>roguelite</em>.
+            </p>
+            <p>Além dessas mecânicas, o jogo retrata
+                temas muito mais densos. O jogo explora a <strong>obsessão humana por controle e ordem</strong></p>
+        </div>
+        <img src="../assets/img/home/posts/blueprince/simon-transparent.png" alt="Imagem do Simon" class="imagem-sobre">
+    </div>
 
+    <div class="galeria"></div>
+    <div class="meu-take"></div>
+    <div class="minijogos">
+        <div class="menu-minijogos">
+            <button class="btn-minijogo" onclick="abrirMinijogo('caixas')">Caixas</button>
+            <button class="btn-minijogo" onclick="abrirMinijogo('quiz')">Quiz</button>
+        </div>
+        <div class="conteudo-minijogo" id="conteudo-minijogo"></div>
+    </div>
 </div>
