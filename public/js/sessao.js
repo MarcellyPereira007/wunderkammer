@@ -1,6 +1,7 @@
 function validarSessao() {
     var username = sessionStorage.getItem('usuarioLogado');
     var idUsuario = sessionStorage.getItem('idUsuario');
+    
 
     if (username != null && idUsuario != null) {
         

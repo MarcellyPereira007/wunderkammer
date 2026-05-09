@@ -49,9 +49,6 @@ function processarTecla(evento) {
 }
 
 
-
-
-
 function registrarHistorico(texto) {
     if (inputTerminal.type == "password") { // Se nessa hora o ultimo input usado for o de senha, censura pra não mostrar no historico
         historicoSaidas.innerHTML += `<p class="texto-monitor">${promptTexto.innerHTML} ********</p>`;

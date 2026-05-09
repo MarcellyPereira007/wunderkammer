@@ -81,7 +81,7 @@ INSERT INTO categoria (nome_categoria) VALUES
 ('Ensaios');
 
 -- INSERTS exemplo
-INSERT INTO maravilha (titulo, descricao, caminho_capa, caminho_arquivo) VALUES ('Blue Prince', 'Conheça um jogo de puzzle, artístico e com muitas surpresa','../assets/img/home/capas/blueprince.png','../janelas/posts/blueprince.html');
+INSERT INTO maravilha (titulo, descricao, caminho_capa, caminho_arquivo) VALUES ('Blue Prince', 'Conheça um jogo de puzzle, artístico e com muitas surpresa','../../assets/img/home/capas/blueprince.png','../janelas/posts/blueprince.html');
 INSERT INTO maravilha_categoria (fk_maravilha, fk_categoria) VALUES (1,10);
 
 -- Mostrar nome da maravilha, nome da categoria

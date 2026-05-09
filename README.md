@@ -72,7 +72,6 @@ npm start
 </div>
 
 <div align="center">
-  <p>Desenvolvido com 🤍 por Marcelly</p>
   <p><i>"Conectando com o Wired..."</i></p>
   <img src="https://komarev.com/ghpvc/?username=MarcellyPereira007&label=CONTADOR+DE+VISITAS&color=888888&style=for-the-badge&labelColor=000000" />
 </div>

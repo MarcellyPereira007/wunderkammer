@@ -144,10 +144,8 @@
             .then(resposta => resposta.text())
             .then(html => {
                 document.getElementById('janela-conteudo').innerHTML = html;
-
                 var janela = document.getElementById('modal');
                 janela.classList.add('aberta');
-
                 if (nomeArquivo.includes('dashboard')) {
                     buscarKpisDashboard();
                 }
