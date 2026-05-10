@@ -112,6 +112,16 @@
         </div>
 
         <div class="barra-tarefas">
+
+            <div id="menu-iniciar" class="menu-iniciar">
+                <div class="menu-item" onclick="fazerLogout()">
+                    <span>Sair</span>
+                </div>
+                <div class="menu-item" onclick="desligarSistema()">
+                    <span>Desligar</span>
+                </div>
+            </div>
+
             <div class="start">
                 <img id="iconstart" src="assets/img/home/start.png">
             </div>
@@ -376,6 +386,44 @@
     }
     //Rodar a função de 1 em 1 segundo
     setInterval(mudarDataHora, 1000);
+
+    // Menu iniciar
+    var btnStart = document.getElementById('iconstart');
+    var menuIniciar = document.getElementById('menu-iniciar');
+
+    var menuEstaAberto = false; 
+
+    // Abrir efechar o menu
+    btnStart.onclick = function(evento) {
+        if (menuEstaAberto == false) {
+            menuIniciar.style.display = 'block'; // Mostra
+            menuEstaAberto = true;
+        } else {
+            menuIniciar.style.display = 'none'; // Esconde
+            menuEstaAberto = false;
+        }
+    };
+
+    // fecha o menu se clicar em outro lugar da tela
+    window.onclick = function(evento) {
+        // Se o menu tá aberto E o clique NÃO foi na vaquinha, fecha
+        if (menuEstaAberto == true && evento.target.id != 'iconstart') {
+            menuIniciar.style.display = 'none';
+            menuEstaAberto = false;
+        }
+    };
+
+    // vai pro terminal
+    function fazerLogout() {
+        sessionStorage.clear();
+        window.location.href = 'index.html#terminal'; 
+    }
+
+    // vai pra tela de ligar pc
+    function desligarSistema() {
+        sessionStorage.clear();
+        window.location.href = 'index.html'; 
+    }
 </script>
 
 </html>
