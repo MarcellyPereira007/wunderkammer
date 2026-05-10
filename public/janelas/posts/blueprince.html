@@ -15,11 +15,11 @@
         background-size: cover !important;
         background-repeat: no-repeat !important;
         background-position: center !important;
-        padding: 20px !important;
         overflow-y: auto !important;
     }
 
     #header-post {
+        margin: 20px auto;
         position: relative;
         background-image: url('../../assets/img/posts/blueprince/blueprinceheader.png');
         background-size: fit-content;
@@ -31,7 +31,6 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        margin: 0 auto;
         border-radius: 1px;
         outline: 2px solid white;
         outline-offset: 5px;
@@ -71,6 +70,8 @@
     }
 
     .sobre {
+        margin: 0 20px;
+        padding: 20px;
         position: relative;
         display: flex;
         flex-direction: row;
@@ -121,27 +122,203 @@
 
     .imagem-sobre {
         position: absolute;
-        right: 0px;
-        top: 40px;
-        width: 25%;
+        right: 20px;
+        top: 0px;
+        width: 23%;
         height: auto;
         z-index: 2;
         filter: drop-shadow(0px 94px 38px rgba(0, 0, 0, 0.02)) drop-shadow(0px 53px 32px rgba(0, 0, 0, 0.08)) drop-shadow(0px 24px 24px rgba(0, 0, 0, 0.13)) drop-shadow(0px 6px 13px rgba(0, 0, 0, 0.15));
     }
 
-    /*Galeria*/
+    /* Galeria */
     .galeria {
-        display: flex;
-        flex-direction: row;
+        position: relative;
+        margin-bottom: 40px;
+    }
+
+    .galeria_titulo {
+        font-family: 'Charcuterie', 'Cinzel', serif;
+        font-size: 36px;
+        letter-spacing: 0.15em;
+        -webkit-text-stroke: 0.5px white;
+        color: transparent;
+        text-align: center;
+        margin: 60px 0 20px 0;
+    }
+
+    .galeria_area {
+        position: relative;
         width: 100%;
-        height: 100vh;
-        background-image: url('../../assets/img/posts/blueprince/blueprintgaleria.png');
+        height: 25vh;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .galeria_fundo {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: url('../../assets/img/posts/blueprince/blueprintgaleria.png') center/cover no-repeat;
+        z-index: 1;
+    }
+
+    .galeria_regua-esquerda,
+    .galeria_regua-direita {
+        position: absolute;
+        top: -10%;
+        height: 40vh;
+        width: 40vw;
         background-size: contain;
         background-repeat: no-repeat;
+        z-index: 10;
+        pointer-events: none;
+    }
+
+    .galeria_regua-esquerda {
+        left: -30px;
+        background-image: url('../../assets/img/posts/blueprince/regua-esquerda.png');
+        background-position: left center;
+        filter: drop-shadow(10px 10px 15px rgba(0, 0, 0, 0.3));
+    }
+
+    .galeria_regua-direita {
+        right: -30px;
+        background-image: url('../../assets/img/posts/blueprince/regua-direita.png');
+        background-position: right center;
+        filter: drop-shadow(-10px 10px 15px rgba(0, 0, 0, 0.3));
+    }
+
+    /* Carrosel */
+    .galeria_track {
+        display: flex;
+        gap: 20px;
+        padding-left: 20px;
+        width: max-content;
+        z-index: 5;
+        animation: deslizarInfinito 40s linear infinite;
+    }
+
+    .galeria_track:hover {
+        animation-play-state: paused;
+    }
+
+    /* carrossel infinito */
+    @keyframes deslizarInfinito {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+
+    .galeria_frame {
+        width: 250px;
+        height: 190px;
+        border: 1px solid #ffffff;
+        border-radius: 5px;
+        flex-shrink: 0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        transition: transform 0.2s ease;
+        cursor: pointer;
+    }
+
+    .galeria_frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .galeria_frame:hover {
+        transform: scale(1.05);
+    }
+
+    /* Tela da imagem aberta */
+    .modal-carrosel {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.85);
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .lightbox-conteudo {
+        max-width: 90%;
+        max-height: 90%;
+        border: 2px solid white;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+        border-radius: 5px;
+    }
+
+    .fechar-lightbox {
+        position: absolute;
+        top: 30px;
+        right: 40px;
+        color: white;
+        font-size: 50px;
+        font-weight: bold;
+    }
+
+    #janela-conteudo::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    #janela-conteudo::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 0px;
+    }
+
+    #janela-conteudo::-webkit-scrollbar-thumb {
+        background-color: #08396d;
+        border-radius: 10px;
+        border: 2px solid rgba(0, 0, 0, 0.5);
+    }
+
+    #janela-conteudo::-webkit-scrollbar-thumb:hover {
+        background-color: #0c509e;
+    }
+
+    /* Meu take*/
+    .meu-take {
+        position: relative;
+        margin: 10px 10px;
+        padding: 50px 60px;
+        background-image: url('../../assets/img/posts/blueprince/take-bg.png');
+        background-repeat: no-repeat;
         background-position: center;
-        filter: drop-shadow(0px 508px 203px rgba(0, 0, 0, 0.03)) drop-shadow(0px 286px 172px rgba(0, 0, 0, 0.1)) drop-shadow(0px 127px 127px rgba(0, 0, 0, 0.17)) drop-shadow(0px 32px 70px rgba(0, 0, 0, 0.2));
+        background-size: 100% 100%;
+        filter: drop-shadow(0px 15px 25px rgba(0, 0, 0, 0.5));
+    }
 
+    .take-txt {
+        position: relative;
+        z-index: 2;
+        color: #1a2a3a;
+        mix-blend-mode: multiply; 
+    }
 
+    .take-txt h2 {
+        font-family: 'Sanchez', serif;
+        font-size: 21px;
+        margin-bottom: 5px;
+        margin-top: 20px;
+        text-align: left;
+    }
+
+    .take-txt p {
+        font-family: 'Sanchez', serif;
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 10px;
+        text-align: left;
     }
 </style>
 
@@ -156,30 +333,63 @@
             <div class="titulo-blueprint">
                 <h2>Sobre o jogo</h2>
             </div>
-            <p>Imagine herdar uma mansão gigantesca com 45 quartos, mas só vai ser sua com uma única condição estranha:
-                você precisa encontrar o <strong>Quarto 46</strong>. Essa é a premissa de <em>Blue Prince</em>. Você
-                assume o papel de Simon, que acaba de receber as chaves de Mt. Holly (nome da mansão do seu falecido tio
-                avô). O problema é que a mansão não tem uma planta baixa fixa. A cada dia, a casa muda de forma e os
-                segredos mudam de lugar. O que começa como uma simples exploração em busca do quarto 46 rapidamente se
-                transforma em uma descoberta de segredos familiares através da arquitetura (e RNG).</p>
-            <p>Diferente de jogos de exploração comuns, em <em>Blue Prince</em> você não só anda por um mapa
-                pronto; <strong>você constrói o mapa enquanto anda</strong>. Cada vez que você abre uma porta, o
-                jogo te dá opções de "peças" (quartos, bibliotecas, corredores) e você decide o que colocar.</p>
-            <p>Além disso, você tem um número limitado de passos por dia. Toda ação custa passos. Se você
-                se perder ou não planejar sua rota direito, o dia acaba, você desmaia e acorda no saguão. A mansão
-                "reseta" e você precisa construir um novo layout no dia seguinte. É uma mistura de puzzles e
-                <em>roguelite</em>.
-            </p>
-            <p>Além dessas mecânicas, o jogo retrata
-                temas muito mais densos. O jogo explora a <strong>obsessão humana por controle e ordem</strong></p>
+            <p>Imagine herdar uma mansão de 45 quartos com uma condição impossível: encontrar o <strong>Quarto
+                    46</strong>.
+                Em Blue Prince, você é Simon explorando Mt. Holly, uma mansão que muda de forma e reseta seus segredos a
+                cada amanhecer.</p>
+            <p>Mais do que explorar um mapa, você o constrói decidindo quais salas conectar sob um limite de passos. É
+                um roguelite arquitetônico sobre a obsessão humana pela ordem e pelo controle.</p>
         </div>
         <img src="../../assets/img/posts/blueprince/simon-transparent.png" alt="Imagem do Simon" class="imagem-sobre">
     </div>
 
     <div class="galeria">
-        dahk
+        <h2 class="galeria_titulo">GALERIA</h2>
+
+        <div class="galeria_area">
+            <div class="galeria_fundo"></div>
+            <div class="galeria_track" id="carrossel"></div>
+        </div>
+
+        <div class="galeria_regua-esquerda"></div>
+        <div class="galeria_regua-direita"></div>
     </div>
-    <div class="meu-take"></div>
+
+    <div class="meu-take">
+        <div class="take-txt">
+            <h2>Meu take:</h2>
+            <p>Bizarro que tenha sido desenvolvido por uma pessoa só e tenha demorado 8 anos pra ficar pronto. O jogo só
+                começa de verdade quando você chega no quarto 46.
+                O único upgrade do jogo é o conhecimento que você adquire enquanto joga e o progresso acontece mais no
+                seu cérebro do que na tela.
+                Além disso, o jogo te força a seguir uma trajetória não linear por conta do RNG e isso flexibilizou
+                muito a minha mente para abandonar caminhos rígidos. Quando você finalmente consegue encaixar as peças
+                da história, a sensação de dever cumprido e a satisfação são indescritíveis.</p>
+            <p>Visual e sonoramente, o jogo é uma experiência à parte. As cenas de animação constroem perfeitamente uma
+                atmosfera de mistério e a trilha sonora é de arrepiar. A música é tão boa e imersiva que, em vários
+                momentos, me peguei parando o personagem no meio de uma sala apenas pra escutar o loop até o final.</p>
+            <p>Apesar de ser incrível, o jogo peca no quesito acessibilidade: o idioma. O jogo possui uma quantidade
+                massiva de texto e é totalmente dependente da língua inglesa. O próprio título é um jogo de palavras
+                (Blueprint). Por conta dos trocadilhos, enigmas fonéticos e duplos sentidos, levariam uns oito anos para
+                traduzir esse jogo corretamente sem destruir os puzzles. Por isso, infelizmente é impossível
+                recomendá-lo para todos. Ele exige um nível avançado de inglês para ser verdadeiramente aproveitado.</p>
+            <p>Mas onde Blue Prince realmente brilha é na forma como ele brinca com a sua compreensão da verdade. A
+                narrativa é um quebra-cabeça colossal. Em vários momentos, uma "verdade" absoluta que você tinha como
+                certa se revela falsa, e tudo o que você passou repentinamente se torna o "caminho errado".
+                O jogo te ilude com a chegada ao final. O próprio desenvolvedor afirma que o jogador tem o direito de se
+                dar por satisfeito com esse final e parar por aí. Mas parar nesse ponto significa ter jogado apenas uma
+                fração microscópica da experiência.</p>
+            <p>O verdadeiro conteúdo está nos enigmas, nas cartas vermelhas escondidas, nos códigos de cofres e nos
+                reinos escondidos debaixo da mansão. A história não é simplesmente "contada" a você em uma cutscene, ela
+                deve ser conquistada com muito suor mental.
+                E aqui mora a grande ironia e genialidade: esse jogo nunca acaba.</p>
+            <p><strong>Veredito final:</strong> Blue Prince é uma obra-prima narrativa. É um jogo voltado estritamente pra pessoas de
+                mente curiosa, que gostam de cavar fundo em mecânicas misteriosas, mas que acima de tudo, possuam a
+                maturidade pra apreciar a jornada em si em vez de exigir que todas as perguntas da vida (e do jogo)
+                tenham respostas óbvias e mastigadas.</p>
+        </div>
+    </div>
+
     <div class="minijogos">
         <div class="menu-minijogos">
             <button class="btn-minijogo" onclick="abrirMinijogo('caixas')">Caixas</button>
@@ -187,4 +397,11 @@
         </div>
         <div class="conteudo-minijogo" id="conteudo-minijogo"></div>
     </div>
+
+    <div id="modal-imagem" class="modal-carrosel" onclick="fecharImagem()">
+        <span class="fechar-lightbox">&times;</span>
+        <img class="lightbox-conteudo" id="img-ampliada">
+    </div>
 </div>
+
+<script src="../../js/posts/blueprince.js"></script>

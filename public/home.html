@@ -8,6 +8,7 @@
     <title>Desktop</title>
 
     <script src="./js/sessao.js"></script>
+    <script src="./js/posts/blueprince.js"></script>
 
     <link rel="stylesheet" href="./css/home.css" /> <!--CSS da página-->
     <link rel="icon" href="./assets/icon/favicon2.ico" /> <!--Ícone da aba-->
@@ -239,6 +240,10 @@
             .then(resposta => resposta.text())
             .then(conteudoPost => {
                 document.getElementById('janela-conteudo').innerHTML = conteudoPost;
+
+                if (caminho_arquivo.includes('blueprince')) {
+                    montarCarrosselInfinito();
+                }
             })
             .catch(erro => console.error('Erro ao carregar o post:', erro));
     }
