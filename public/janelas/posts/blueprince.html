@@ -26,7 +26,7 @@
         background-repeat: no-repeat;
         background-position: center;
         width: 100%;
-        height: 25vh;
+        height: 35vh;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -71,14 +71,15 @@
     }
 
     .sobre {
+        position: relative;
         display: flex;
         flex-direction: row;
-        align-items: space-between;
-        max-width: 100%;
-        margin: 0 auto;
+        align-items: flex-end;
         padding: 40px;
+        padding-right: 300px;
         background-color: rgba(0, 0, 0, 0.5);
         border-radius: 10px;
+        overflow: visible;
     }
 
     .titulo-blueprint {
@@ -90,7 +91,7 @@
         background-repeat: no-repeat;
         background-position: left center;
         width: 100%;
-        height: 80px;
+        height: 60px;
         margin-bottom: 20px;
         padding-left: 40px;
         filter: drop-shadow(0px 94px 38px rgba(0, 0, 0, 0.02)) drop-shadow(0px 53px 32px rgba(0, 0, 0, 0.08)) drop-shadow(0px 24px 24px rgba(0, 0, 0, 0.13)) drop-shadow(0px 6px 13px rgba(0, 0, 0, 0.15));
@@ -118,16 +119,29 @@
         }
     }
 
-
     .imagem-sobre {
-        width: 100%;
-        max-width: 200px;
-        min-width: 300px;
+        position: absolute;
+        right: 0px;
+        top: 40px;
+        width: 25%;
         height: auto;
-        display: block;
-        margin: 20px auto 0 auto;
-        border-radius: 10px;
+        z-index: 2;
         filter: drop-shadow(0px 94px 38px rgba(0, 0, 0, 0.02)) drop-shadow(0px 53px 32px rgba(0, 0, 0, 0.08)) drop-shadow(0px 24px 24px rgba(0, 0, 0, 0.13)) drop-shadow(0px 6px 13px rgba(0, 0, 0, 0.15));
+    }
+
+    /*Galeria*/
+    .galeria {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 100vh;
+        background-image: url('../../assets/img/posts/blueprince/blueprintgaleria.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        filter: drop-shadow(0px 508px 203px rgba(0, 0, 0, 0.03)) drop-shadow(0px 286px 172px rgba(0, 0, 0, 0.1)) drop-shadow(0px 127px 127px rgba(0, 0, 0, 0.17)) drop-shadow(0px 32px 70px rgba(0, 0, 0, 0.2));
+
+
     }
 </style>
 
@@ -162,7 +176,9 @@
         <img src="../../assets/img/posts/blueprince/simon-transparent.png" alt="Imagem do Simon" class="imagem-sobre">
     </div>
 
-    <div class="galeria"></div>
+    <div class="galeria">
+        dahk
+    </div>
     <div class="meu-take"></div>
     <div class="minijogos">
         <div class="menu-minijogos">
