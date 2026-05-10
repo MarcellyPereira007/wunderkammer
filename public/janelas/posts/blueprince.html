@@ -96,15 +96,19 @@
         margin-bottom: 20px;
         padding-left: 40px;
         filter: drop-shadow(0px 94px 38px rgba(0, 0, 0, 0.02)) drop-shadow(0px 53px 32px rgba(0, 0, 0, 0.08)) drop-shadow(0px 24px 24px rgba(0, 0, 0, 0.13)) drop-shadow(0px 6px 13px rgba(0, 0, 0, 0.15));
+        font-family: 'Charcuterie', serif;
+        font-size: 21px;
+        letter-spacing: 1px;
+        text-align: center;
     }
 
-    .texto-sobre h2 {
+    /* .texto-sobre h2 {
         font-family: 'Charcuterie', serif;
         font-size: 28px;
         letter-spacing: 1px;
         text-align: center;
         margin: 0;
-    }
+    } */
 
     .texto-sobre {
         display: flex;
@@ -302,7 +306,7 @@
         position: relative;
         z-index: 2;
         color: #1a2a3a;
-        mix-blend-mode: multiply; 
+        mix-blend-mode: multiply;
     }
 
     .take-txt h2 {
@@ -319,6 +323,152 @@
         line-height: 1.6;
         margin-bottom: 10px;
         text-align: left;
+    }
+
+    /*Puzzles*/
+    .puzzles {
+        margin: 0 20px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+    }
+
+    .puzzles .titulo-blueprint {
+        justify-content: center;
+        background-position: center;
+        padding-left: 0;
+    }
+
+    .statement {
+        display: flex;
+        flex-direction: row;
+        box-sizing: border-box;
+        border: 3px solid #000000;
+        border-radius: 5px;
+        background-image: url('../../assets/img/posts/blueprince/take-bg.png');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: fit-content;
+        color: #1a2a3a;
+        font-family: 'Sanchez', serif;
+        font-size: 16px;
+        line-height: 1.6;
+        max-height: 100%;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        width: 32%;
+        min-height: 120px;
+    }
+
+    .statements {
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        justify-content: space-between;
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    .boxes {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .box {
+        width: 25%;
+        text-align: center;
+    }
+
+    .box img {
+        width: 100%;
+        height: auto;
+        cursor: pointer;
+        transition: transform 0.2s ease, filter 0.2s ease;
+        filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.6));
+    }
+
+    .box img:hover {
+        transform: scale(1.05) translateY(-5px);
+        filter: drop-shadow(0px 15px 20px rgba(255, 255, 255, 0.3));
+    }
+
+    .mensagem-puzzle {
+        text-align: center;
+        font-family: 'Sanchez', serif;
+        font-size: 22px;
+        font-weight: bold;
+        min-height: 30px;
+        margin-top: 20px;
+    }
+
+    .instrucoes {
+        margin: 0 20px 20px 20px;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 10px;
+        text-align: center;
+        color: white;
+        font-family: 'Sanchez', serif; 
+        font-size: 18px;
+    }
+
+    .instrucoes h2 {
+        font-family: 'Charcuterie', serif;
+        font-size: 28px;
+        margin-bottom: 15px;
+        color: white;
+    }
+
+    .btn-reiniciar {
+        margin: 20px;
+        padding: 10px 25px;
+        background-color: #08396d;
+        color: white;
+        border: 2px solid white;
+        border-radius: 8px;
+        font-family: 'Charcuterie', serif;
+        font-size: 22px;
+        cursor: pointer;
+        transition: transform 0.2s ease, filter 0.2s ease;
+        display: none; /* Só aparece quando o jogo acaba */
+    }
+
+    .btn-reiniciar:hover {
+        transform: scale(1.0);
+        filter: drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.5));
+    }
+
+    .box {
+        position: relative;
+        width: 25%;
+        text-align: center;
+    }
+
+    .gema-recompensa {
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        height: 100px;
+        z-index: 5;
+        pointer-events: none; /* Pra deixar eu clicar na caixa */
+        transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efeito da gema saindo*/
+    }
+
+    .gema-recompensa.aparecer {
+        transform: translate(-50%, -50%) scale(1);
     }
 </style>
 
@@ -383,19 +533,55 @@
                 reinos escondidos debaixo da mansão. A história não é simplesmente "contada" a você em uma cutscene, ela
                 deve ser conquistada com muito suor mental.
                 E aqui mora a grande ironia e genialidade: esse jogo nunca acaba.</p>
-            <p><strong>Veredito final:</strong> Blue Prince é uma obra-prima narrativa. É um jogo voltado estritamente pra pessoas de
+            <p><strong>Veredito final:</strong> Blue Prince é uma obra-prima narrativa. É um jogo voltado estritamente
+                pra pessoas de
                 mente curiosa, que gostam de cavar fundo em mecânicas misteriosas, mas que acima de tudo, possuam a
                 maturidade pra apreciar a jornada em si em vez de exigir que todas as perguntas da vida (e do jogo)
                 tenham respostas óbvias e mastigadas.</p>
         </div>
     </div>
 
-    <div class="minijogos">
-        <div class="menu-minijogos">
-            <button class="btn-minijogo" onclick="abrirMinijogo('caixas')">Caixas</button>
-            <button class="btn-minijogo" onclick="abrirMinijogo('quiz')">Quiz</button>
+    <div class="puzzles">
+        <div class="titulo-blueprint">
+            <h2>Parlor Boxes</h2>
         </div>
-        <div class="conteudo-minijogo" id="conteudo-minijogo"></div>
+
+        <div class="statements">
+            <div class="statement" id="blueboxstatement"></div>
+            <div class="statement" id="whiteboxstatement"></div>
+            <div class="statement" id="blackboxstatement"></div>
+        </div>
+
+        <div class="boxes">
+            <div class="box" id="bluebox" onclick="tentarCaixa('azul')">
+                <img id="img-bluebox" src="../../assets/img/posts/blueprince/box-blue-fechada.png" alt="Caixa azul">
+                <img id="gema-azul" class="gema-recompensa" src="../../assets/img/posts/blueprince/gema.png" alt="Gema">
+            </div>
+            
+            <div class="box" id="whitebox" onclick="tentarCaixa('branca')">
+                <img id="img-whitebox" src="../../assets/img/posts/blueprince/box-white-fechada.png" alt="Caixa branca">
+                <img id="gema-branca" class="gema-recompensa" src="../../assets/img/posts/blueprince/gema.png" alt="Gema">
+            </div>
+            
+            <div class="box" id="blackbox" onclick="tentarCaixa('preta')">
+                <img id="img-blackbox" src="../../assets/img/posts/blueprince/box-black-fechada.png" alt="Caixa preta">
+                <img id="gema-preta" class="gema-recompensa" src="../../assets/img/posts/blueprince/gema.png" alt="Gema">
+            </div>
+        </div>
+
+        <div id="mensagem-puzzle" class="mensagem-puzzle"></div>
+        
+        <div style="text-align: center;">
+            <button id="btn-reiniciar" class="btn-reiniciar" onclick="iniciarMinijogoParlor()">Call it a day</button>
+        </div>
+
+        <div class="instrucoes">
+            <h2>INSTRUÇÕES</h2>
+            <p>Você tem somente 1 chance de encontrar a caixa com o prêmio.</p>
+            <p>Terá ao menos 1 caixa que diz a verdade e pelo menos 1 caixa que mente.</p>
+            <p>Só uma caixa tem o prêmio, as outras duas estão vazias.</p>
+            <p>Atenção: Nem sempre a caixa verdadeira tem o prêmio!</p>
+        </div>
     </div>
 
     <div id="modal-imagem" class="modal-carrosel" onclick="fecharImagem()">

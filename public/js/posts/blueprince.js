@@ -47,3 +47,84 @@ function fecharImagem() {
         modal.style.display = 'none';
     }
 }
+
+//puzzle
+
+// lista de enigmas
+const enigmasParlor = [
+    { azul: "As gemas NÃO estão nesta caixa.", branca: "As gemas ESTÃO nesta caixa.", preta: "As gemas NÃO estão na caixa branca.", resposta: "azul" },
+    { azul: "A caixa preta contém as gemas.", branca: "Esta caixa e a azul estão vazias.", preta: "Todas as três caixas estão vazias.", resposta: "preta" },
+    { azul: "Apenas uma caixa diz a verdade.", branca: "A caixa preta contém as gemas.", preta: "A caixa azul contém as gemas.", resposta: "branca" },
+    { azul: "As gemas estão na caixa preta.", branca: "As gemas estão na caixa branca.", preta: "Apenas uma caixa tem uma afirmação verdadeira.", resposta: "azul" },
+    { azul: "As gemas estão na caixa branca.", branca: "A caixa com a afirmação falsa contém as gemas.", preta: "A afirmação na caixa branca é verdadeira.", resposta: "azul" },
+    { azul: "As gemas não estão nesta caixa.", branca: "A caixa azul diz a verdade.", preta: "As gemas estão nesta caixa.", resposta: "branca" },
+    { azul: "As gemas estão nesta caixa.", branca: "Esta afirmação não ajuda em nada.", preta: "As gemas estão na caixa azul.", resposta: "azul" },
+    { azul: "Esta caixa está vazia.", branca: "Uma caixa com uma afirmação falsa está vazia.", preta: "Existem duas afirmações falsas.", resposta: "branca" }
+];
+
+let puzzleResolvido = false;
+let respostaCorretaAtual = ""; // Vai guardar a cor da caixa premiada da rodada
+
+function iniciarMinijogoParlor() {
+    puzzleResolvido = false; 
+    
+    // Sorteia um enigma da lista
+    const indiceSorteado = Math.floor(Math.random() * enigmasParlor.length);
+    const enigma = enigmasParlor[indiceSorteado];
+    respostaCorretaAtual = enigma.resposta; 
+    
+    // Preenche as frases
+    document.getElementById('blueboxstatement').innerText = enigma.azul;
+    document.getElementById('whiteboxstatement').innerText = enigma.branca;
+    document.getElementById('blackboxstatement').innerText = enigma.preta;
+    
+    // Reiniciar o jogo
+    // Fecha as caixas
+    // esconde as gemas
+    // limpa statements
+    // some o botão
+    document.getElementById('img-bluebox').src = '../../assets/img/posts/blueprince/box-blue-fechada.png';
+    document.getElementById('img-whitebox').src = '../../assets/img/posts/blueprince/box-white-fechada.png';
+    document.getElementById('img-blackbox').src = '../../assets/img/posts/blueprince/box-black-fechada.png';
+    
+    document.querySelectorAll('.gema-recompensa').forEach(gema => gema.classList.remove('aparecer'));
+    
+    document.getElementById('mensagem-puzzle').innerHTML = "";
+    document.getElementById('btn-reiniciar').style.display = "none";
+}
+
+function tentarCaixa(corSelecionada) {
+    if (puzzleResolvido) return; // Pra jogar só uma vez
+
+    const imgAzul = document.getElementById('img-bluebox');
+    const imgBranca = document.getElementById('img-whitebox');
+    const imgPreta = document.getElementById('img-blackbox');
+    const mensagem = document.getElementById('mensagem-puzzle');
+
+    // Abre só a caixa que a pessoa clicar
+    if (corSelecionada === 'azul') {
+        imgAzul.src = '../../assets/img/posts/blueprince/box-blue-aberta.png';
+    } else if (corSelecionada === 'branca') {
+        imgBranca.src = '../../assets/img/posts/blueprince/box-white-aberta.png';
+    } else if (corSelecionada === 'preta') {
+        imgPreta.src = '../../assets/img/posts/blueprince/box-black-aberta.png';
+    }
+
+    // Verifica se acertou
+    if (corSelecionada === respostaCorretaAtual) {
+        mensagem.innerHTML = "Você encontrou as gemas";
+        mensagem.style.color = "#86bcd6"; 
+        
+        // Faz a gema ir pra caixa certa
+        document.getElementById(`gema-${corSelecionada}`).classList.add('aparecer');
+        
+    } else {
+        mensagem.innerHTML = "Caixa vazia";
+        mensagem.style.color = "#6f130c"; 
+    }
+
+    puzzleResolvido = true; // Acaba a partida
+    
+    // Aparecer botão de recomeçar
+    document.getElementById('btn-reiniciar').style.display = "inline-block";
+}
