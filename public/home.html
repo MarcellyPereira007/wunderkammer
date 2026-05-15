@@ -155,7 +155,7 @@
             .then(resposta => resposta.text())
             .then(html => {
                 document.getElementById('janela-conteudo').innerHTML = html;
-                var janela = document.getElementById('modal');
+                let janela = document.getElementById('modal');
                 janela.classList.add('aberta');
                 if (nomeArquivo.includes('dashboard')) {
                     buscarKpisDashboard();
@@ -165,7 +165,7 @@
 
     // Função pra fechar
     function fecharJanela() {
-        var janela = document.getElementById('modal');
+        let janela = document.getElementById('modal');
         janela.classList.remove('aberta');
     }
 
@@ -217,7 +217,7 @@
                         console.log("Lista das maravilhas da categoria:", listaMaravilhas);
 
                         // Pegar o container onde os cards vão ficar
-                        var containerCards = document.querySelector('.container-cards');
+                        let containerCards = document.querySelector('.container-cards');
 
                         // Tirar o conteúdo mocado dos 3 cards do Blue Prince).
                         containerCards.innerHTML = '';
@@ -227,7 +227,7 @@
 
                             let maravilha = listaMaravilhas[i];
 
-                            var card = `<div class="card-post" onclick="abrirPost('${maravilha.caminho_arquivo}')">
+                            let card = `<div class="card-post" onclick="abrirPost('${maravilha.caminho_arquivo}')">
                                 <div class="card-imagem">
                                 <img src="${maravilha.caminho_capa}" alt="${maravilha.titulo}">
                                 </div>
@@ -293,8 +293,8 @@
 
 
     // variaveis pra musica
-    var sound = document.getElementById('btn_sound');
-    var musica = document.getElementById('desktop-song');
+    let sound = document.getElementById('btn_sound');
+    let musica = document.getElementById('desktop-song');
 
     //booleano pra controlar oq fazer quando clicar
     let tocando = true;
@@ -316,14 +316,14 @@
 
     //Lógica da data e hora
     // pegar onde elas vao ser mostradas
-    var data = document.getElementById('data_atual');
-    var hora = document.getElementById('hora_atual');
+    let data = document.getElementById('data_atual');
+    let hora = document.getElementById('hora_atual');
 
     //Criar uma função pra atualizar as infos
     function mudarDataHora() {
         //Pegar a data e hora de agora
-        var dataHoranovo = new Date(); // VALIDAR
-        var dataHora = dataHoranovo.toString();
+        let dataHoranovo = new Date(); // VALIDAR
+        let dataHora = dataHoranovo.toString();
 
         //Extrair as partes da sainda com substring pq ta no meu nivel iniciante
         //Modelo da saída padrão
@@ -380,7 +380,7 @@
             default:
                 mes = 'XX';
         }
-        //Levar formatado com innerhTML
+        //Lelet formatado com innerhTML
         hora.innerHTML = `${horas}:${minutos}`;
         data.innerHTML = `${dia}/${mes}/${ano}`;
     }
@@ -388,10 +388,10 @@
     setInterval(mudarDataHora, 1000);
 
     // Menu iniciar
-    var btnStart = document.getElementById('iconstart');
-    var menuIniciar = document.getElementById('menu-iniciar');
+    let btnStart = document.getElementById('iconstart');
+    let menuIniciar = document.getElementById('menu-iniciar');
 
-    var menuEstaAberto = false; 
+    let menuEstaAberto = false; 
 
     // Abrir efechar o menu
     btnStart.onclick = function(evento) {

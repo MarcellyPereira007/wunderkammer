@@ -108,26 +108,26 @@
 
   <script>
     //Pegar o botão de btn-ligar 
-    var botaoLigar = document.getElementById('btn-ligar');
+    let botaoLigar = document.getElementById('btn-ligar');
     //Pegar a div da tela crtmonitor 
-    var telaMonitor = document.querySelector('.tela-pc');
+    let telaMonitor = document.querySelector('.tela-pc');
     //Pegar a div da tela de boot
-    var telaBoot = document.querySelector('.tela-boot');
+    let telaBoot = document.querySelector('.tela-boot');
     //Pegar a div da tela terminal
-    var telaTerminal = document.querySelector('.tela-terminal');
+    let telaTerminal = document.querySelector('.tela-terminal');
 
     // Pegar os áudios
-    var somClique = document.getElementById('som-clique');
-    var somBoot = document.getElementById('som-boot');
-    var somLogo = document.getElementById('som-logoreveal');
+    let somClique = document.getElementById('som-clique');
+    let somBoot = document.getElementById('som-boot');
+    let somLogo = document.getElementById('som-logoreveal');
 
     //Pegar a barra pra animar ela 
-    var barra = document.querySelector('.barra-preenchimento');
+    let barra = document.querySelector('.barra-preenchimento');
 
-    var logo = document.querySelector('.logo-mimiomia');
+    let logo = document.querySelector('.logo-mimiomia');
 
     // Pega todas linhas de texto pra colcoar num "vetor"
-    var linhasDeTexto = document.querySelectorAll('.texto-monitor');
+    let linhasDeTexto = document.querySelectorAll('.texto-monitor');
 
     // Lógica de ir pra tela de terminal
     function abrirTerminal() {
