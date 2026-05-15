@@ -73,8 +73,6 @@ function interpretarComando(comando) {
         iniciarCadastro(comando);
     } else if (comando.startsWith("su ")) {
         iniciarLogin(comando);
-    } else if (comando == "users") {
-        listarUsuarios();
     } else if (comando != "") {
         historicoSaidas.innerHTML += `<p class="texto-monitor">O comando "${comando}" não existe. Digite 'help' para ver a lista de comandos disponíveis.</p>`;
     }
@@ -86,7 +84,6 @@ function exibirHelp() {
 [ LISTA DE COMANDOS ]
 ----------------------------------------------------------
 help                  : Exibe essa mensagem.
-users                : Lista todos os usuários cadastrados.
 mimi adduser [nome]  : Cria uma nova conta.
 su [nome]             : Realiza login na conta.
 clear                 : Limpa a tela do terminal.
@@ -174,9 +171,9 @@ function finalizarCadastro(senha) {
 
 }
 
-function listarUsuarios() {
-    historicoSaidas.innerHTML += `<p class="texto-monitor">[AVISO] A listagem local foi desativada. Os usuários agora estão protegidos no banco de dados.</p>`;
-}
+// function listarUsuarios() {
+//     historicoSaidas.innerHTML += `<p class="texto-monitor">[AVISO] A listagem local foi desativada. Os usuários agora estão protegidos no banco de dados.</p>`;
+// }
 
 // Lógica do Login
 function iniciarLogin(comando) {
