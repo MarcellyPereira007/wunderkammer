@@ -3,68 +3,382 @@
         font-family: 'Charcuterie';
         src: url('../../assets/fonts/Charcuterie.ttf') format('opentype');
     }
+
     @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Patrick+Hand&display=swap');
 
     #janela-conteudo {
         background-color: black !important;
         overflow-y: auto !important;
         overflow-x: hidden !important;
+        display: flex;
+        flex-direction: column;
     }
 
-    
+    #janela-conteudo::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    #janela-conteudo::-webkit-scrollbar-track {
+        background: rgb(0, 0, 0);
+        border-radius: 0px;
+    }
+
+    #janela-conteudo::-webkit-scrollbar-thumb {
+        background-color: #a2a1a1;
+        border-radius: 10px;
+        border: 2px solid rgb(0, 0, 0);
+    }
+
     .post-conteudo {
-        background-color: black;
+        background-color: black !important;
+        cursor: url("../../assets/img/posts/sandman/SandmanCursor.png"), auto !important;
+        position: relative;
     }
 
     .sonhar {
         background-image: url('../../assets/img/posts/sandman/sonharbg.png');
+        background-size: cover;
         background-repeat: no-repeat;
-        background-size: cover; 
-        background-position: top center; 
-        
-        min-height: 100vh; 
-        padding: 60px 40px;
+        background-position: center;
+        background-blend-mode: screen;
+        aspect-ratio: 2160 / 2482;
+        /*Pra mostrar o tamanho da img toda*/
+        width: 100%;
+        /*Pra div ocupar 100% da largura*/
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
         position: relative;
     }
 
+    .btn-voltar-sandman {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        z-index: 10;
+        border: 10px solid transparent;
+        border-image-source: url('../../assets/img/posts/sandman/botaoSandman.png');
+        border-image-slice: 20 fill;
+        border-image-repeat: stretch;
+        padding: 10px 20px 30px;
+        color: white;
+        background: transparent;
+        text-align: center;
+        font-size: 20px;
+        font-family: 'Patrick Hand', Courier, monospace;
+        letter-spacing: 1px;
+        line-height: 20px;
+        margin: 20px;
+        transition: tranform 0.2s ease, filter 0.1s ease;
+        cursor: url("../../assets/img/posts/sandman/SandmanPointer.png"), pointer !important;
+    }
 
-    
+    .btn-voltar-sandman:hover {
+        transform: scale(1.1);
+        filter: drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.5));
+    }
+
+    .logo-sandman {
+        display: flex;
+        position: absolute;
+        height: 10%;
+        top: 13%;
+        left: 50%;
+        transform: translateX(-50%);
+        /* margin: 0 auto; */
+        align-items: center;
+        justify-content: center;
+        animation: brilhando 3s linear infinite;
+    }
+
+    @keyframes brilhando {
+
+        0%,
+        100% {
+            filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.5));
+        }
+
+        50% {
+            filter: drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.9));
+        }
+    }
+
+    .balaoBranco {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        border-image-slice: 20 fill;
+        border-image-source: url();
+        border: 30px solid transparent;
+        border-image-source: url('../../assets/img/posts/sandman/balaobranco1.svg');
+        border-image-slice: 20 fill;
+        border-image-repeat: stretch;
+        padding: 0px 20px;
+        color: black;
+        background: transparent;
+        text-align: center;
+        font-size: 21px;
+        font-family: 'Patrick Hand', Courier, monospace;
+        box-sizing: content-box;
+        filter: drop-shadow(-4px 2px 0px white) drop-shadow(4px -2px 0px white);
+        transition: scale 0.3s ease;
+        animation: flutuar 5s ease-in-out infinite;
+    }
+
+    @keyframes flutuar {
+
+        0%,
+        100% {
+            translate: 0px 0px;
+        }
+
+        50% {
+            translate: 0px -15px;
+        }
+    }
+
+    .balaoBranco:hover {
+        scale: 1.05;
+        animation-play-state: paused;
+    }
+
+    .balaoBrancoAlt:hover {
+        scale: 1.05;
+        animation-play-state: paused;
+    }
+
+    .balaoMorpheus:hover {
+        scale: 1.05;
+        animation-play-state: paused;
+    }
+
+    .um {
+        top: 25%;
+        right: 18%;
+        transform: translateX(30%);
+        width: 40%;
+        height: 10%;
+    }
+
+    .dois {
+        top: 36%;
+        left: 18%;
+        transform: translateX(-30%);
+        width: 40%;
+        height: 10%;
+    }
+
+    .tres {
+        top: 50%;
+        right: 20%;
+        transform: translateX(30%);
+        width: 45%;
+        height: 5%;
+    }
+
+    .balaoBrancoAlt {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        border: 20px solid transparent;
+        border-image-source: url('../../assets/img/posts/sandman/balaobranco2.svg');
+        border-image-repeat: stretch;
+        border-image-slice: 10 fill;
+        padding: 0px 20px;
+        color: black;
+        background: transparent;
+        text-align: center;
+        font-size: 21px;
+        font-family: 'Patrick Hand', Courier, monospace;
+        box-sizing: content-box;
+        filter: drop-shadow(-4px 2px 0px white) drop-shadow(4px -2px 0px white);
+        transition: scale 0.3s ease;
+        animation: flutuar 5s ease-in-out infinite;
+    }
+
+    .altUm {
+        top: 60%;
+        left: 40%;
+        transform: translateX(-30%);
+        width: 30%;
+        height: 5%;
+        padding: 0px;
+    }
+
+    .balaoMorpheus {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        border: 20px solid transparent;
+        border-image-source: url('../../assets/img/posts/sandman/botaoSandman.png');
+        border-image-repeat: stretch;
+        border-image-slice: 10 fill;
+        padding: 0px 10px;
+        color: white;
+        background: transparent;
+        text-align: center;
+        font-size: 21px;
+        font-family: 'Patrick Hand', Courier, monospace;
+        box-sizing: content-box;
+        transition: scale 0.3s ease;
+        animation: flutuar 5s ease-in-out infinite;
+    }
+
+    .balaomorpheusUm {
+        font-size: 30px;
+        top: 63.5%;
+        right: 32%;
+        transform: translateX(50%);
+        padding: 0px 30px;
+        height: 5%;
+        width: 15%;
+        z-index: 2;
+    }
+
+    .quatro {
+        top: 68%;
+        right: 18%;
+        transform: translateX(50%);
+        width: 20%;
+        height: 10%;
+        z-index: 1;
+    }
+
+    .morte {
+        position: absolute;
+        background-image: url('../../assets/img/posts/sandman/mortebg.png');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        aspect-ratio: 2160 / 1024;
+        width: 100%;
+        bottom: -35%;
+
+    }
+
+    .balaomorpheusDois {
+        padding: 0px 50px;
+        top: -15%;
+        left: 25%;
+        transform: translateX(-50%);
+        width: 25%;
+        height: 30%;
+    }
+
+    .balaomorpheusTres {
+        padding: 0px 50px;
+        top: 10%;
+        left: 0%;
+        transform: translateX(-30);
+        width: 20%;
+        height: 25%;
+    }
+
+    .balaomorpheusQuatro{
+        padding: 0px 50px;
+        top: 25%;
+        left: 40%;
+        transform: translateX(-50%);
+        width: 25%;
+        height: 30%;
+    }
+
+    .johnDoe {
+        position: absolute;
+        background-image: url('../../assets/img/posts/sandman/johndoebg.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        aspect-ratio: 2160 / 1100;
+        width: 100%;
+        margin: 0 auto;
+        bottom: -70%;
+        z-index: 2;
+    }
+
+    .cinco{
+        top:45%;
+        left: 0%;
+        transform: translateX(30%);
+        width: 40%;
+        height: 15%;
+    }
+
+    .conclusao {
+        background-image: url('../../assets/img/posts/sandman/conclusaobg.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        aspect-ratio: 2160 / 1844;
+        width: 100%;
+    }
 
 </style>
 
-<div class="post-conteudo">
-    
-    <button onclick="abrirCategoria('Quadrinhos')" class="btn-voltar-sandman">⬅ Voltar</button>
+<body>
+    <div class="post-conteudo">
 
-    <div class="sonhar">
-        <div class="container-quadrinho">
-            <button class="btn-voltar-sandman"></button>
-            
-            <div class="balao-normal">
-                "O Sonhar não é apenas o lugar escuro para onde vamos quando fechamos os olhos. É o 'inconsciente coletivo' de Jung materializado..."
+        <button onclick="abrirCategoria('Quadrinhos')" class="btn-voltar-sandman">⬅ Voltar<br>para Quadrinhos</button>
+
+        <div class="sonhar">
+            <img src="../../assets/img/posts/sandman/sandmanLogo.png" class="logo-sandman" alt="Logo de Sandman">
+
+            <div class="balaoBranco um">
+                <p>O Sonhar é além do lugar escuro para onde vamos quando fechamos os olhos. É o inconsciente coletivo
+                    materializado. Cada criatura mítica, cada pesadelo irracional e cada deus esquecido pela nossa
+                    cultura nasceram e habitam no reino do Sonho. Quando dormimos, estamos apenas visitando esse lugar
+                </p>
             </div>
 
-            <div class="balao-normal">
-                "Cada criatura mítica, cada pesadelo irracional e cada deus esquecido não foram apenas 'inventados'; eles nasceram e habitam este reino. Quando dormimos, estamos apenas visitando."
+            <div class="balaoBranco dois">
+                <p>Ele é Morpheus para os gregos, Kai'ckul na África, o Moldador para as fadas... o único lugar onde a
+                    palavra Sandman domina é na capa da HQ. É um lembrete sutil de que para um ser mais
+                    velho que o universo, nossas 75 edições de HQ são apenas um fragmento de sua história
+                </p>
             </div>
 
-            <div class="balao-morpheus">
-                "as pessoas acham que os sonhos não são reais porque não são feitos de matéria, partículas. mas os sonhos são reais. e eles têm poder."
+            <div class="balaoBranco tres">
+                <p>Em Sandman, os maiores embates são dialéticos.<br>Quando Morpheus desce ao inferno para recuperar seu
+                    elmo, ele duela com o demônio Choronzon usando apenas conceitos.<br>E ele não vence pela destruição,
+                    mas pela capacidade de recriar e resistir.
+                </p>
             </div>
 
-            <div class="balao-normal">
-                "Uma das maiores genialidades da obra é que quase ninguém dentro da história chama o protagonista de 'Sandman'. Ele é Morpheus para os gregos, Kai'ckul na África, o Moldador..."
+            <div class="balaoBrancoAlt altUm">
+                <p>No fim do duelo, quando o demônio diz ser "a anti-vida, a fera do juízo final", Morpheus responde:
+                </p>
             </div>
 
+            <div class="balaoMorpheus balaomorpheusUm">
+                <p>Eu sou a esperança.</p>
+            </div>
+
+            <div class="balaoBranco quatro">
+                <p>Em quase todas as línguas humanas, a palavra "Sonho" significa tanto o devaneio noturno quanto os
+                    nossos projetos para o futuro.<br>No fundo, o caos da noite e a fé no amanhã são a mesma força.
+                </p>
+            </div>
         </div>
+
+        <div class="morte">
+            <div class="morte-foto">
+                <div class="balaoMorpheus balaomorpheusDois">A maioria de nós não tem medo da Morte em si, mas do processo, da dor, do esquecimento e da saudade.</div>
+                <div class="balaoMorpheus balaomorpheusTres">E a Morte de Gaiman não é um esqueleto sádico com uma foice, é a mais empática e carismática dos sete Perpétuos.</div>
+                <div class="balaoMorpheus balaomorpheusQuatro">É ela quem sopra a vida em nós no nascimento e nos explica as regras do jogo: pra ter o direito de existir, você precisa aceitar que um dia deixará de fazê-lo</div>
+            </div>
+
+            <div class="johnDoe">
+                <div class="balaoBranco cinco">O que aproxima tanto o Sonho com a Morte na história é que nenhum de nós aceitaria a finitude se não tivéssemos o desejo absurdo de realizar coisas enquanto estamos vivos.</div>
+            </div>
+        </div>
+
+        <div class="conclusao">
+        </div>
+
     </div>
 
-    <div class="morte">
-    </div>
-
-    <div class="conclusao">
-    </div>
-
-</div>
-
-<script src="../../js/posts/sandman.js"></script>
+    <script src="../../js/posts/sandman.js"></script>
+</body>
