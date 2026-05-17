@@ -123,7 +123,6 @@
         box-sizing: content-box;
         filter: drop-shadow(-4px 2px 0px white) drop-shadow(4px -2px 0px white);
         transition: scale 0.3s ease;
-        animation: flutuar 5s ease-in-out infinite;
     }
 
     @keyframes flutuar {
@@ -135,6 +134,18 @@
 
         50% {
             translate: 0px -15px;
+        }
+    }
+
+    @keyframes flutuar-reverse {
+
+        0%,
+        100% {
+            translate: 0px -15px;
+        }
+
+        50% {
+            translate: 0px 0px;
         }
     }
 
@@ -159,6 +170,7 @@
         transform: translateX(30%);
         width: 40%;
         height: 10%;
+        animation: flutuar 5s ease-in-out infinite;
     }
 
     .dois {
@@ -167,6 +179,7 @@
         transform: translateX(-30%);
         width: 40%;
         height: 10%;
+        animation: flutuar-reverse 5s ease-in-out infinite;
     }
 
     .tres {
@@ -175,6 +188,7 @@
         transform: translateX(30%);
         width: 45%;
         height: 5%;
+        animation: flutuar 5s ease-in-out infinite;
     }
 
     .balaoBrancoAlt {
@@ -195,7 +209,6 @@
         box-sizing: content-box;
         filter: drop-shadow(-4px 2px 0px white) drop-shadow(4px -2px 0px white);
         transition: scale 0.3s ease;
-        animation: flutuar 5s ease-in-out infinite;
     }
 
     .altUm {
@@ -205,6 +218,7 @@
         width: 30%;
         height: 5%;
         padding: 0px;
+        animation: flutuar-reverse 5s ease-in-out infinite;
     }
 
     .balaoMorpheus {
@@ -224,7 +238,6 @@
         font-family: 'Patrick Hand', Courier, monospace;
         box-sizing: content-box;
         transition: scale 0.3s ease;
-        animation: flutuar 5s ease-in-out infinite;
     }
 
     .balaomorpheusUm {
@@ -236,6 +249,7 @@
         height: 5%;
         width: 15%;
         z-index: 2;
+        animation: flutuar 5s ease-in-out infinite;
     }
 
     .quatro {
@@ -245,17 +259,18 @@
         width: 20%;
         height: 10%;
         z-index: 1;
+        animation: flutuar-reverse 5s ease-in-out infinite;
     }
 
     .morte {
-        position: absolute;
+        position: relative;
         background-image: url('../../assets/img/posts/sandman/mortebg.png');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
         aspect-ratio: 2160 / 1024;
         width: 100%;
-        bottom: -35%;
+        margin-top: -7%;
 
     }
 
@@ -266,6 +281,7 @@
         transform: translateX(-50%);
         width: 25%;
         height: 30%;
+        animation: flutuar 5s ease-in-out infinite;
     }
 
     .balaomorpheusTres {
@@ -275,6 +291,7 @@
         transform: translateX(-30);
         width: 20%;
         height: 25%;
+        animation: flutuar-reverse 5s ease-in-out infinite;
     }
 
     .balaomorpheusQuatro{
@@ -284,18 +301,18 @@
         transform: translateX(-50%);
         width: 25%;
         height: 30%;
+        animation: flutuar 5s ease-in-out infinite;
     }
 
     .johnDoe {
-        position: absolute;
+        position: relative;
         background-image: url('../../assets/img/posts/sandman/johndoebg.png');
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
         aspect-ratio: 2160 / 1100;
         width: 100%;
-        margin: 0 auto;
-        bottom: -70%;
+        margin-top: -17%;
         z-index: 2;
     }
 
@@ -305,6 +322,7 @@
         transform: translateX(30%);
         width: 40%;
         height: 15%;
+        animation: flutuar-reverse 5s ease-in-out infinite;
     }
 
     .conclusao {
@@ -314,7 +332,47 @@
         background-position: center;
         aspect-ratio: 2160 / 1844;
         width: 100%;
+        margin-top: -10%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        position: relative;
     }
+
+    .despedida{
+        width: 100%;
+        z-index: 2;
+    }
+
+    .sandman-voando {
+        position: absolute;
+        width: 50%;
+        height: 65%;
+        top: 6%;
+        left: 0;
+        animation: flutuar 5s ease-in-out infinite;
+        filter: drop-shadow(0px 0px 8px rgba(0, 0, 0, 0.5));
+    }
+
+    .altDois {
+        top: 20%;
+        right: 25%;
+        transform: translateX(50%);
+        width: 20%;
+        height: 20%;
+        padding: 0px 30px;
+        animation: flutuar-reverse 5s ease-in-out infinite;
+    }
+
+    .goodbye {
+        position: absolute;
+        width: auto;
+        height: 40%;
+        bottom: 20%;
+        right: 0;
+        mix-blend-mode: screen;
+    }
+
 
 </style>
 
@@ -364,18 +422,25 @@
         </div>
 
         <div class="morte">
-            <div class="morte-foto">
                 <div class="balaoMorpheus balaomorpheusDois">A maioria de nós não tem medo da Morte em si, mas do processo, da dor, do esquecimento e da saudade.</div>
                 <div class="balaoMorpheus balaomorpheusTres">E a Morte de Gaiman não é um esqueleto sádico com uma foice, é a mais empática e carismática dos sete Perpétuos.</div>
                 <div class="balaoMorpheus balaomorpheusQuatro">É ela quem sopra a vida em nós no nascimento e nos explica as regras do jogo: pra ter o direito de existir, você precisa aceitar que um dia deixará de fazê-lo</div>
-            </div>
+        </div>
 
-            <div class="johnDoe">
+        <div class="johnDoe">
                 <div class="balaoBranco cinco">O que aproxima tanto o Sonho com a Morte na história é que nenhum de nós aceitaria a finitude se não tivéssemos o desejo absurdo de realizar coisas enquanto estamos vivos.</div>
-            </div>
         </div>
 
         <div class="conclusao">
+            <img class="sandman-voando" src="../../assets/img/posts/sandman/sandmanvoando.png" alt="Sandman voando no universo">
+
+            <div class="balaoBrancoAlt altDois">
+                <p>No fim das contas, a nossa capacidade de sonhar é a única coisa que nos dá coragem para assinar o contrato da mortalidade.</p>
+            </div>
+
+            <img class="goodbye" src="../../assets/img/posts/sandman/saygoodbye.png" alt="Sandman olhando">
+
+            <img class="despedida" src="../../assets/img/posts/sandman/conclusaofinal.png" alt="Sandman e morte dizendo tchau">
         </div>
 
     </div>

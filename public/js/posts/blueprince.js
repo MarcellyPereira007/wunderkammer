@@ -32,20 +32,16 @@ function montarCarrosselInfinito() {
 }
 
 function abrirImagem(caminhoSrc) {
-    const modal = document.getElementById('modal-imagem');
-    const imgAmpliada = document.getElementById('img-ampliada');
+    let modal = document.getElementById('modal-imagem');
+    let imgAmpliada = document.getElementById('img-ampliada');
 
-    if (modal && imgAmpliada) {
-        modal.style.display = 'flex';
-        imgAmpliada.src = caminhoSrc;
-    }
+    imgAmpliada.src = caminhoSrc;
+    modal.style.display = 'flex';
 }
 
 function fecharImagem() {
-    const modal = document.getElementById('modal-imagem');
-    if (modal) {
-        modal.style.display = 'none';
-    }
+    let modal = document.getElementById('modal-imagem');
+    modal.style.display = 'none';
 }
 
 //puzzle

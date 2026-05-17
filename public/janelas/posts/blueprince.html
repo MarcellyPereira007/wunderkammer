@@ -193,7 +193,7 @@
         filter: drop-shadow(-10px 10px 15px rgba(0, 0, 0, 0.3));
     }
 
-    /* Carrosel */
+    /* carrosel */
     .galeria_track {
         display: flex;
         gap: 20px;
@@ -243,7 +243,7 @@
     .modal-carrosel {
         display: none;
         position: fixed;
-        z-index: 9999;
+        z-index: 10;
         left: 0;
         top: 0;
         width: 100%;
@@ -464,7 +464,7 @@
         height: 100px;
         z-index: 5;
         pointer-events: none; /* Pra deixar eu clicar na caixa */
-        transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efeito da gema saindo*/
+        transition: transform 0.5s ease-out;
     }
 
     .gema-recompensa.aparecer {
