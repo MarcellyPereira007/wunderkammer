@@ -9,11 +9,11 @@ CREATE TABLE usuario (
     dt_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Quiz compatibilidade
 CREATE TABLE compatibilidade (
     id_compatibilidade INT PRIMARY KEY AUTO_INCREMENT,
     fk_usuario INT NOT NULL,
-    pontuacao INT NOT NULL,
-    total_assuntos INT NOT NULL,
+    taxa_compatibilidadde INT NOT NULL,
     dt_resposta DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (fk_usuario) REFERENCES usuario(id_usuario)
 );
@@ -50,18 +50,13 @@ CREATE TABLE maravilha_categoria (
     FOREIGN KEY (fk_categoria) REFERENCES categoria(id_categoria)
 );
 
--- Quiz de detalhes
-CREATE TABLE interesse (
-    id_interesse INT PRIMARY KEY AUTO_INCREMENT,
-    nome_interesse VARCHAR(50) NOT NULL UNIQUE
-);
-
-CREATE TABLE usuario_interesse (
+--Interesses do usuario
+CREATE TABLE usuario_categoria (
     fk_usuario INT,
-    fk_interesse INT,
+    fk_categoria INT,
     PRIMARY KEY (fk_usuario, fk_interesse),
     FOREIGN KEY (fk_usuario) REFERENCES usuario(id_usuario),
-    FOREIGN KEY (fk_interesse) REFERENCES interesse(id_interesse)
+    FOREIGN KEY (fk_interesse) REFERENCES categoria(id_categoria)
 );
 
 INSERT INTO categoria (nome_categoria) VALUES 
@@ -81,7 +76,7 @@ INSERT INTO categoria (nome_categoria) VALUES
 ('Ensaios');
 
 -- INSERTS exemplo
-INSERT INTO maravilha (titulo, descricao, caminho_capa, caminho_arquivo) VALUES ('Blue Prince', 'Conheça um jogo de puzzle, artístico e com muitas surpresa','../../assets/img/home/capas/blueprince.png','../janelas/posts/blueprince.html');
+INSERT INTO maravilha (titulo, descricao, caminho_capa, caminho_arquivo) VALUES ('Blue Prince', 'Blue Prince é um jogo indie de mistério e puzzle, onde você herda uma mansão misteriosa e precisa descobrir a localização secreta do 46º quarto, mesmo a casa possuindo apenas 45 cômodos','../../assets/img/home/capas/blueprince.png','../janelas/posts/blueprince.html');
 INSERT INTO maravilha_categoria (fk_maravilha, fk_categoria) VALUES (1,10);
 
 -- Mostrar nome da maravilha, nome da categoria

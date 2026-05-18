@@ -202,6 +202,7 @@ function processarLogin(senha) {
             resposta.json().then(json => {
                 historicoSaidas.innerHTML += `<p class="texto-monitor">Acesso permitido. Autenticando ${usuarioPendente}...</p>`;
 
+                // Pegando id e nome do bd
                 sessionStorage.setItem('usuarioLogado', json.username);
                 sessionStorage.setItem('idUsuario', json.id_usuario);
 
