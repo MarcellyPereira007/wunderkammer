@@ -157,8 +157,18 @@
                 document.getElementById('janela-conteudo').innerHTML = html;
                 let janela = document.getElementById('modal');
                 janela.classList.add('aberta');
+
                 if (nomeArquivo.includes('dashboard')) {
                     buscarKpisDashboard();
+                }
+
+                if (nomeArquivo.includes('creditos')) {
+                    let video = document.getElementById('video-creditos');
+                    if (video) {
+                        if (tocando) {
+                            musica.pause();
+                        }
+                    }
                 }
             });
     }
@@ -167,33 +177,41 @@
     function fecharJanela() {
         let janela = document.getElementById('modal');
         janela.classList.remove('aberta');
+
+        let video = document.getElementById('video-creditos' || 'video-biblioteca'); //se o video estiver na tela ele vai pausar o video quando eu fechar e voltar a musica
+        if (video) {
+            video.pause();
+        }
+        if(tocando) {
+            musica.play();
+        }
     }
 
     function buscarKpisDashboard() {
-    fetch('/dashboard/kpis')
-        .then(resposta => resposta.json())
-        .then(dados => {
-            document.getElementById('kpi-usuarios').innerText = dados.totalUsuarios;
-            document.getElementById('kpi-posts').innerText = dados.totalPosts;
+        fetch('/dashboard/kpis')
+            .then(resposta => resposta.json())
+            .then(dados => {
+                document.getElementById('kpi-usuarios').innerText = dados.totalUsuarios;
+                document.getElementById('kpi-posts').innerText = dados.totalPosts;
 
-            let corpoTabela = document.getElementById('corpo-tabela-usuarios');
-            corpoTabela.innerHTML = ''; // limpar tabela 
+                let corpoTabela = document.getElementById('corpo-tabela-usuarios');
+                corpoTabela.innerHTML = ''; // limpar tabela 
 
-            dados.ultimosCadastros.forEach(usuario => {
-                corpoTabela.innerHTML += `
+                dados.ultimosCadastros.forEach(usuario => {
+                    corpoTabela.innerHTML += `
                     <tr>
                         <td>#${usuario.id}</td>
                         <td>${usuario.nome}</td>
                         <td>${usuario.data_cadastro}</td>
                     </tr>
                 `;
+                });
+            })
+            .catch(erro => {
+                console.error('Erro ao buscar dados do dashboard:', erro);
+                document.getElementById('status-conexao').innerText = '[ ERRO DE CONEXÃO ]';
             });
-        })
-        .catch(erro => {
-            console.error('Erro ao buscar dados do dashboard:', erro);
-            document.getElementById('status-conexao').innerText = '[ ERRO DE CONEXÃO ]';
-        });
-}
+    }
 
     function abrirCategoria(nomeDaCategoria) {
 
@@ -391,10 +409,10 @@
     let btnStart = document.getElementById('iconstart');
     let menuIniciar = document.getElementById('menu-iniciar');
 
-    let menuEstaAberto = false; 
+    let menuEstaAberto = false;
 
     // Abrir efechar o menu
-    btnStart.onclick = function(evento) {
+    btnStart.onclick = function (evento) {
         if (menuEstaAberto == false) {
             menuIniciar.style.display = 'block'; // Mostra
             menuEstaAberto = true;
@@ -405,7 +423,7 @@
     };
 
     // fecha o menu se clicar em outro lugar da tela
-    window.onclick = function(evento) {
+    window.onclick = function (evento) {
         // Se o menu tá aberto E o clique NÃO foi na vaquinha, fecha
         if (menuEstaAberto == true && evento.target.id != 'iconstart') {
             menuIniciar.style.display = 'none';
@@ -416,13 +434,13 @@
     // vai pro terminal
     function fazerLogout() {
         sessionStorage.clear();
-        window.location.href = 'index.html#terminal'; 
+        window.location.href = 'index.html#terminal';
     }
 
     // vai pra tela de ligar pc
     function desligarSistema() {
         sessionStorage.clear();
-        window.location.href = 'index.html'; 
+        window.location.href = 'index.html';
     }
 </script>
 
