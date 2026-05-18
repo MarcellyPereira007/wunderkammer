@@ -170,6 +170,14 @@
                         }
                     }
                 }
+
+                let video = document.querySelector('video');
+                
+                if (video) {
+                    if (tocando) {
+                        musica.pause();
+                    }
+                }
             });
     }
 
@@ -178,15 +186,19 @@
         let janela = document.getElementById('modal');
         janela.classList.remove('aberta');
 
-        let video = janela.querySelector('video'); 
+        let video = janela.querySelector('video');
         // Se ele pegar algum video
         if (video) {
             video.pause();
         }
         // Volta tocar msc da home
-        if(tocando) {
+        if (tocando) {
             musica.play();
         }
+
+        setTimeout(() => {
+            document.getElementById('janela-conteudo').innerHTML = '';
+        }, 300);
     }
 
     function buscarKpisDashboard() {
