@@ -178,10 +178,12 @@
         let janela = document.getElementById('modal');
         janela.classList.remove('aberta');
 
-        let video = document.getElementById('video-creditos' || 'video-biblioteca'); //se o video estiver na tela ele vai pausar o video quando eu fechar e voltar a musica
+        let video = janela.querySelector('video'); 
+        // Se ele pegar algum video
         if (video) {
             video.pause();
         }
+        // Volta tocar msc da home
         if(tocando) {
             musica.play();
         }
