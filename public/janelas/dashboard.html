@@ -1,125 +1,208 @@
 <style>
-
-    body {
-        margin: 0;
-        padding: 0;
+    .janela-dashboard {
         background-color: black;
-        width: 100vw;
-        height: 100vh;
-    }
-
-    #janela-dashboard {
-        font-family: 'Courier New', Consolas, monospace;
-        background-color: black;
-        color: white;
+        color: #E2E1E6;
+        font-family: "Pixelify Sans", sans-serif;
         width: 100%;
         height: 100%;
-        padding: 20px;
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-
-    .dash-header {
-        border-bottom: 2px solid white;
-        padding-bottom: 10px;
-        margin-bottom: 30px;
         display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
+        flex-direction: row;
+        padding: 40px;
+        gap: 30px;
     }
 
-    .kpi-container {
-        display: flex;
-        gap: 20px;
-        margin-bottom: 30px;
-    }
+    
 
-    .kpi-card {
+    .painel-usuario {
         flex: 1;
-        border: 1px solid white;
-        background-color: rgba(0, 255, 204, 0.05);
+        border: 2px solid #E2E1E6;
+        border-radius: 15px;
         padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        overflow-y: auto;
+    }
+
+    .painel-admin {
+        flex: 2;
+        border: 2px solid white;
+        border-radius: 15px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        overflow-y: auto;
+    }
+
+     .painel-admin::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    .painel-admin::-webkit-scrollbar-track {
+        background: rgb(0, 0, 0);
+        border-radius: 0px;
+    }
+
+    .painel-admin::-webkit-scrollbar-thumb {
+        background-color: #a2a1a1;
+        border-radius: 10px;
+        border: 2px solid rgb(0, 0, 0);
+    }
+
+
+    h2 {
         text-align: center;
-        box-shadow: 0 0 10px rgba(0, 255, 204, 0.1);
-    }
-
-    .kpi-card h3 {
-        font-size: 14px;
-        color: #888;
+        border-bottom: 2px dashed #E2E1E6;
+        padding-bottom: 10px;
         margin-bottom: 10px;
-        text-transform: uppercase;
-        letter-spacing: 2px;
+        color: white;
     }
 
-    .kpi-valor {
-        font-size: 48px;
+    .container-barra {
+        width: 100%;
+        border: 3px solid #E2E1E6;
+        background-color: #000;
+        padding: 3px;
+        height: 35px;
+        position: relative;
+    }
+
+    .barra-progresso {
+        height: 100%;
+        background-color: #E2E1E6;
+        width: 0%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 5px;
+        transition: width 1.5s ease-in-out;
+    }
+
+    .texto-porcentagem {
+        color: #000;
         font-weight: bold;
-        text-shadow: 0 0 15px rgba(177, 191, 188, 0.5);
+        font-size: 18px;
     }
 
-    .lista-usuarios-container {
-        border: 1px solid white;
-        padding: 20px;
-        background-color: rgba(0, 255, 204, 0.05);
-    }
-
-    .lista-usuarios-container h3 {
-        margin-bottom: 15px;
-        color: #888;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    #tabela-usuarios {
+    .tabela-retro {
         width: 100%;
         border-collapse: collapse;
+        font-family: Consolas, monospace;
+        font-size: 14px;
+        margin-top: 10px;
     }
 
-    #tabela-usuarios th, #tabela-usuarios td {
-        text-align: left;
+    .tabela-retro th {
+        background-color: #E2E1E6;
+        color: #000;
+        border: 1px solid #E2E1E6;
+        padding: 8px;
+        text-transform: uppercase;
+    }
+
+    .tabela-retro td {
+        border: 1px solid black;
+        padding: 8px;
+        color: #E2E1E6;
+    }
+
+    .container-grafico {
+        position: relative;
+        height: 300px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        border: 1px dotted #E2E1E6;
         padding: 10px;
-        border-bottom: 1px dashed white;
     }
 
-    #tabela-usuarios th {
-        color: white;
+    .kpi-numero {
+        font-size: 40px;
+        color: #E2E1E6;
+        text-align: center;
+        margin: 0;
     }
 </style>
 
-<body>
+<div class="janela-dashboard">
 
+    <div class="painel-usuario">
+        <h2>Painel do usuário</h2>
+        
+        <div>
+            <p style="text-align: center; font-size: 22px;" id="dash-status-conexao">Aguardando conexão...</p>
+            
+            <p>Taxa de compatibilidade:</p>
+            <div class="container-barra">
+                <div class="barra-progresso" id="dash-barra-progresso">
+                    <span class="texto-porcentagem" id="dash-texto-porcentagem">0%</span>
+                </div>
+            </div>
+        </div>
 
-<div id="janela-dashboard">
-    <div class="dash-header">
-        <h2>SYS_MONITOR // mimiomia_OS</h2>
-        <span id="status-conexao" style="color: white;">[ ONLINE ]</span>
+        <div>
+            <h3>Interesses em comum:</h3>
+            <p style="font-size: 14px; color: #aaa;">Esses interesses foram marcados no Quiz.exe</p>
+            <ul id="dash-setores-comum" style="list-style-type: square; padding-left: 20px; font-size: 18px; line-height: 1.5;">
+                <li>Carregando interesses...</li>
+            </ul>
+        </div>
     </div>
 
-    <div class="kpi-container">
-        <div class="kpi-card">
-            <h3>Total de Users</h3>
-            <div class="kpi-valor" id="kpi-usuarios">--</div>
-        </div>
-        <div class="kpi-card">
-            <h3>Maravilhas</h3>
-            <div class="kpi-valor" id="kpi-posts">--</div>
-        </div>
-    </div>
+    <div class="painel-admin">
+        <h2>Mimiomia_OS global</h2>
 
-    <div class="lista-usuarios-container">
-        <h3>>> Últimos users</h3>
-        <table id="tabela-usuarios">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>NOME</th>
-                    <th>DATA DE CADASTRO</th>
-                </tr>
-            </thead>
-            <tbody id="corpo-tabela-usuarios">
-            </tbody>
-        </table>
+        <div style="display: flex; justify-content: space-around; border-bottom: 1px solid black; padding-bottom: 20px;">
+            <div>
+                <p style="text-align: center; margin: 0;">Total de visitantes</p>
+                <p class="kpi-numero" id="dash-total-visitantes">--</p>
+            </div>
+            <div>
+                <p style="text-align: center; margin: 0;">Média compatibilidade geral</p>
+                <p class="kpi-numero" id="dash-media-geral" style="color: #4ca54c;">--%</p>
+            </div>
+        </div>
+
+        <div>
+            <h3>Volume nas categorias</h3>
+            <div class="container-grafico">
+                <canvas id="graficoAcervo"></canvas>
+            </div>
+        </div>
+
+        <div>
+            <h3>Ranking de compatibilidade</h3>
+            <table class="tabela-retro">
+                <thead>
+                    <tr>
+                        <th>Posição</th>
+                        <th>Usuário</th>
+                        <th>Taxa (%)</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="dash-tabela-ranking">
+                    <tr><td colspan="4" style="text-align: center;">Buscando dados no servidor...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <h3>Log de recomendações</h3>
+            <table class="tabela-retro">
+                <thead>
+                    <tr>
+                        <th>Usuário</th>
+                        <th>Tema</th>
+                        <th>Descrição da recomendação</th>
+                    </tr>
+                </thead>
+                <tbody id="dash-tabela-recomendacoes">
+                    <tr><td colspan="3" style="text-align: center;">Lendo logs do sistema...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 </div>
-
-</body>

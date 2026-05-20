@@ -9,7 +9,9 @@
 
     <script src="./js/sessao.js"></script>
     <script src="./js/posts/blueprince.js"></script>
-
+    <script src="./js/quiz.js"></script>
+    <script src="./js/dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="./css/home.css" /> <!--CSS da página-->
     <link rel="icon" href="./assets/icon/favicon2.png" /> <!--Ícone da aba-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -159,7 +161,18 @@
                 janela.classList.add('aberta');
 
                 if (nomeArquivo.includes('dashboard')) {
-                    buscarKpisDashboard();
+                    setTimeout(() => {
+                        iniciarPainelDashboard();
+                    }, 100);
+                }
+
+                if (nomeArquivo.includes('quiz')) {
+                    carregarCategoriasQuiz();
+
+                    setTimeout(() => {
+                        configurarBotaoQuiz();
+                        configurarBotaoRecomendacao();
+                    }, 100);
                 }
 
                 if (nomeArquivo.includes('creditos')) {
@@ -172,7 +185,7 @@
                 }
 
                 let video = document.querySelector('video');
-                
+
                 if (video) {
                     if (tocando) {
                         musica.pause();

@@ -76,7 +76,9 @@ INSERT INTO categoria (nome_categoria) VALUES
 ('Ensaios');
 
 -- INSERTS exemplo
-INSERT INTO maravilha (titulo, descricao, caminho_capa, caminho_arquivo) VALUES ('Blue Prince', 'Blue Prince é um jogo indie de mistério e puzzle, onde você herda uma mansão misteriosa e precisa descobrir a localização secreta do 46º quarto, mesmo a casa possuindo apenas 45 cômodos','../../assets/img/home/capas/blueprince.png','../janelas/posts/blueprince.html');
+INSERT INTO maravilha (titulo, descricao, caminho_capa, caminho_arquivo) VALUES 
+('Blue Prince', 'Blue Prince é um jogo indie de mistério e puzzle, onde você herda uma mansão misteriosa e precisa descobrir a localização secreta do 46º quarto, mesmo a casa possuindo apenas 45 cômodos','../../assets/img/home/capas/blueprince.png','../janelas/posts/blueprince.html');
+
 INSERT INTO maravilha_categoria (fk_maravilha, fk_categoria) VALUES (1,10);
 
 -- Mostrar nome da maravilha, nome da categoria
