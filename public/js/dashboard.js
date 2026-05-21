@@ -54,8 +54,52 @@ function iniciarPainelDashboard() {
                     `;
                 });
             }
+            
+            let nomesCategorias = [];
+            let quantidades = [];
 
-            console.log("Dados do gráfico:", dados.grafico);
+            dados.grafico.forEach(item => {
+                nomesCategorias.push(item.nome_categoria);
+                quantidades.push(item.total_maravilhas);
+            });
+
+            Chart.defaults.font.family = '"Pixelify Sans", sans-serif';
+            Chart.defaults.color = '#E2E1E6';
+            Chart.defaults.font.size = 18;
+
+            let ctx = document.getElementById('graficoAcervo').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: nomesCategorias,
+                    datasets: [{
+                        label: 'Total de maravilhas',
+                        data: quantidades,
+                        backgroundColor: [
+                            '#21616f', 
+                            '#612036',
+                            '#194f19',
+                            '#674e1c',
+                            '#551365',
+                            '#797919',
+                            '#ffffff'
+                        ],
+                        borderColor: '#03081E',
+                        borderWidth: 2,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        }
+                    }
+                }
+            });
         })
         .catch(erro => console.error("Erro ao buscar painel global:", erro));
 
