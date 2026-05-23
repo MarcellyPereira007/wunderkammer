@@ -1,25 +1,34 @@
 function iniciarPainelDashboard() {
     let idUsuarioLogado = sessionStorage.getItem('idUsuario');
 
-    fetch('/dashboard/global')
+    fetch('/dashboard/kpis')
         .then(function (resposta) {
-            if (!resposta.ok) throw new Error("Rota não encontrada");
             return resposta.json();
         })
         .then(function (dados) {
-            document.getElementById('dash-total-visitantes').innerText = dados.kpis.total_visitantes;
+            // Pega posição 0 da lista do banco
+            document.getElementById('dash-total-visitantes').innerText = dados[0].total_visitantes;
 
-            let media = dados.kpis.media_geral ? parseFloat(dados.kpis.media_geral).toFixed(2) : 0;
+            let media = dados[0].media_geral ? parseFloat(dados[0].media_geral).toFixed(2) : 0;
             document.getElementById('dash-media-geral').innerText = `${media}%`;
+        })
+        .catch(function (erro) {
+            console.error("Erro ao buscar KPIs:", erro);
+        });
 
+    fetch('/dashboard/ranking')
+        .then(function (resposta) {
+            return resposta.json();
+        })
+        .then(function (dados) {
             let tbodyRanking = document.getElementById('dash-tabela-ranking');
             tbodyRanking.innerHTML = '';
 
-            if (dados.ranking.length === 0) {
+            if (dados.length === 0) {
                 tbodyRanking.innerHTML = `<tr><td colspan="4" style="text-align: center;">Nenhum quiz respondido ainda</td></tr>`;
             } else {
-                for (let i = 0; i < dados.ranking.length; i++) {
-                    let item = dados.ranking[i];
+                for (let i = 0; i < dados.length; i++) {
+                    let item = dados[i];
                     let posicao = i + 1;
                     let taxa = parseFloat(item.taxa_compatibilidade).toFixed(2);
 
@@ -38,15 +47,24 @@ function iniciarPainelDashboard() {
                     `;
                 }
             }
+        })
+        .catch(function (erro) {
+            console.error("Erro ao buscar ranking:", erro);
+        });
 
+    fetch('/dashboard/recomendacoes')
+        .then(function (resposta) {
+            return resposta.json();
+        })
+        .then(function (dados) {
             let tbodyRecomendacoes = document.getElementById('dash-tabela-recomendacoes');
             tbodyRecomendacoes.innerHTML = '';
 
-            if (dados.recomendacoes.length === 0) {
+            if (dados.length === 0) {
                 tbodyRecomendacoes.innerHTML = `<tr><td colspan="3" style="text-align: center;">Nenhuma recomendação recebida ainda.</td></tr>`;
             } else {
-                for (let i = 0; i < dados.recomendacoes.length; i++) {
-                    let item = dados.recomendacoes[i];
+                for (let i = 0; i < dados.length; i++) {
+                    let item = dados[i];
 
                     tbodyRecomendacoes.innerHTML += `
                         <tr>
@@ -57,13 +75,21 @@ function iniciarPainelDashboard() {
                     `;
                 }
             }
+        })
+        .catch(function (erro) {
+            console.error("Erro ao buscar Recomendações:", erro);
+        });
 
-            // --- Grafico chartjs ---
+    fetch('/dashboard/grafico')
+        .then(function (resposta) {
+            return resposta.json();
+        })
+        .then(function (dados) {
             let nomesCategorias = [];
             let quantidades = [];
 
-            for (let i = 0; i < dados.grafico.length; i++) {
-                let item = dados.grafico[i];
+            for (let i = 0; i < dados.length; i++) {
+                let item = dados[i];
                 nomesCategorias.push(item.nome_categoria);
                 quantidades.push(item.total_maravilhas);
             }
@@ -82,13 +108,7 @@ function iniciarPainelDashboard() {
                         label: 'Total de maravilhas',
                         data: quantidades,
                         backgroundColor: [
-                            '#21616f',
-                            '#612036',
-                            '#194f19',
-                            '#674e1c',
-                            '#551365',
-                            '#797919',
-                            '#ffffff'
+                            '#21616f', '#612036', '#194f19', '#674e1c', '#551365', '#797919', '#ffffff'
                         ],
                         borderColor: '#03081E',
                         borderWidth: 2,
@@ -99,24 +119,25 @@ function iniciarPainelDashboard() {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: {
-                            position: 'right',
-                        }
+                        legend: { position: 'right' }
                     }
                 }
             });
         })
         .catch(function (erro) {
-            console.error("Erro ao buscar painel global:", erro);
+            console.error("Erro ao buscar gráfico:", erro);
         });
 
-    fetch(`/dashboard/usuario/${idUsuarioLogado}`)
+    fetch(`/dashboard/taxa/${idUsuarioLogado}`)
         .then(function (resposta) {
-            if (!resposta.ok) throw new Error("Rota não encontrada");
             return resposta.json();
         })
-        .then(function (dadosUsuario) {
-            let taxa = dadosUsuario.taxa ? parseFloat(dadosUsuario.taxa) : 0;
+        .then(function (dados) {
+            let taxa = 0;
+            // Se o array tiver alguma coisa, pega a taxa, senão fica 0
+            if (dados.length > 0) {
+                taxa = parseFloat(dados[0].taxa_compatibilidade);
+            }
 
             // Faz a barra encher
             document.getElementById('dash-barra-progresso').style.width = `${taxa}%`;
@@ -126,20 +147,29 @@ function iniciarPainelDashboard() {
             if (taxa < 30) divStatus.innerText = "Visitante curioso";
             else if (taxa >= 30 && taxa < 70) divStatus.innerText = "Conexão estável";
             else divStatus.innerText = "Sincronia perfeita";
+        })
+        .catch(function (erro) {
+            console.error("Erro ao buscar taxa de compatibilidade do usuário:", erro);
+        });
 
+    fetch(`/dashboard/setores/${idUsuarioLogado}`)
+        .then(function (resposta) {
+            return resposta.json();
+        })
+        .then(function (dados) {
             let ulSetores = document.getElementById('dash-setores-comum');
             ulSetores.innerHTML = ''; // Limpar a mensagem de carregando
 
-            if (dadosUsuario.setores.length === 0) {
+            if (dados.length === 0) {
                 ulSetores.innerHTML = `<li>Você ainda não marcou interesses em comum. Responda o Quiz</li>`;
             } else {
-                for (let i = 0; i < dadosUsuario.setores.length; i++) {
-                    let item = dadosUsuario.setores[i];
+                for (let i = 0; i < dados.length; i++) {
+                    let item = dados[i];
                     ulSetores.innerHTML += `<li>${item.nome_categoria}</li>`;
                 }
             }
         })
         .catch(function (erro) {
-            console.error("Erro ao buscar dados do usuário:", erro);
+            console.error("Erro ao buscar categorias do usuário:", erro);
         });
 }
