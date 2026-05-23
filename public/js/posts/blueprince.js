@@ -15,22 +15,24 @@ const jsonImagensBluePrince = [
 ];
 
 function montarCarrosselInfinito() {
-    //Pegar o elemento do carrossel pelo id do html
+    // Pegar o elemento do carrossel pelo id do html
     let track = document.getElementById('carrossel');
-    if (!track) return; // se nao tiver na tela do bp, ele não monta o carrossel
+    if (track == null) return; // se nao tiver na tela do bp, ele não monta o carrossel
     let fotosHTML = '';
 
-    //vai adidionando foto por foto do array pra montar o carrossel completo
-    jsonImagensBluePrince.forEach(caminho => {
+    // Vai adidionando foto por foto do array pra montar o carrossel completo
+    for (let i = 0; i < jsonImagensBluePrince.length; i++) {
+        let caminho = jsonImagensBluePrince[i];
+        
         fotosHTML += `
             <div class="galeria_frame" onclick="abrirImagem('${caminho}')">
                 <img src="${caminho}">
             </div>
         `;
-    });
+    }
 
     track.innerHTML = fotosHTML;
-    //track.innerHTML = fotosHTML + fotosHTML;
+    // track.innerHTML = fotosHTML + fotosHTML;
 }
 
 function abrirImagem(caminhoSrc) {
@@ -48,7 +50,7 @@ function fecharImagem() {
 
 //puzzles
 
-// lista de enigmas
+// Lista de enigmas
 const enigmasParlor = [
     { azul: "As gemas NÃO estão nesta caixa.", branca: "As gemas ESTÃO nesta caixa.", preta: "As gemas NÃO estão na caixa branca.", resposta: "azul" },
     { azul: "A caixa preta contém as gemas.", branca: "Esta caixa e a azul estão vazias.", preta: "Todas as três caixas estão vazias.", resposta: "preta" },
@@ -61,14 +63,14 @@ const enigmasParlor = [
 ];
 
 let puzzleResolvido = false;
-let respostaCorretaAtual = ""; // Vai guardar a cor da caixa premiada da rodada
+let respostaCorretaAtual = ""; // Vai guardar a cor da caixa certa
 
 function iniciarMinijogoParlor() {
     puzzleResolvido = false; 
     
     // Sorteia um enigma da lista
-    const indiceSorteado = Math.floor(Math.random() * enigmasParlor.length); // 0 é incluido e 1 excluído
-    const enigma = enigmasParlor[indiceSorteado];
+    let indiceSorteado = Math.floor(Math.random() * enigmasParlor.length); // 0 é incluido e 1 excluído
+    let enigma = enigmasParlor[indiceSorteado];
     respostaCorretaAtual = enigma.resposta; 
     
     // Preenche as frases
@@ -82,33 +84,37 @@ function iniciarMinijogoParlor() {
     document.getElementById('img-whitebox').src = '../../assets/img/posts/blueprince/box-white-fechada.png';
     document.getElementById('img-blackbox').src = '../../assets/img/posts/blueprince/box-black-fechada.png';
 
-    // esconde as gemas
-    document.querySelectorAll('.gema-recompensa').forEach(gema => gema.classList.remove('aparecer'));
-    // limpa statements
+    // Esconde as gemas
+    let gemas = document.getElementsByClassName('gema-recompensa');
+    for (let i = 0; i < gemas.length; i++) {
+        gemas[i].classList.remove('aparecer');
+    }
+
+    // Limpa statements
     document.getElementById('mensagem-puzzle').innerHTML = "";
-    // some o botão
+    // Some o botão
     document.getElementById('btn-reiniciar').style.display = "none";
 }
 
 function tentarCaixa(corSelecionada) {
-    if (puzzleResolvido) return; // Pra jogar só uma vez
+    if (puzzleResolvido == true) return; // Pra jogar só uma vez
 
-    const imgAzul = document.getElementById('img-bluebox');
-    const imgBranca = document.getElementById('img-whitebox');
-    const imgPreta = document.getElementById('img-blackbox');
-    const mensagem = document.getElementById('mensagem-puzzle');
+    let imgAzul = document.getElementById('img-bluebox');
+    let imgBranca = document.getElementById('img-whitebox');
+    let imgPreta = document.getElementById('img-blackbox');
+    let mensagem = document.getElementById('mensagem-puzzle');
 
     // Abre só a caixa que a pessoa clicar
-    if (corSelecionada === 'azul') {
+    if (corSelecionada == 'azul') {
         imgAzul.src = '../../assets/img/posts/blueprince/box-blue-aberta.png';
-    } else if (corSelecionada === 'branca') {
+    } else if (corSelecionada == 'branca') {
         imgBranca.src = '../../assets/img/posts/blueprince/box-white-aberta.png';
-    } else if (corSelecionada === 'preta') {
+    } else if (corSelecionada == 'preta') {
         imgPreta.src = '../../assets/img/posts/blueprince/box-black-aberta.png';
     }
 
     // Verifica se acertou
-    if (corSelecionada === respostaCorretaAtual) {
+    if (corSelecionada == respostaCorretaAtual) {
         mensagem.innerHTML = "Você encontrou as gemas";
         mensagem.style.color = "#86bcd6"; 
         

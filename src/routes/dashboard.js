@@ -1,13 +1,30 @@
-var express = require("express");
-var router = express.Router();
-var dashboardController = require("../controllers/dashboardController");
+const express = require("express");
+const router = express.Router();
+const dashboardController = require("../controllers/dashboardController");
 
-router.get("/usuario/:idUsuario", function (req, res) {
-    dashboardController.buscarDadosDoUsuario(req, res);
+router.get("/taxa/:idUsuario", function (req, res) {
+    dashboardController.buscarTaxaUsuario(req, res);
 });
 
-router.get("/global", function (req, res) {
-    dashboardController.buscarDadosGlobais(req, res);
+router.get("/setores/:idUsuario", function (req, res) {
+    dashboardController.buscarSetoresUsuario(req, res);
+});
+
+// dados globais
+router.get("/kpis", function (req, res) {
+    dashboardController.buscarKpisGerais(req, res);
+});
+
+router.get("/ranking", function (req, res) {
+    dashboardController.buscarRanking(req, res);
+});
+
+router.get("/recomendacoes", function (req, res) {
+    dashboardController.buscarRecomendacoes(req, res);
+});
+
+router.get("/grafico", function (req, res) {
+    dashboardController.buscarDadosGrafico(req, res);
 });
 
 module.exports = router;

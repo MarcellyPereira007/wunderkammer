@@ -1,14 +1,14 @@
 function iniciarPainelDashboard() {
-    let idUsuarioLogado = sessionStorage.getItem('idUsuario'); 
-    
+    let idUsuarioLogado = sessionStorage.getItem('idUsuario');
+
     fetch('/dashboard/global')
-        .then(resposta => {
+        .then(function (resposta) {
             if (!resposta.ok) throw new Error("Rota não encontrada");
             return resposta.json();
         })
-        .then(dados => {
+        .then(function (dados) {
             document.getElementById('dash-total-visitantes').innerText = dados.kpis.total_visitantes;
-            
+
             let media = dados.kpis.media_geral ? parseFloat(dados.kpis.media_geral).toFixed(2) : 0;
             document.getElementById('dash-media-geral').innerText = `${media}%`;
 
@@ -18,10 +18,11 @@ function iniciarPainelDashboard() {
             if (dados.ranking.length === 0) {
                 tbodyRanking.innerHTML = `<tr><td colspan="4" style="text-align: center;">Nenhum quiz respondido ainda</td></tr>`;
             } else {
-                dados.ranking.forEach((item, index) => {
-                    let posicao = index + 1;
+                for (let i = 0; i < dados.ranking.length; i++) {
+                    let item = dados.ranking[i];
+                    let posicao = i + 1;
                     let taxa = parseFloat(item.taxa_compatibilidade).toFixed(2);
-                    
+
                     let status = "";
                     if (taxa < 30) status = "Visitante curioso";
                     else if (taxa >= 30 && taxa < 70) status = "Conexão estável";
@@ -35,7 +36,7 @@ function iniciarPainelDashboard() {
                             <td>${status}</td>
                         </tr>
                     `;
-                });
+                }
             }
 
             let tbodyRecomendacoes = document.getElementById('dash-tabela-recomendacoes');
@@ -44,7 +45,9 @@ function iniciarPainelDashboard() {
             if (dados.recomendacoes.length === 0) {
                 tbodyRecomendacoes.innerHTML = `<tr><td colspan="3" style="text-align: center;">Nenhuma recomendação recebida ainda.</td></tr>`;
             } else {
-                dados.recomendacoes.forEach(item => {
+                for (let i = 0; i < dados.recomendacoes.length; i++) {
+                    let item = dados.recomendacoes[i];
+
                     tbodyRecomendacoes.innerHTML += `
                         <tr>
                             <td>${item.username}</td>
@@ -52,16 +55,18 @@ function iniciarPainelDashboard() {
                             <td>${item.descricao}</td>
                         </tr>
                     `;
-                });
+                }
             }
-            
+
+            // --- Grafico chartjs ---
             let nomesCategorias = [];
             let quantidades = [];
 
-            dados.grafico.forEach(item => {
+            for (let i = 0; i < dados.grafico.length; i++) {
+                let item = dados.grafico[i];
                 nomesCategorias.push(item.nome_categoria);
                 quantidades.push(item.total_maravilhas);
-            });
+            }
 
             Chart.defaults.font.family = '"Pixelify Sans", sans-serif';
             Chart.defaults.color = '#E2E1E6';
@@ -77,7 +82,7 @@ function iniciarPainelDashboard() {
                         label: 'Total de maravilhas',
                         data: quantidades,
                         backgroundColor: [
-                            '#21616f', 
+                            '#21616f',
                             '#612036',
                             '#194f19',
                             '#674e1c',
@@ -101,16 +106,18 @@ function iniciarPainelDashboard() {
                 }
             });
         })
-        .catch(erro => console.error("Erro ao buscar painel global:", erro));
+        .catch(function (erro) {
+            console.error("Erro ao buscar painel global:", erro);
+        });
 
     fetch(`/dashboard/usuario/${idUsuarioLogado}`)
-        .then(resposta => {
+        .then(function (resposta) {
             if (!resposta.ok) throw new Error("Rota não encontrada");
             return resposta.json();
         })
-        .then(dadosUsuario => {
+        .then(function (dadosUsuario) {
             let taxa = dadosUsuario.taxa ? parseFloat(dadosUsuario.taxa) : 0;
-            
+
             // Faz a barra encher
             document.getElementById('dash-barra-progresso').style.width = `${taxa}%`;
             document.getElementById('dash-texto-porcentagem').innerText = `${taxa.toFixed(2)}%`;
@@ -121,15 +128,18 @@ function iniciarPainelDashboard() {
             else divStatus.innerText = "Sincronia perfeita";
 
             let ulSetores = document.getElementById('dash-setores-comum');
-            ulSetores.innerHTML = ''; // Limpa a mensagem de carregando
+            ulSetores.innerHTML = ''; // Limpar a mensagem de carregando
 
             if (dadosUsuario.setores.length === 0) {
                 ulSetores.innerHTML = `<li>Você ainda não marcou interesses em comum. Responda o Quiz</li>`;
             } else {
-                dadosUsuario.setores.forEach(item => {
+                for (let i = 0; i < dadosUsuario.setores.length; i++) {
+                    let item = dadosUsuario.setores[i];
                     ulSetores.innerHTML += `<li>${item.nome_categoria}</li>`;
-                });
+                }
             }
         })
-        .catch(erro => console.error("Erro ao buscar dados do usuário:", erro));
+        .catch(function (erro) {
+            console.error("Erro ao buscar dados do usuário:", erro);
+        });
 }

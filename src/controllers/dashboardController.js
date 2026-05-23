@@ -1,50 +1,82 @@
-var dashboardModel = require("../models/dashboardModel");
+const dashboardModel = require("../models/dashboardModel");
 
-function buscarDadosDoUsuario(req, res) {
-    var idUsuario = req.params.idUsuario;
+// Usuario
+function buscarTaxaUsuario(req, res) {
+    let idUsuario = req.params.idUsuario;
 
-    Promise.all([
-        dashboardModel.buscarDadosUsuario(idUsuario),
-        dashboardModel.buscarSetoresUsuario(idUsuario)
-    ])
-    .then(function(resultados) {
-        
-        var taxa = resultados[0].length > 0 ? resultados[0][0].taxa_compatibilidade : null;
-        var categorias = resultados[1];
-
-        res.status(200).json({
-            taxa: taxa,
-            setores: categorias
+    dashboardModel.buscarDadosUsuario(idUsuario)
+        .then(function(resultado) {
+            res.status(200).json(resultado);
+        })
+        .catch(function(erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
         });
-    })
-    .catch(function(erro) {
-        console.log(erro);
-        res.status(500).json(erro.sqlMessage);
-    });
 }
 
-function buscarDadosGlobais(req, res) {
-    Promise.all([
-        dashboardModel.buscarKpisGerais(),
-        dashboardModel.buscarRanking(),
-        dashboardModel.buscarRecomendacoes(),
-        dashboardModel.buscarDadosGrafico()
-    ])
-    .then(function(resultados) {
-        res.status(200).json({
-            kpis: resultados[0][0],
-            ranking: resultados[1],
-            recomendacoes: resultados[2],
-            grafico: resultados[3] 
+function buscarSetoresUsuario(req, res) {
+    let idUsuario = req.params.idUsuario;
+
+    dashboardModel.buscarSetoresUsuario(idUsuario)
+        .then(function(resultado) {
+            res.status(200).json(resultado);
+        })
+        .catch(function(erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
         });
-    })
-    .catch(function(erro) {
-        console.log(erro);
-        res.status(500).json(erro.sqlMessage);
-    });
+}
+
+// Geral
+function buscarKpisGerais(req, res) {
+    dashboardModel.buscarKpisGerais()
+        .then(function(resultado) {
+            res.status(200).json(resultado);
+        })
+        .catch(function(erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+function buscarRanking(req, res) {
+    dashboardModel.buscarRanking()
+        .then(function(resultado) {
+            res.status(200).json(resultado);
+        })
+        .catch(function(erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+function buscarRecomendacoes(req, res) {
+    dashboardModel.buscarRecomendacoes()
+        .then(function(resultado) {
+            res.status(200).json(resultado);
+        })
+        .catch(function(erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+function buscarDadosGrafico(req, res) {
+    dashboardModel.buscarDadosGrafico()
+        .then(function(resultado) {
+            res.status(200).json(resultado);
+        })
+        .catch(function(erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
 }
 
 module.exports = {
-    buscarDadosDoUsuario,
-    buscarDadosGlobais
+    buscarTaxaUsuario,
+    buscarSetoresUsuario,
+    buscarKpisGerais,
+    buscarRanking,
+    buscarRecomendacoes,
+    buscarDadosGrafico
 };

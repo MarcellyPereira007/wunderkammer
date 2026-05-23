@@ -167,6 +167,26 @@
         border-radius: 5px;
 
     }
+
+    .linha-checkbox {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 5px;
+    }
+
+    .label-checkbox {
+        cursor: pointer;
+        font-size: 20px;
+        font-family: "Pixelify Sans", sans-serif;
+        color: white;
+    }
+    
+    .check-categoria {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+    }
 </style>
 
     <div class="janela-quiz">
@@ -180,7 +200,7 @@
 
                 <div id="checkboxes"></div>
 
-                <button id="btnEnviarQuiz" class="btnEnviar" style="margin-top: 15px;">Enviar interesses</button>
+                <button id="btnEnviarQuiz" class="btnEnviar" onclick="enviarQuiz()">Enviar interesses</button>
             </div>
 
             <img src="../assets/img/janelas/quiz/ornamentobaixo.png" alt="Ornamento">
@@ -197,7 +217,7 @@
                 <p>Faça uma recomendação de algo<br>que você goste e acha que vou gostar </p>
                 <input id="temaipt" class="ipt" type="text" placeholder="Digite aqui o tema...">
                 <input id="descricaoipt" class="ipt" type="text" placeholder="Digite aqui a recomendação...">
-                <button id="btnEnviarRecomendacao" class="btnEnviar">Enviar recomendação</button>
+                <button id="btnEnviarRecomendacao" class="btnEnviar" onclick="enviarRecomendacao()">Enviar recomendação</button>
             </div>
         </div>
 

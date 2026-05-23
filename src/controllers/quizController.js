@@ -16,7 +16,7 @@ function salvarResultado(req, res) {
     var categoriasMarcadas = req.body.categorias;
 
     if (fkUsuario == undefined || categoriasMarcadas == undefined) {
-        return res.status(400).send("Faltam dados!");
+        return res.status(400).send("Erro, algum dado faltando");
     }
 
     // pegar o total pra calcular
@@ -28,7 +28,7 @@ function salvarResultado(req, res) {
             // Regra de 3 basica
             var taxaCompatibilidade = ((quantidadeMarcada / totalValidas) * 100).toFixed(2); 
 
-            // 2. salva em cima
+            // salva em cima
             return quizModel.salvarCompatibilidade(fkUsuario, taxaCompatibilidade)
                 .then(function () {
                     // limpa a tabl intermediaria 
@@ -55,7 +55,7 @@ function salvarResultado(req, res) {
         });
 }
 
-// Adicione esta função
+// função de recomendação
 function enviarRecomendacao(req, res) {
     var fkUsuario = req.body.fk_usuario;
     var tema = req.body.tema;
