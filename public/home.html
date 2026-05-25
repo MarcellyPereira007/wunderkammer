@@ -7,13 +7,17 @@
 
     <title>Desktop</title>
 
+    <!--Javascript das janelas-->
     <script src="./js/sessao.js"></script>
     <script src="./js/posts/blueprince.js"></script>
     <script src="./js/quiz.js"></script>
     <script src="./js/dashboard.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!--Chart.js pra gerar gráficos-->
+
     <link rel="stylesheet" href="./css/home.css" /> <!--CSS da página-->
     <link rel="icon" href="./assets/icon/favicon2.png" /> <!--Ícone da aba-->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
@@ -22,10 +26,13 @@
 
 <body onload="validarSessao()">
 
+    <!-- Para limitar e não deixar subir ou descer o conteúdo da página -->
     <div id="container">
 
+        <!-- Toda parte da tela, excluindo a barra de tarefas -->
         <div class="tela-home">
 
+            <!-- Div para a área de atalhos, são 5 linhas e cada linha com 5 colunas-->
             <div class="atalhos">
                 <div class="linha" id="linha1">
                     <div class="coluna"></div>
@@ -54,12 +61,12 @@
                     </div>
                 </div>
                 <div class="linha" id="linha3">
+                    <div class="coluna"></div>
                     <div class="coluna"
                         onclick="abrirApp('./janelas/wunderkammer', 'wunderkammer.exe', 'assets/img/home/appIcons/wunderkammer.png')">
                         <img src="assets/img/home/appIcons/wunderkammer.png">
                         <p>wunderkammer.exe</p>
                     </div>
-                    <div class="coluna"></div>
                     <div class="coluna"></div>
                     <div class="coluna"
                         onclick="abrirApp('./janelas/dashboard', 'dashboard.html', 'assets/img/home/appIcons/dashboard.png')">
@@ -70,12 +77,11 @@
                 </div>
                 <div class="linha" id="linha4">
                     <div class="coluna"></div>
-                    <div class="coluna"
-                        onclick="abrirApp('./janelas/mapa', 'mapa.exe', 'assets/img/home/appIcons/mapa.png')">
-                        <img src="assets/img/home/appIcons/mapa.png">
-                        <p>mapa.exe</p>
-                    </div>
                     <div class="coluna"></div>
+                    <div class="coluna" onclick="abrirApp('./janelas/quiz', 'quiz.html', 'assets/img/home/appIcons/quiz.png')">
+                        <img src="assets/img/home/appIcons/quiz.png">
+                        <p>quiz.html</p>
+                    </div>
                     <div class="coluna"></div>
                     <div class="coluna"></div>
                 </div>
@@ -83,17 +89,14 @@
                     <div class="coluna"></div>
                     <div class="coluna"></div>
                     <div class="coluna"></div>
-                    <div class="coluna"
-                        onclick="abrirApp('./janelas/quiz', 'quiz.html', 'assets/img/home/appIcons/quiz.png')">
-                        <img src="assets/img/home/appIcons/quiz.png">
-                        <p>quiz.html</p>
-                    </div>
+                    <div class="coluna"></div>
                     <div class="coluna"></div>
                 </div>
             </div>
 
-            <!--Div da tela abrindo-->
+            <!-- Div da tela que se torna visível quando abro um atalho-->
             <div class="janela" id="modal">
+                
                 <!--Janela do wunderkammer-->
                 <div class="wunderkammer" id="janela-wunderkammer">
 
@@ -106,7 +109,7 @@
                             <img src="assets/img/home/fechar.png">
                         </button>
                     </div>
-
+                    <!-- Onde o conteúdo vai ser inserido quando abrir janela -->
                     <div class="conteudo" id="janela-conteudo"></div>
                 </div>
             </div>
@@ -115,6 +118,7 @@
 
         <div class="barra-tarefas">
 
+            <!-- Menu iniciar para sair que fica escondido acima do icone de start -->
             <div id="menu-iniciar" class="menu-iniciar">
                 <div class="menu-item" onclick="fazerLogout()">
                     <span>Sair</span>
@@ -127,6 +131,7 @@
             <div class="start">
                 <img id="iconstart" src="assets/img/home/start.png">
             </div>
+
 
             <div class="infos">
                 <div class="sound">
@@ -147,19 +152,22 @@
 
 <script>
 
-    // Função pra abrir janela
+    // Função pra abrir janela de acordo com a coluna de atalho que eu cliquei
     function abrirApp(nomeArquivo, tituloApp, caminhoIcone) {
 
+        // Atualiza o topo com o nome do "aplicativo" aberto e puxa o caminho do ícone
         document.getElementById('janela-titulo').innerHTML = tituloApp;
         document.getElementById('janela-icone').src = caminhoIcone;
 
-        fetch(nomeArquivo + '.html')
-            .then(resposta => resposta.text())
-            .then(html => {
+        // Usa o fetch pra jogar o arquivo dentro
+        fetch(nomeArquivo + '.html') // Busca o arquivo
+            .then(resposta => resposta.text()) // Pega o resultado dessa busca e transforma em texto
+            .then(html => { // Usa o html que já esta formatado dentro dessa função
                 document.getElementById('janela-conteudo').innerHTML = html;
-                let janela = document.getElementById('modal');
-                janela.classList.add('aberta');
+                let janela = document.getElementById('modal'); // Pega o modal da janela pelo id
+                janela.classList.add('aberta'); // Coloca a classe que deixa ela visível e devolve cliques
 
+                // Quando abrir, precisa validar e chamar as funções determinada de cada tela
                 if (nomeArquivo.includes('dashboard')) {
                     setTimeout(() => {
                         iniciarPainelDashboard();
@@ -170,26 +178,28 @@
                     buscarCategoriasQuiz();
                 }
 
-                if (nomeArquivo.includes('creditos')) {
-                    let video = document.getElementById('video-creditos');
-                    if (video) {
-                        if (tocando) {
-                            musica.pause();
-                        }
-                    }
-                }
+                // if (nomeArquivo.includes('creditos')) {
+                //     let video = document.getElementById('video-creditos');
+                //     if (video) {
+                //         if (tocando) {
+                //             musica.pause();
+                //         }
+                //     }
+                // }
 
+                // Pega na tela a tag video
                 let video = document.querySelector('video');
 
+                // Se ele puxar algum elemento de vídeo
                 if (video) {
-                    if (tocando) {
+                    if (tocando) { // Verifica se a música estava no estado tocando, se tiver, para ela
                         musica.pause();
                     }
                 }
             });
     }
 
-    // Função pra fechar
+    // Função pra fechar janela que foi aberta
     function fecharJanela() {
         let janela = document.getElementById('modal');
         janela.classList.remove('aberta');
