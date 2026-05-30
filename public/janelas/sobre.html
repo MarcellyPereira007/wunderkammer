@@ -1,0 +1,156 @@
+<style>
+    .janela-sobre {
+        background-color: #fdf6ee;
+        font-family: sans-serif;
+        color: #3d2b1f;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    .sobre-header {
+        text-align: center;
+        padding: 25px;
+    }
+
+    .sobre-principal {
+        display: flex;
+        flex-direction: row;
+        gap: 40px;
+        padding: 30px;
+    }
+
+    .foto-frame {
+        width: 200px;
+        height: 260px;
+        border: 3px solid #c4a882;
+        background: #e8d5c0;
+        overflow: hidden;
+    }
+
+    .foto-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .sobre-texto p {
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+
+    .secao {
+        padding: 30px;
+    }
+
+    .caixa {
+        border: 1px solid #c4a882;
+        padding: 20px;
+        margin-bottom: 15px;
+    }
+
+    .guestbook {
+        padding: 30px;
+    }
+
+    .gb-campo {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        margin-bottom: 15px;
+    }
+
+    .gb-campo input,
+    .gb-campo textarea {
+        border: 1px solid #c4a882;
+        padding: 8px;
+        font-size: 14px;
+        resize: none;
+    }
+
+    .gb-btn {
+        background: #8b6347;
+        color: white;
+        border: none;
+        padding: 10px 25px;
+        cursor: pointer;
+    }
+
+    .gb-lista {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .gb-entrada {
+        border: 1px dashed #c4a882;
+        padding: 15px;
+    }
+</style>
+
+<div class="janela-sobre">
+
+    <div class="sobre-header">
+        <h1>Marcelly Pereira</h1>
+        <p>Sally · Celly · Marcy · Mimiomia</p>
+    </div>
+
+    <div class="sobre-principal">
+
+        <div class="foto-frame">
+            <img src="../assets/img/janelas/sobre/marcellyevaquinha.png" alt="Marcelly">
+        </div>
+
+        <div class="sobre-texto">
+            <h2>Quem sou eu?</h2>
+            <p>Sou apaixonada por tecnologia, mas principalmente pela estética da internet antiga em que cada site era um reflexo do seu criador.</p>
+            <p>Eu acredito que somos feitos do que consumimos. Cada coisa que passa por nossa vida deixa uma marca, e é essa coleção de marcas que forma quem somos.</p>
+            <p>Este espaço é meu Wunderkammer digital.</p>
+        </div>
+
+    </div>
+
+    <div class="secao">
+        <h2>Wunderkammer</h2>
+
+        <div class="caixa">
+            Wunderkammer vem do alemão e significa "câmara das maravilhas". Era o nome dado para coleções particulares que nobres e estudiosos montavam entre os séculos XVI e XVII.
+        </div>
+
+        <div class="caixa">
+            O que tornava o Wunderkammer único não eram os seus itens, e sim como ele era organizado, com lógica afetiva do seu dono.
+        </div>
+    </div>
+
+    <div class="secao">
+        <h2>Sobre o projeto</h2>
+
+        <div class="caixa">
+            <h3>Contexto estudantil</h3>
+            <p>O Wunderkammer nasceu como um projeto individual da faculdade e o objetivo era aplicar todo conteúdo do primeiro semestre.</p>
+        </div>
+    </div>
+
+    <div class="guestbook">
+        <h2>Guestbook</h2>
+
+        <div class="gb-campo">
+            <label>seu nome</label>
+            <input type="text" id="gb-nome">
+        </div>
+
+        <div class="gb-campo">
+            <label>mensagem</label>
+            <textarea id="gb-msg" rows="4"></textarea>
+        </div>
+
+        <button class="gb-btn" onclick="enviarGuestbook()">assinar</button>
+        <p id="gb-status"></p>
+
+        <div class="gb-lista" id="gb-lista">
+            <p>carregando mensagens...</p>
+        </div>
+    </div>
+
+</div>
