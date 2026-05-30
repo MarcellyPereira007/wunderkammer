@@ -160,7 +160,7 @@ a:hover {
 
 /* A animação mágica de encher! */
 .animar-barra {
-  animation: encherBarra 6s ease-in-out forwards;
+  animation: encherBarra 3s ease-in-out forwards; /* 6s fica melhor oficialmente MUDAR*/
 }
 
 @keyframes encherBarra {
@@ -204,13 +204,13 @@ a:hover {
 /* Estados da transição */
 .apagando {
   opacity: 0;
-  transition: opacity 1s ease-out; /* Demora 1s p ficar invisivel */
+  transition: opacity 0.5s ease-out; /* Demora 1s p ficar invisivel */
 }
 
 /* Estado da tela aparecendo */
 .aparecendo {
   opacity: 1;
-  transition: opacity 1s ease-in;
+  transition: opacity 0.5s ease-in;
 }
 
 @keyframes efeitoLogo {
@@ -231,8 +231,7 @@ a:hover {
 
 /* A classe que tem q jogar na logo */
 .piscar-logo {
-  /* dura 0.15 segundos, e repete 8 vezes! */
-  animation: efeitoLogo 6s 1;
+  animation: efeitoLogo 3s 1; /* MUDAR para 6s dps*/
 }
 
 /* Tela de terminal  */

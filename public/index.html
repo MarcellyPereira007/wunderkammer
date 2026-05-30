@@ -27,7 +27,7 @@
         <img class="monitorcrt" src="assets/img/index/crtmonitor.png"
           alt="Imagem de um monitor CRT com botão no gabinete clicável">
 
-        <button id="btn-ligar"></button>
+        <button id="btn-ligar" onclick="ligarPC()"></button>
       </div>
 
     </div>
@@ -35,7 +35,7 @@
     <div class="tela-boot"> <!--Toda tela de boot-->
       <div class="efeito-tela">
         <div class="noise"></div>
-        <div class="linhas"></div>
+        <!-- <div class="linhas"></div> -->
       </div>
 
       <div class="boot-conteudo">
@@ -156,11 +156,11 @@
       for (let i = 0; i < linhasDeTexto.length; i++) {
         setTimeout(function () {
           linhasDeTexto[i].style.opacity = "1";
-        }, i * 700)
+        }, i * 300) // Em ms até bater os 3000
       }
 
-      //Uns 6 segundos pra abrir o terminal
-      setTimeout(abrirTerminal, 6000);
+      //Uns 3 segundos pra abrir o terminal MUDAR pra 6 dps
+      setTimeout(abrirTerminal, 3000);
     }
 
     // Lógica pra ligar o pc
@@ -176,11 +176,8 @@
 
       somBoot.play(); /* Pra tocar o audio de som de pc ligando, com ventoinhas */
 
-      setTimeout(iniciarBoot, 1000); /* VALIDAR - O que vai fazer e qual o tempo pra isso. Tem que bater com o tempo da transição definida no css*/
+      setTimeout(iniciarBoot, 500); /* VALIDAR - O que vai fazer e qual o tempo pra isso. Tem que bater com o tempo da transição definida no css*/
     }
-
-    //Chama a função pro botão
-    botaoLigar.onclick = ligarPC; // Se colocar parenteses ele executa na hora mesmo sem clicar. Ai muda a tela
 
     // logoff
     if (sessionStorage.getItem('veioDoLogout') == 'sim') {

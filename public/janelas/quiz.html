@@ -181,7 +181,7 @@
         font-family: "Pixelify Sans", sans-serif;
         color: white;
     }
-    
+
     .check-categoria {
         width: 18px;
         height: 18px;
@@ -189,36 +189,42 @@
     }
 </style>
 
-    <div class="janela-quiz">
+<div class="janela-quiz">
 
-        <div class="esquerda">
-            <img src="../assets/img/janelas/quiz/ornamentotopo.png" alt="Ornamento">
+    <div class="esquerda">
+        <img src="../assets/img/janelas/quiz/ornamentotopo.png" alt="Ornamento">
 
-            <div class="campoQuiz">
-                <h2>Quiz de compatibilidade</h2>
-                <p>Marque as caixinhas de interesses que temos em comum para descobrir sua pontuação</p>
+        <div class="campoQuiz">
+            <h2>Quiz de compatibilidade</h2>
+            <p>Marque as caixinhas de interesses que temos em comum para descobrir sua pontuação</p>
 
-                <div id="checkboxes"></div>
+            <div id="checkboxes"></div>
 
-                <button id="btnEnviarQuiz" class="btnEnviar" onclick="enviarQuiz()">Enviar interesses</button>
-            </div>
-
-            <img src="../assets/img/janelas/quiz/ornamentobaixo.png" alt="Ornamento">
+            <button id="btnEnviarQuiz" class="btnEnviar" onclick="enviarQuiz()">Enviar interesses</button>
         </div>
 
-        <div class="direita">
-            <img class="textpontuacao" src="../assets/img/janelas/quiz/textpontuacao.svg" alt="Pontuação">
-            <div class="pontuacao" id="pontuacao">...</div>
-
-            <div class="resultado" id="resultadodiv">Preencha as caixas para seu resultado</div>
-
-            <div class="recomendacao">
-                <h2>Recomendação</h2>
-                <p>Faça uma recomendação de algo<br>que você goste e acha que vou gostar </p>
-                <input id="temaipt" class="ipt" type="text" placeholder="Digite aqui o tema...">
-                <input id="descricaoipt" class="ipt" type="text" placeholder="Digite aqui a recomendação...">
-                <button id="btnEnviarRecomendacao" class="btnEnviar" onclick="enviarRecomendacao()">Enviar recomendação</button>
-            </div>
-        </div>
-
+        <img src="../assets/img/janelas/quiz/ornamentobaixo.png" alt="Ornamento">
     </div>
+
+    <div class="direita">
+        <img class="textpontuacao" src="../assets/img/janelas/quiz/textpontuacao.svg" alt="Pontuação">
+        <div class="pontuacao" id="pontuacao">...</div>
+
+        <div class="resultado" id="resultadodiv">Preencha as caixas para seu resultado</div>
+
+        <div class="recomendacao">
+            <h2>Recomendação</h2>
+            <p>Faça uma recomendação de algo<br>que você goste e acha que vou gostar </p>
+            <input id="temaipt" class="ipt" type="text" placeholder="Digite aqui o tema...">
+            <input id="descricaoipt" class="ipt" type="text" placeholder="Digite aqui a recomendação...">
+            <button id="btnEnviarRecomendacao" class="btnEnviar" onclick="enviarRecomendacao()">Enviar
+                recomendação</button>
+        </div>
+    </div>
+
+</div>
+
+<script src="../js/quiz.js"></script>
+<script>
+    buscarCategoriasQuiz();
+</script>
