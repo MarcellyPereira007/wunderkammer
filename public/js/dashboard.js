@@ -1,5 +1,7 @@
 function iniciarPainelDashboard() {
     let idUsuarioLogado = sessionStorage.getItem('idUsuario');
+    let nomeUsuario = sessionStorage.getItem('usuarioLogado');
+    document.getElementById('dash-nome-usuario').innerHTML = `<span>Nome de usuário</span>@${nomeUsuario}`;
 
     fetch('/dashboard/kpis')
         .then(function (resposta) {
@@ -61,7 +63,7 @@ function iniciarPainelDashboard() {
                                         desenhoDaBarra += `<span style="color: #797919;">|</span>`;
                                     } else {
                                         // Acima de 70% fica verde
-                                        desenhoDaBarra += `<span style="color: #194f19;">|</span>`;
+                                        desenhoDaBarra += `<span style="color: #0F8B0F;">|</span>`;
                                     }
                                 } else {
                                     desenhoDaBarra += " "; // Deixa espaço vazio nas que não tem
@@ -69,7 +71,7 @@ function iniciarPainelDashboard() {
                             }
 
                             tbodyRanking.innerHTML +=
-                            `<tr>
+                                `<tr>
                                 <td>${posicao}º</td>
                                 <td>${item.username}</td>
                                 <td class="barra-texto">[${desenhoDaBarra}] <span>${taxa.toFixed(2)}%</span></td>
@@ -177,18 +179,31 @@ function iniciarPainelDashboard() {
 
                     let taxa = Number(dados[0].taxa_compatibilidade);
 
-                    document.getElementById('dash-barra-progresso').style.width = `${taxa}%`;
-                    document.getElementById('dash-texto-porcentagem').innerHTML = `${taxa.toFixed(2)}%`;
+                    // Monta a barrinha htop
+                    let qtdBarras = Math.round(taxa / 5);
+                    let desenhoDaBarra = "";
 
-                    let divStatus = document.getElementById('dash-status-conexao');
-
-                    if (taxa < 30) {
-                        divStatus.innerHTML = "Visitante curioso";
-                    } else if (taxa >= 30 && taxa < 70) {
-                        divStatus.innerHTML = "Conexão estável";
-                    } else {
-                        divStatus.innerHTML = "Sincronia perfeita";
+                    for (let j = 0; j < 20; j++) {
+                        if (j < qtdBarras) {
+                            if (j < 6) {
+                                desenhoDaBarra += `<span style="color: #612036;">|</span>`;
+                            } else if (j < 14) {
+                                desenhoDaBarra += `<span style="color: #797919;">|</span>`;
+                            } else {
+                                desenhoDaBarra += `<span style="color: #0F8B0F;">|</span>`;
+                            }
+                        } else {
+                            desenhoDaBarra += " ";
+                        }
                     }
+
+                    let status = "";
+                    if (taxa < 30) status = "Visitante curioso";
+                    else if (taxa >= 30 && taxa < 70) status = "Conexão estável";
+                    else status = "Sincronia perfeita";
+
+                    document.getElementById('dash-status-conexao').innerHTML = `<span>Status de compatibilidade</span>${status}`;
+                    document.getElementById('dash-taxa-individual').innerHTML = `<span>Taxa de compatibilidade</span><span class="barra-texto">[${desenhoDaBarra}] ${taxa.toFixed(2)}%</span>`;
                 });
             } else {
                 throw "Houve um erro buscando a taxa de compatibilidade";
@@ -202,7 +217,7 @@ function iniciarPainelDashboard() {
         .then(function (resposta) {
             if (resposta.ok) {
                 resposta.json().then(function (dados) {
-                    
+
                     let ulSetores = document.getElementById('dash-setores-comum');
                     ulSetores.innerHTML = '';
 
