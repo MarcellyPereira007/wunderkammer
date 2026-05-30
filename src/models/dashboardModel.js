@@ -53,6 +53,7 @@ function buscarDadosGrafico() {
         SELECT c.nome_categoria, COUNT(mc.fk_maravilha) as total_maravilhas
         FROM categoria c
         JOIN maravilha_categoria mc ON c.id_categoria = mc.fk_categoria
+        WHERE c.nome_categoria NOT IN ('Variedades', 'Listas', 'Marcelly')
         GROUP BY c.id_categoria;
     `;
     return database.executar(instrucao);

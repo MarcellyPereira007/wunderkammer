@@ -15,7 +15,7 @@ window.onload = function () {
     historicoSaidas = document.querySelector('#historicoSaidas');
     telaTodaTerminal = document.querySelector('.terminal');
 
-    inputTerminal.addEventListener('keydown', processarTecla);
+    // inputTerminal.addEventListener('keydown', processarTecla); // Keydown
 };
 
 function resetarTerminal() {
@@ -27,25 +27,43 @@ function resetarTerminal() {
 }
 
 // função pra quando a pessoa enviar o comando com enter
-function processarTecla(evento) {
-    if (evento.key == 'Enter') { //.key é uma propriedade usada com eventos q te retorna a representação em texto do caractere digitado nesse caso 
-        let textoDigitado = inputTerminal.value.trim(); // Guarda o comando digitado
+// function processarTecla(evento) {
+//     if (evento.key == 'Enter') { //.key é uma propriedade usada com eventos q te retorna a representação em texto do caractere digitado nesse caso VALIDAR
+//         let textoDigitado = inputTerminal.value.trim(); // Guarda o comando digitado
 
-        registrarHistorico(textoDigitado);// Joga o comando pro histórico
+//         registrarHistorico(textoDigitado);// Joga o comando pro histórico
 
-        // Verifica qual etapa está pra guiar pro bloco certo
-        if (etapaTerminal == "esperando_comando") {
-            interpretarComando(textoDigitado);
-        } else if (etapaTerminal == "cadastro_email") {
-            processarEmailCadastro(textoDigitado);
-        } else if (etapaTerminal == "cadastro_senha") {
-            finalizarCadastro(textoDigitado);
-        } else if (etapaTerminal == "login_senha") {
-            processarLogin(textoDigitado);
-        }
+//         // Verifica qual etapa está pra guiar pro bloco certo
+//         if (etapaTerminal == "esperando_comando") {
+//             interpretarComando(textoDigitado);
+//         } else if (etapaTerminal == "cadastro_email") {
+//             processarEmailCadastro(textoDigitado);
+//         } else if (etapaTerminal == "cadastro_senha") {
+//             finalizarCadastro(textoDigitado);
+//         } else if (etapaTerminal == "login_senha") {
+//             processarLogin(textoDigitado);
+//         }
 
-        limparTerminal();
+//         limparTerminal();
+//     }
+// }
+
+function processarEntrada() {
+    let textoDigitado = inputTerminal.value.trim(); // Limpa o comando
+    
+    registrarHistorico(textoDigitado); //Joga o comando pro historico
+
+    if (etapaTerminal == "esperando_comando") {
+        interpretarComando(textoDigitado);
+    } else if (etapaTerminal == "cadastro_email") {
+        processarEmailCadastro(textoDigitado);
+    } else if (etapaTerminal == "cadastro_senha") {
+        finalizarCadastro(textoDigitado);
+    } else if (etapaTerminal == "login_senha") {
+        processarLogin(textoDigitado);
     }
+
+    limparTerminal();
 }
 
 
@@ -57,10 +75,14 @@ function registrarHistorico(texto) {
     }
 }
 
+// function limparTerminal() {
+//     inputTerminal.value = "";
+//     let areaTerminal = document.querySelector('.terminal');
+//     areaTerminal.scrollTop = areaTerminal.scrollHeight; // VAlidar
+// }
+
 function limparTerminal() {
     inputTerminal.value = "";
-    let areaTerminal = document.querySelector('.terminal');
-    areaTerminal.scrollTop = areaTerminal.scrollHeight;
 }
 
 // Interpretar oq foi digitado

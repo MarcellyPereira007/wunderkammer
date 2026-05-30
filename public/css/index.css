@@ -125,7 +125,7 @@ a:hover {
   position: absolute;
   width: 100vw;
   height: 100vh;
-  z-index: 999;
+  z-index: 800;
   top: 0;
   left: 0;
   background-blend-mode: overlay;
@@ -229,7 +229,7 @@ a:hover {
   }
 }
 
-/* A classe que vamos jogar na logo */
+/* A classe que tem q jogar na logo */
 .piscar-logo {
   /* dura 0.15 segundos, e repete 8 vezes! */
   animation: efeitoLogo 6s 1;
@@ -249,7 +249,6 @@ a:hover {
 }
 
 .header {
-  flex-shrink: 0; 
   display: flex;
   justify-content: center; 
   margin-bottom: 20px; 
@@ -345,4 +344,12 @@ a:hover {
 }
 .terminal::-webkit-scrollbar-track {
   background: black;
+}
+
+#btnEnviar {
+  background-color: #888888;
+  width: 25px;
+  height: 25px;
+  font-size: 21px;
+  font-weight: bolder;
 }

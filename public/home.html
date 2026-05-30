@@ -163,6 +163,7 @@
         fetch(nomeArquivo + '.html') // Busca o arquivo
             .then(resposta => resposta.text()) // Pega o resultado dessa busca e transforma em texto
             .then(html => { // Usa o html que já esta formatado dentro dessa função
+                
                 document.getElementById('janela-conteudo').innerHTML = html;
                 let janela = document.getElementById('modal'); // Pega o modal da janela pelo id
                 janela.classList.add('aberta'); // Coloca a classe que deixa ela visível e devolve cliques
@@ -469,9 +470,10 @@
 
     // vai pro terminal
     function fazerLogout() {
-        sessionStorage.clear();
-        window.location.href = 'index.html#terminal';
-    }
+    sessionStorage.clear();
+    sessionStorage.setItem('veioDoLogout', 'sim'); // pra marcar q veio de logout
+    window.location.href = 'index.html';
+}
 
     // vai pra tela de ligar pc
     function desligarSistema() {

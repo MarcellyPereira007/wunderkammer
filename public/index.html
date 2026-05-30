@@ -57,7 +57,7 @@
     </div>
 
     <div class="tela-terminal" style="display: none"><!--Tela com login e cadastro-->
-      
+
       <div class="header">
         <pre class="asciiArt">
                       ..                          ..                                    ..                                    ...                         .......  
@@ -86,16 +86,17 @@
       </div>
 
       <div class="terminal">
-        
+
         <div class="saidas" id="historicoSaidas">
           <p class="texto-monitor">Digite 'help' para acessar a lista de comandos.</p>
         </div>
 
         <div class="entradas">
           <p class="texto-monitor" id="promptTexto">guest@mimiomia:~$</p>
-          <input type="text" id="inputTerminal" autofocus>
+          <input type="text" id="inputTerminal">
+          <button id="btnEnviar" onclick="processarEntrada()">↵</button>
         </div>
-        
+
       </div>
     </div>
 
@@ -158,7 +159,7 @@
         }, i * 700)
       }
 
-      //UUns 6 segundos pra abrir o terminal
+      //Uns 6 segundos pra abrir o terminal
       setTimeout(abrirTerminal, 6000);
     }
 
@@ -182,20 +183,12 @@
     botaoLigar.onclick = ligarPC; // Se colocar parenteses ele executa na hora mesmo sem clicar. Ai muda a tela
 
     // logoff
-    document.addEventListener("DOMContentLoaded", function() {
-        // Se veio do botão de sair da home
-        if (window.location.hash === '#terminal') {
-            // Esconde o PC e o boot
-            telaMonitor.style.display = 'none';
-            telaBoot.style.display = 'none';
-            // Mostra o terminal
-            telaTerminal.style.display = 'flex';
-            
-            // Dá o foco no campo de texto pro terminal não travar
-            document.getElementById('inputTerminal').focus();
-            
-        }
-    });
+    if (sessionStorage.getItem('veioDoLogout') == 'sim') {
+      sessionStorage.removeItem('veioDoLogout');
+      telaMonitor.style.display = 'none';
+      telaBoot.style.display = 'none';
+      telaTerminal.style.display = 'flex';
+    }
   </script>
 </body>
 

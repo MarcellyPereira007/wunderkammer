@@ -1,33 +1,39 @@
 function buscarCategoriasQuiz() {
     fetch('/quiz/categorias')
-        .then(resposta => resposta.json())
-        .then(listaCategorias => {
-            let divCheckboxes = document.getElementById('checkboxes');
-            divCheckboxes.innerHTML = '';
+        .then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (listaCategorias) {
 
-            for (let i = 0; i < listaCategorias.length; i++) {
-                let categoria = listaCategorias[i];
+                    // Todas categorias do bd menos as que tirei no model
+                    for (let i = 0; i < listaCategorias.length; i++) {
+                        let categoria = listaCategorias[i];
 
-                let linhaCheckbox = `
+                        checkboxes.innerHTML += `
                     <div class="linha-checkbox">
-                        <input type="checkbox" class="check-categoria" value="${categoria.id_categoria}" id="cat_${categoria.id_categoria}">
-                        <label class="label-checkbox" for="cat_${categoria.id_categoria}">
-                            ${categoria.nome_categoria}
-                        </label>
-                    </div>
-                `;
-                divCheckboxes.innerHTML += linhaCheckbox;
+                    <input type="checkbox" class="check-categoria" value="${categoria.id_categoria}" id="cat_${categoria.id_categoria}">
+                    <label class="label-checkbox" for="cat_${categoria.id_categoria}">${categoria.nome_categoria}</label>
+                    </div>`
+                            ;
+                    }
+                });
+            } else {
+                console.log("Erro ao buscar categorias do banco de dados");
             }
         })
-        .catch(erro => console.error('Erro ao buscar as categorias:', erro));
+        .catch(function (erro) {
+            console.log(erro);
+        });
 }
 
 function enviarQuiz() {
-    let caixinhasMarcadas = document.querySelectorAll('.check-categoria:checked');
+    // Pegar todas caixinhas
+    let todasCaixinhas = document.getElementsByClassName('check-categoria');
     let idsSelecionados = [];
 
-    for (let i = 0; i < caixinhasMarcadas.length; i++) {
-        idsSelecionados.push(caixinhasMarcadas[i].value);
+    for (let i = 0; i < todasCaixinhas.length; i++) {
+        if (todasCaixinhas[i].checked == true) {
+            idsSelecionados.push(todasCaixinhas[i].value);
+        }
     }
 
     console.log("Categorias marcadas nessa vez:", idsSelecionados);
@@ -42,30 +48,29 @@ function enviarQuiz() {
             fk_usuario: idUsuarioLogado,
             categorias: idsSelecionados
         })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(function (resultado) {
+                pontuacao.innerText = `${resultado.taxa}%`;
+
+                // Converter pra numero
+                let taxa = Number(resultado.taxa);
+
+                if (taxa < 30) {
+                    resultadodiv.innerText = "Parecemos ter interesses diferentes, é uma ótima oportunidade pra você me fazer uma recomendação e conhecer o Wunderkammer";
+                } else if (taxa >= 30 && taxa < 70) {
+                    resultadodiv.innerText = "Temos uma boa quantidade de interesses em comum! Faça uma recomendação para que eu conheça mais de você e façamos uma boa troca";
+                } else {
+                    resultadodiv.innerText = "Uau! Temos muitos interesses em comum. Vamos ser amigas?";
+                }
+            });
+        } else {
+            console.log("Erro no envio do quiz");
+        }
     })
-        .then(resposta => {
-            if (!resposta.ok) {
-                throw new Error("Erro no servidor");
-            }
-            return resposta.json();
-        })
-        .then(resultado => {
-            let divPontuacao = document.getElementById('pontuacao');
-            divPontuacao.innerText = `${resultado.taxa}%`;
-
-            let divResultadoMsg = document.getElementById('resultadodiv');
-            let taxa = parseFloat(resultado.taxa); // Virar número
-
-            // Mensagens de resultado
-            if (taxa < 30) {
-                divResultadoMsg.innerText = "Parecemos ter interesses diferentes, é uma ótima oportunidade pra você me fazer uma recomendação e conhecer o Wunderkammer";
-            } else if (taxa >= 30 && taxa < 70) {
-                divResultadoMsg.innerText = "Temos uma boa quantidade de interesses em comum! Faça uma recomendação para que eu conheça mais de você e façamos uma boa troca";
-            } else {
-                divResultadoMsg.innerText = "Uau! Temos muitos interesses em comum. Vamos ser amigas?";
-            }
-        })
-        .catch(erro => console.error("Erro no envio do quiz: ", erro));
+        .catch(function (erro) {
+            console.log(erro);
+        });
 }
 
 function enviarRecomendacao() {
@@ -83,6 +88,14 @@ function enviarRecomendacao() {
             tema: valorTema,
             descricao: valorDescricao
         })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            console.log("Recomendação foi pro bd");
+        } else {
+            console.log("Erro ao enviar recomendação");
+        }
     })
-        .catch(erro => console.error("Erro ao enviar a recomendação: ", erro));
+        .catch(function (erro) {
+            console.log(erro);
+        });
 }
