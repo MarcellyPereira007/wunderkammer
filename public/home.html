@@ -9,11 +9,11 @@
 
     <!--Javascript das janelas-->
     <script src="./js/sessao.js"></script>
+    <script src="./js/wunderkammer.js"></script>
     <script src="./js/posts/blueprince.js"></script>
     <script src="./js/quiz.js"></script>
     <script src="./js/dashboard.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!--Chart.js pra gerar gráficos-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <link rel="stylesheet" href="./css/home.css" /> <!--CSS da página-->
     <link rel="icon" href="./assets/icon/favicon2.png" /> <!--Ícone da aba-->
@@ -111,8 +111,7 @@
                         </button>
                     </div>
                     <!-- Onde o conteúdo vai ser inserido quando abrir janela -->
-                    <iframe id="janela-conteudo" src=""></iframe>
-                    <!-- <div class="conteudo" id="janela-conteudo"></div> -->
+                    <div class="conteudo" id="janela-conteudo"></div>
                 </div>
             </div>
 
@@ -131,7 +130,7 @@
             </div>
 
             <div class="start">
-                <img id="iconstart" src="assets/img/home/start.png">
+                <img id="iconstart" src="assets/img/home/start.png" onclick="abrirFecharMenu()">
             </div>
 
 
@@ -161,222 +160,62 @@
         document.getElementById('janela-titulo').innerHTML = tituloApp;
         document.getElementById('janela-icone').src = caminhoIcone;
 
-        // Troca o src do iframe pelo arquivo da janela que foi clicada
-        document.getElementById('janela-conteudo').src = nomeArquivo + '.html';
+        // Usa o fetch pra jogar o arquivo dentro
+        fetch(nomeArquivo + '.html')
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.text().then(function (html) {
 
-        // Pega o modal e coloca a classe que deixa ele visível
-        let janela = document.getElementById('modal');
-        janela.classList.add('aberta');
+                        document.getElementById('janela-conteudo').innerHTML = html;
+                        let janela = document.getElementById('modal'); // Pega o modal da janela pelo id
+                        janela.classList.add('aberta'); // Coloca a classe que deixa ela visível e devolve cliques
+
+                        // Quando abrir, precisa validar e chamar as funções determinada de cada tela
+                        if (nomeArquivo.includes('dashboard')) {
+                            setTimeout(function () {
+                                iniciarPainelDashboard();
+                            }, 100);
+                        }
+
+                        if (nomeArquivo.includes('quiz')) {
+                            buscarCategoriasQuiz();
+                        }
+
+                        // Pega na tela a tag video
+                        let video = document.querySelector('video');
+
+                        // Se ele puxar algum elemento de vídeo
+                        if (video) {
+                            if (tocando) { // Verifica se a música estava no estado tocando, se tiver, para ela
+                                musica.pause();
+                            }
+                        }
+                    });
+                }
+            }).catch(function (erro) {
+                console.log(erro);
+            });
     }
 
-    // // Função pra abrir janela de acordo com a coluna de atalho que eu cliquei
-    // function abrirApp(nomeArquivo, tituloApp, caminhoIcone) {
-
-    //     // Atualiza o topo com o nome do "aplicativo" aberto e puxa o caminho do ícone
-    //     document.getElementById('janela-titulo').innerHTML = tituloApp;
-    //     document.getElementById('janela-icone').src = caminhoIcone;
-
-    //     // Usa o fetch pra jogar o arquivo dentro
-    //     fetch(nomeArquivo + '.html') // Busca o arquivo
-    //         .then(resposta => resposta.text()) // Pega o resultado dessa busca e transforma em texto
-    //         .then(html => { // Usa o html que já esta formatado dentro dessa função
-
-    //             document.getElementById('janela-conteudo').innerHTML = html;
-    //             let janela = document.getElementById('modal'); // Pega o modal da janela pelo id
-    //             janela.classList.add('aberta'); // Coloca a classe que deixa ela visível e devolve cliques
-
-    //             // Quando abrir, precisa validar e chamar as funções determinada de cada tela
-    //             if (nomeArquivo.includes('dashboard')) {
-    //                 setTimeout(() => {
-    //                     iniciarPainelDashboard();
-    //                 }, 100);
-    //             }
-
-    //             if (nomeArquivo.includes('quiz')) {
-    //                 buscarCategoriasQuiz();
-    //             }
-
-    //             // if (nomeArquivo.includes('creditos')) {
-    //             //     let video = document.getElementById('video-creditos');
-    //             //     if (video) {
-    //             //         if (tocando) {
-    //             //             musica.pause();
-    //             //         }
-    //             //     }
-    //             // }
-
-    //             // Pega na tela a tag video
-    //             let video = document.querySelector('video');
-
-    //             // Se ele puxar algum elemento de vídeo
-    //             if (video) {
-    //                 if (tocando) { // Verifica se a música estava no estado tocando, se tiver, para ela
-    //                     musica.pause();
-    //                 }
-    //             }
-    //         });
-    // }
-
-    // Função pra fechar a janela
+    // Função pra fechar janela que foi aberta
     function fecharJanela() {
         let janela = document.getElementById('modal');
         janela.classList.remove('aberta');
 
-        // Limpa o src do iframe pra parar qualquer video ou audio que tiver tocando dentro
-        document.getElementById('janela-conteudo').src = '';
-
-        // Volta tocar a música da home
+        let video = janela.querySelector('video');
+        // Se ele pegar algum video
+        if (video) {
+            video.pause();
+        }
+        // Volta tocar msc da home
         if (tocando) {
             musica.play();
         }
+
+        setTimeout(function () {
+            document.getElementById('janela-conteudo').innerHTML = '';
+        }, 300);
     }
-
-    // // Função pra fechar janela que foi aberta
-    // function fecharJanela() {
-    //     let janela = document.getElementById('modal');
-    //     janela.classList.remove('aberta');
-
-    //     let video = janela.querySelector('video');
-    //     // Se ele pegar algum video
-    //     if (video) {
-    //         video.pause();
-    //     }
-    //     // Volta tocar msc da home
-    //     if (tocando) {
-    //         musica.play();
-    //     }
-
-    //     setTimeout(() => {
-    //         document.getElementById('janela-conteudo').innerHTML = '';
-    //     }, 300);
-    // }
-
-    function buscarKpisDashboard() {
-        fetch('/dashboard/kpis')
-            .then(function (resposta) {
-                return resposta.json();
-            })
-            .then(function (dados) {
-                document.getElementById('kpi-usuarios').innerText = dados.totalUsuarios;
-                document.getElementById('kpi-posts').innerText = dados.totalPosts;
-
-                let corpoTabela = document.getElementById('corpo-tabela-usuarios');
-                corpoTabela.innerHTML = ''; // limpar tabela 
-
-                for (let i = 0; i < dados.ultimosCadastros.length; i++) {
-                    let usuario = dados.ultimosCadastros[i];
-
-                    corpoTabela.innerHTML += `
-                    <tr>
-                        <td>#${usuario.id}</td>
-                        <td>${usuario.nome}</td>
-                        <td>${usuario.data_cadastro}</td>
-                    </tr>
-                `;
-                }
-            })
-            .catch(function (erro) {
-                console.error('Erro ao buscar dados do dashboard:', erro);
-                document.getElementById('status-conexao').innerText = '[ ERRO DE CONEXÃO ]';
-            });
-    }
-
-    function abrirCategoria(nomeDaCategoria) {
-
-        indiceCategoriaAtual = listaCategorias.indexOf(nomeDaCategoria);
-
-        fetch('./janelas/app-lista.html')
-            .then(resposta => resposta.text())
-            .then(html => {
-                document.getElementById('janela-conteudo').innerHTML = html;
-                document.getElementById('nome-categoria-atual').innerText = nomeDaCategoria;
-
-                fetch(`/categorias/buscar/${nomeDaCategoria}`)
-                    .then(resposta => {
-                        if (resposta.status == 404) {
-                            return [];
-                        }
-                        return resposta.json();
-                    })
-                    .then(listaMaravilhas => {
-
-                        console.log("Lista das maravilhas da categoria:", listaMaravilhas);
-
-                        // Pegar o container onde os cards vão ficar
-                        let containerCards = document.querySelector('.container-cards');
-
-                        // Tirar o conteúdo mocado dos 3 cards do Blue Prince).
-                        containerCards.innerHTML = '';
-
-                        // Criar um card pra cada maravilha.
-                        for (let i = 0; i < listaMaravilhas.length; i++) {
-
-                            let maravilha = listaMaravilhas[i];
-
-                            let card = `<div class="card-post" onclick="abrirPost('${maravilha.caminho_arquivo}')">
-                                <div class="card-imagem">
-                                <img src="${maravilha.caminho_capa}" alt="${maravilha.titulo}">
-                                </div>
-                                <div class="card-texto">
-                                <h3>${maravilha.titulo}</h3>
-                                <p>${maravilha.descricao}</p>
-                                </div>
-                                </div>`;
-
-                            containerCards.innerHTML += card;
-                        }
-                    })
-                    .catch(erro => console.error('Erro na API buscando as maravilhas:', erro));
-            })
-            .catch(erro => console.error('Erro ao carregar a lista:', erro));
-    }
-
-    function abrirPost(caminho_arquivo) {
-        fetch(`${caminho_arquivo}`)
-            .then(resposta => resposta.text())
-            .then(conteudoPost => {
-                document.getElementById('janela-conteudo').innerHTML = conteudoPost;
-
-                if (caminho_arquivo.includes('blueprince')) {
-                    montarCarrosselInfinito();
-                    iniciarMinijogoParlor();
-                }
-            })
-            .catch(erro => console.error('Erro ao carregar o post:', erro));
-    }
-
-    function voltarArmario() {
-
-        fetch('./janelas/wunderkammer.html')
-            .then(resposta => resposta.text())
-            .then(html => {
-                document.getElementById('janela-conteudo').innerHTML = html;
-            })
-            .catch(erro => console.error('Erro ao voltar para o armário:', erro));
-    }
-
-    // navegar nas categorias com as setas
-    const listaCategorias = [
-        'Tecnologia', 'Linguística', 'Filosofia', 'Quadrinhos',
-        'Cultura da internet', 'Cinema & TV', 'Animes', 'Literatura',
-        'Saúde mental', 'Jogos', 'Variedades', 'Listas', 'Marcelly', 'Ensaios'
-    ];
-
-    let indiceCategoriaAtual = 0;
-
-    function mudarCategoria(direcao) {
-        indiceCategoriaAtual += direcao;
-
-        if (indiceCategoriaAtual >= listaCategorias.length) {
-            indiceCategoriaAtual = 0;
-        } else if (indiceCategoriaAtual < 0) {
-            indiceCategoriaAtual = listaCategorias.length - 1;
-        }
-
-        let novaCategoria = listaCategorias[indiceCategoriaAtual];
-        abrirCategoria(novaCategoria);
-    }
-
 
     // variaveis pra musica
     let sound = document.getElementById('btn_sound');
@@ -474,31 +313,20 @@
     setInterval(mudarDataHora, 1000);
 
     // Menu iniciar
-    let btnStart = document.getElementById('iconstart');
     let menuIniciar = document.getElementById('menu-iniciar');
 
     let menuEstaAberto = false;
 
-    // Abrir efechar o menu
-    btnStart.onclick = function (evento) {
+
+    function abrirFecharMenu() {
         if (menuEstaAberto == false) {
-            menuIniciar.style.display = 'block'; // Mostra
+            menuIniciar.style.display = 'block';
             menuEstaAberto = true;
         } else {
-            menuIniciar.style.display = 'none'; // Esconde
-            menuEstaAberto = false;
-        }
-    };
-
-    // fecha o menu se clicar em outro lugar da tela
-    window.onclick = function (evento) {
-        // Se o menu tá aberto E o clique NÃO foi na vaquinha, fecha
-        if (menuEstaAberto == true && evento.target.id != 'iconstart') {
             menuIniciar.style.display = 'none';
             menuEstaAberto = false;
         }
-    };
-
+    }
     // vai pro terminal
     function fazerLogout() {
         sessionStorage.clear();

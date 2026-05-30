@@ -16,9 +16,12 @@ function iniciarPainelDashboard() {
                     }
                     document.getElementById('dash-media-geral').innerHTML = `${media}%`;
                 });
+            } else {
+                throw "Houve um erro buscando dados das KPIs";
             }
-        }).catch(function (erro) {
-            console.log(erro);
+        })
+        .catch(function (erro) {
+            console.log(`#ERRO: ${erro}`);
         });
 
     fetch('/dashboard/ranking')
@@ -29,32 +32,58 @@ function iniciarPainelDashboard() {
                     tbodyRanking.innerHTML = '';
 
                     if (dados.length == 0) {
-                        tbodyRanking.innerHTML = `<tr><td colspan="4">Nenhum usuário respondeu o quiz</td></tr>`;
+                        tbodyRanking.innerHTML = `<tr><td colspan="5" style="text-align: center;">Nenhum usuário respondeu o quiz</td></tr>`;
                     } else {
-                        // Passa cada dado dos que responderam um por um
+                        // Passar cada um pra montar a barrinha e colocar na tabela
                         for (let i = 0; i < dados.length; i++) {
                             let item = dados[i];
                             let posicao = i + 1;
-                            let taxa = Number(item.taxa_compatibilidade).toFixed(2);
+                            let taxa = Number(item.taxa_compatibilidade);
 
                             let status = "";
                             if (taxa < 30) status = "Visitante curioso";
                             else if (taxa >= 30 && taxa < 70) status = "Conexão estável";
                             else status = "Sincronia perfeita";
 
+                            // Adicionando barra do htop
+                            // Primeiro dividir por 5 pra ter no max 20 barras
+                            let qtdBarras = Math.round(taxa / 5);
+                            let desenhoDaBarra = "";
+
+                            // Laço de 20 posições para desenhar a barra completa
+                            for (let j = 0; j < 20; j++) {
+                                if (j < qtdBarras) {
+                                    if (j < 6) {
+                                        // Até 30% fica vermelho
+                                        desenhoDaBarra += `<span style="color: #612036;">|</span>`;
+                                    } else if (j < 14) {
+                                        // De 30% a 70% fica amarelo
+                                        desenhoDaBarra += `<span style="color: #797919;">|</span>`;
+                                    } else {
+                                        // Acima de 70% fica verde
+                                        desenhoDaBarra += `<span style="color: #194f19;">|</span>`;
+                                    }
+                                } else {
+                                    desenhoDaBarra += " "; // Deixa espaço vazio nas que não tem
+                                }
+                            }
+
                             tbodyRanking.innerHTML +=
-                                `<tr>
+                            `<tr>
                                 <td>${posicao}º</td>
                                 <td>${item.username}</td>
-                                <td>${taxa}%</td>
+                                <td class="barra-texto">[${desenhoDaBarra}] <span>${taxa.toFixed(2)}%</span></td>
                                 <td>${status}</td>
                             </tr>`;
                         }
                     }
                 });
+            } else {
+                throw "Houve um erro buscando dados do ranking";
             }
-        }).catch(function (erro) {
-            console.log(erro);
+        })
+        .catch(function (erro) {
+            console.log(`#ERRO: ${erro}`);
         });
 
     fetch('/dashboard/recomendacoes')
@@ -80,9 +109,12 @@ function iniciarPainelDashboard() {
                         }
                     }
                 });
+            } else {
+                throw "Houve um erro buscando recomendações";
             }
-        }).catch(function (erro) {
-            console.log(erro);
+        })
+        .catch(function (erro) {
+            console.log(`#ERRO: ${erro}`);
         });
 
     fetch('/dashboard/grafico')
@@ -130,9 +162,12 @@ function iniciarPainelDashboard() {
                         }
                     });
                 });
+            } else {
+                throw "Houve um erro ao carregar o gráfico";
             }
-        }).catch(function (erro) {
-            console.log(erro);
+        })
+        .catch(function (erro) {
+            console.log(`#ERRO: ${erro}`);
         });
 
     fetch(`/dashboard/taxa/${idUsuarioLogado}`)
@@ -155,9 +190,12 @@ function iniciarPainelDashboard() {
                         divStatus.innerHTML = "Sincronia perfeita";
                     }
                 });
+            } else {
+                throw "Houve um erro buscando a taxa de compatibilidade";
             }
-        }).catch(function (erro) {
-            console.log(erro);
+        })
+        .catch(function (erro) {
+            console.log(`#ERRO: ${erro}`);
         });
 
     fetch(`/dashboard/setores/${idUsuarioLogado}`)
@@ -178,8 +216,11 @@ function iniciarPainelDashboard() {
                         }
                     }
                 });
+            } else {
+                throw "Houve um erro buscando os dados marcados no quiz";
             }
-        }).catch(function (erro) {
-            console.log(erro);
+        })
+        .catch(function (erro) {
+            console.log(`#ERRO: ${erro}`);
         });
 }

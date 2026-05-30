@@ -65,11 +65,11 @@ function enviarQuiz() {
                 }
             });
         } else {
-            console.log("Erro no envio do quiz");
-        }
-    })
+                throw "Houve um erro ao enviar o quiz";
+            }
+        })
         .catch(function (erro) {
-            console.log(erro);
+            console.log(`#ERRO: ${erro}`);
         });
 }
 
@@ -92,10 +92,10 @@ function enviarRecomendacao() {
         if (resposta.ok) {
             console.log("Recomendação foi pro bd");
         } else {
-            console.log("Erro ao enviar recomendação");
-        }
-    })
+                throw "Erro ao enviar recomendação";
+            }
+        })
         .catch(function (erro) {
-            console.log(erro);
+            console.log(`#ERRO: ${erro}`);
         });
 }

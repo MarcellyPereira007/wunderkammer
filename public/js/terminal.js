@@ -221,7 +221,7 @@ function processarLogin(senha) {
         })
     }).then(function (resposta) {
         if (resposta.ok) {
-            resposta.json().then(json => {
+            resposta.json().then(function(json) {
                 historicoSaidas.innerHTML += `<p class="texto-monitor">Acesso permitido. Autenticando ${usuarioPendente}...</p>`;
 
                 // Pegando id e nome do bd

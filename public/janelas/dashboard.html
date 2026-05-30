@@ -1,6 +1,6 @@
 <style>
     .janela-dashboard {
-        background-color: black;
+        background-color: black !important;
         color: #E2E1E6;
         font-family: "Pixelify Sans", sans-serif;
         width: 100%;
@@ -11,45 +11,37 @@
         gap: 30px;
     }
 
-    
-
-    .painel-usuario {
-        flex: 1;
+    .painel-usuario, .painel-admin {
+        background-color: black;
         border: 2px solid #E2E1E6;
-        border-radius: 15px;
+        border-radius: 0px;
+        box-shadow: 6px 6px 0px #a2a1a1;
         padding: 20px;
         display: flex;
         flex-direction: column;
         gap: 30px;
         overflow-y: auto;
+    }
+
+    .painel-usuario {
+        flex: 1;
     }
 
     .painel-admin {
         flex: 2;
-        border: 2px solid white;
-        border-radius: 15px;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-        overflow-y: auto;
     }
 
-     .painel-admin::-webkit-scrollbar {
+    /* Barrinha */
+    .painel-admin::-webkit-scrollbar, .painel-usuario::-webkit-scrollbar {
         width: 10px;
+        border-left: 2px solid #E2E1E6;
     }
-
-    .painel-admin::-webkit-scrollbar-track {
-        background: rgb(0, 0, 0);
-        border-radius: 0px;
+    .painel-admin::-webkit-scrollbar-track, .painel-usuario::-webkit-scrollbar-track {
+        background: black;
     }
-
-    .painel-admin::-webkit-scrollbar-thumb {
-        background-color: #a2a1a1;
-        border-radius: 10px;
-        border: 2px solid rgb(0, 0, 0);
+    .painel-admin::-webkit-scrollbar-thumb, .painel-usuario::-webkit-scrollbar-thumb {
+        background-color: #E2E1E6;
     }
-
 
     h2 {
         text-align: center;
@@ -57,13 +49,42 @@
         padding-bottom: 10px;
         margin-bottom: 10px;
         color: white;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    h3 {
+        text-transform: uppercase;
+        font-size: 18px;
+        margin-bottom: 10px;
+        color: #E2E1E6;
+    }
+
+    .status-conexao {
+        text-align: center;
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .aviso-menor {
+        font-size: 14px;
+        color: #a2a1a1;
+        font-family: Consolas, monospace;
+    }
+
+    .lista-interesses {
+        list-style-type: square;
+        padding-left: 20px;
+        font-size: 18px;
+        line-height: 1.5;
+        color: #E2E1E6;
     }
 
     .container-barra {
         width: 100%;
-        border: 3px solid #E2E1E6;
-        background-color: #000;
-        padding: 3px;
+        border: 2px solid #E2E1E6;
+        background-color: black;
+        padding: 2px;
         height: 35px;
         position: relative;
     }
@@ -80,9 +101,37 @@
     }
 
     .texto-porcentagem {
-        color: #000;
+        color: black;
         font-weight: bold;
         font-size: 18px;
+    }
+
+    .kpi-container {
+        display: flex; 
+        justify-content: space-around; 
+        border-bottom: 2px dotted #E2E1E6; 
+        padding-bottom: 20px;
+    }
+
+    .kpi-box {
+        text-align: center;
+    }
+
+    .kpi-titulo {
+        margin: 0;
+        font-family: Consolas, monospace;
+        text-transform: uppercase;
+    }
+
+    .kpi-numero {
+        font-size: 40px;
+        color: #E2E1E6;
+        text-align: center;
+        margin: 5px 0 0 0;
+    }
+
+    .kpi-sucesso {
+        color: #194f19;
     }
 
     .tabela-retro {
@@ -95,14 +144,15 @@
 
     .tabela-retro th {
         background-color: #E2E1E6;
-        color: #000;
-        border: 1px solid #E2E1E6;
+        color: black;
+        border: 2px solid #E2E1E6;
         padding: 8px;
         text-transform: uppercase;
+        font-weight: bold;
     }
 
     .tabela-retro td {
-        border: 1px solid black;
+        border: 1px solid #E2E1E6;
         padding: 8px;
         color: #E2E1E6;
     }
@@ -113,15 +163,15 @@
         width: 100%;
         display: flex;
         justify-content: center;
-        border: 1px dotted #E2E1E6;
+        border: 2px dashed #E2E1E6;
         padding: 10px;
     }
 
-    .kpi-numero {
-        font-size: 40px;
+    .barra-texto {
         color: #E2E1E6;
-        text-align: center;
-        margin: 0;
+        font-weight: bold;
+        letter-spacing: 2px;
+        white-space: pre;
     }
 </style>
 
@@ -131,9 +181,9 @@
         <h2>Painel do usuário</h2>
         
         <div>
-            <p style="text-align: center; font-size: 22px;" id="dash-status-conexao">Aguardando conexão...</p>
+            <p class="status-conexao" id="dash-status-conexao">Aguardando conexão...</p>
             
-            <p>Taxa de compatibilidade:</p>
+            <p class="aviso-menor">TAXA DE COMPATIBILIDADE:</p>
             <div class="container-barra">
                 <div class="barra-progresso" id="dash-barra-progresso">
                     <span class="texto-porcentagem" id="dash-texto-porcentagem">0%</span>
@@ -143,8 +193,8 @@
 
         <div>
             <h3>Interesses em comum:</h3>
-            <p style="font-size: 14px; color: #aaa;">Esses interesses foram marcados no Quiz.exe</p>
-            <ul id="dash-setores-comum" style="list-style-type: square; padding-left: 20px; font-size: 18px; line-height: 1.5;">
+            <p class="aviso-menor">> REGISTRADOS VIA QUIZ.EXE</p>
+            <ul class="lista-interesses" id="dash-setores-comum">
                 <li>Carregando interesses...</li>
             </ul>
         </div>
@@ -153,37 +203,36 @@
     <div class="painel-admin">
         <h2>Mimiomia_OS global</h2>
 
-        <div style="display: flex; justify-content: space-around; border-bottom: 1px solid black; padding-bottom: 20px;">
-            <div>
-                <p style="text-align: center; margin: 0;">Total de visitantes</p>
+        <div class="kpi-container">
+            <div class="kpi-box">
+                <p class="kpi-titulo">Total de visitantes</p>
                 <p class="kpi-numero" id="dash-total-visitantes">--</p>
             </div>
-            <div>
-                <p style="text-align: center; margin: 0;">Média compatibilidade geral</p>
-                <p class="kpi-numero" id="dash-media-geral" style="color: #4ca54c;">--%</p>
+            <div class="kpi-box">
+                <p class="kpi-titulo">Média geral de sincronia</p>
+                <p class="kpi-numero kpi-sucesso" id="dash-media-geral">--%</p>
             </div>
         </div>
 
         <div>
-            <h3>Volume nas categorias</h3>
+            <h3>Volume de itens no museu</h3>
             <div class="container-grafico">
                 <canvas id="graficoAcervo"></canvas>
             </div>
         </div>
 
         <div>
-            <h3>Ranking de compatibilidade</h3>
+            <h3>Ranking de usuários</h3>
             <table class="tabela-retro">
                 <thead>
                     <tr>
                         <th>Posição</th>
                         <th>Usuário</th>
-                        <th>Taxa (%)</th>
-                        <th>Status</th>
+                        <th>Taxa de Compatibilidade</th> <th>Status</th>
                     </tr>
                 </thead>
                 <tbody id="dash-tabela-ranking">
-                    <tr><td colspan="4" style="text-align: center;">Buscando dados no servidor...</td></tr>
+                    <tr><td colspan="4" style="text-align: center;">Buscando dados...</td></tr>
                 </tbody>
             </table>
         </div>
@@ -199,15 +248,10 @@
                     </tr>
                 </thead>
                 <tbody id="dash-tabela-recomendacoes">
-                    <tr><td colspan="3" style="text-align: center;">Lendo logs do sistema...</td></tr>
+                    <tr><td colspan="3" style="text-align: center;">Pegando logs do sistema...</td></tr>
                 </tbody>
             </table>
         </div>
 
     </div>
 </div>
-
-<script src="../js/dashboard.js"></script>
-<script>
-    iniciarPainelDashboard();
-</script>
