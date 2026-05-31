@@ -1,4 +1,4 @@
-const dashboardModel = require("../models/dashboardModel");
+var dashboardModel = require("../models/dashboardModel");
 
 // Usuario
 function buscarTaxaUsuario(req, res) {

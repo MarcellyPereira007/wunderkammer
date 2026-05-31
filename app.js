@@ -18,6 +18,7 @@ var usuarioRouter = require("./src/routes/usuarios");
 var categoriaRouter = require("./src/routes/categorias");
 var dashboardRouter = require("./src/routes/dashboard");
 var quizRouter = require("./src/routes/quiz");
+var guestbookRouter = require("./src/routes/guestbook");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -30,6 +31,7 @@ app.use("/usuarios", usuarioRouter);
 app.use("/categorias", categoriaRouter);
 app.use("/dashboard", dashboardRouter);
 app.use("/quiz", quizRouter);
+app.use("/guestbook", guestbookRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`

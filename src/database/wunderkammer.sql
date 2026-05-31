@@ -60,6 +60,14 @@ CREATE TABLE usuario_categoria (
     FOREIGN KEY (fk_categoria) REFERENCES categoria(id_categoria)
 );
 
+-- Livro de visitantes
+CREATE TABLE guestbook (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100),
+    mensagem TEXT,
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 INSERT INTO categoria (nome_categoria) VALUES 
 ('Tecnologia'),
 ('Linguística'),
@@ -77,6 +85,24 @@ INSERT INTO categoria (nome_categoria) VALUES
 ('Ensaios'),
 ('Pesca');
 
+INSERT INTO maravilha (titulo, descricao, caminho_capa, caminho_arquivo) VALUES 
+('Blue Prince',
+'Blue Prince é um jogo indie de mistério e puzzle, onde você herda uma mansão misteriosa e precisa descobrir a localização secreta do 46º quarto, mesmo a casa possuindo apenas 45 cômodos',
+'../assets/img/posts/capas/blueprince.png',
+'../janelas/posts/blueprince.html'),
+('Sandman',
+'Sandman é uma HQ escrita por Neil Gaiman e publicada pela DC Comics (via selo Vertigo) entre 1989 e 1996. Conta sobre Sonho (ou Morfeu), um dos sete Perpétuos, entidades imortais que personificam aspectos fundamentais da vida',
+'../assets/img/posts/capas/sandman.jpg',
+'../janelas/posts/sandman.html'),
+('Dicas de pesca','Saiba como montar seu primeiro kit de pesca, itens indispensáveis, itens proibidos, técnicas de pesca, iscas coringa, quais são os nós mais utilizados, como brigar com o peixe e as etiquetas básicas de um pescador',
+'../assets/img/posts/capas/pesca.jpg',
+'../janelas/posts/pesca.html');
+
+INSERT INTO maravilha_categoria (fk_maravilha, fk_categoria) VALUES (1,10);
+INSERT INTO maravilha_categoria (fk_maravilha, fk_categoria) VALUES (2,4);
+INSERT INTO maravilha_categoria (fk_maravilha, fk_categoria) VALUES (3,11);
+INSERT INTO maravilha_categoria (fk_maravilha, fk_categoria) VALUES (3,15);
+
 -- Mostrar nome da maravilha, nome da categoria
 SELECT 
     m.titulo, 
@@ -91,24 +117,6 @@ JOIN categoria c
     ON mc.fk_categoria = c.id_categoria
 WHERE c.nome_categoria = 'Jogos';
 
-INSERT INTO maravilha (titulo, descricao, caminho_capa, caminho_arquivo) VALUES 
-('Blue Prince',
-'Blue Prince é um jogo indie de mistério e puzzle, onde você herda uma mansão misteriosa e precisa descobrir a localização secreta do 46º quarto, mesmo a casa possuindo apenas 45 cômodos',
-'../assets/img/home/capas/blueprince.png',
-'../janelas/posts/blueprince.html'),
-('Sandman',
-'Sandman é uma HQ escrita por Neil Gaiman e publicada pela DC Comics (via selo Vertigo) entre 1989 e 1996. Conta sobre Sonho (ou Morfeu), um dos sete Perpétuos, entidades imortais que personificam aspectos fundamentais da vida',
-'../assets/img/posts/capas/sandman.jpg',
-'../janelas/posts/sandman.html'),
-('Dicas de pesca','Saiba como montar seu primeiro kit de pesca, itens indispensáveis, itens proibidos, técnicas de pesca, iscas coringa, quais são os nós mais utilizados, como brigar com o peixe e as etiquetas básicas de um pescador',
-'../assets/img/posts/capas/blueprince.png',
-'../janelas/posts/pesca.html');
-
-INSERT INTO maravilha_categoria (fk_maravilha, fk_categoria) VALUES (1,10);
-INSERT INTO maravilha_categoria (fk_maravilha, fk_categoria) VALUES (2,4);
-INSERT INTO maravilha_categoria (fk_maravilha, fk_categoria) VALUES (3,11);
-INSERT INTO maravilha_categoria (fk_maravilha, fk_categoria) VALUES (3,15);
-
 -- Pega as maravilhas e em que categoria elas estao
 select m.titulo as 'Nome da maravilha', c.nome_categoria as 'Categoria'
 from maravilha m
@@ -117,7 +125,7 @@ on  mc.fk_maravilha = m.id_maravilha
 join categoria c
 on mc.fk_categoria = c.id_categoria;
 
--- Pega a recomendaçaõ do user
+-- Pega a recomendação do user
 select u.username as 'Nome do usuário', r.tema as 'Tema', r.descricao as 'Descrição'
 from usuario u
 join recomendacao r

@@ -13,6 +13,7 @@
     <script src="./js/posts/blueprince.js"></script>
     <script src="./js/quiz.js"></script>
     <script src="./js/dashboard.js"></script>
+    <script src="./js/sobre.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <link rel="stylesheet" href="./css/home.css" /> <!--CSS da página-->
@@ -179,6 +180,10 @@
 
                         if (nomeArquivo.includes('quiz')) {
                             buscarCategoriasQuiz();
+                        }
+
+                        if (nomeArquivo.includes('sobre')) {
+                            carregarGuestbook();
                         }
 
                         // Pega na tela a tag video

@@ -20,8 +20,10 @@
         box-sizing: border-box;
     }
 
+    /* "Body" */
     .janela-sobre {
         background-color: #fdf6ee;
+        background-image: url('../assets/img/janelas/sobre/grid-me.png') !important;
         font-family: 'Basiic', sans-serif;
         color: #3d2b1f;
         width: 100%;
@@ -30,6 +32,7 @@
         overflow-x: hidden;
     }
 
+    /* Barra */
     .janela-sobre::-webkit-scrollbar {
         width: 8px;
     }
@@ -45,6 +48,7 @@
     .sobre-header {
         text-align: center;
         padding: 25px;
+        position: relative;
     }
 
     .sobre-header h1 {
@@ -58,6 +62,41 @@
         font-size: 16px;
         color: #8b6347;
         margin-top: 5px;
+    }
+
+    @keyframes flutuar {
+
+        0%,
+        100% {
+            transform: translateY(0px) rotate(-2deg);
+        }
+
+        50% {
+            transform: translateY(-8px) rotate(2deg);
+        }
+    }
+
+    @keyframes flutuar2 {
+
+        0%,
+        100% {
+            transform: translateY(-5px) rotate(3deg);
+        }
+
+        50% {
+            transform: translateY(5px) rotate(-3deg);
+        }
+    }
+
+    .deco {
+        position: absolute;
+        pointer-events: none;
+        z-index: 4;
+    }
+
+    .deco img {
+        width: 100%;
+        height: 100%;
     }
 
     .div-renda {
@@ -76,15 +115,21 @@
         gap: 40px;
         padding: 30px 50px;
         align-items: flex-start;
+        position: relative;
     }
 
     .foto-colagem {
         flex-shrink: 0;
         position: relative;
         width: 260px;
+        height: 360px;
+        /* VALIDAR se esse tamanho ta certo com a foto */
     }
 
     .foto-frame {
+        position: absolute;
+        top: 30px;
+        left: 20px;
         width: 200px;
         height: 260px;
         border: 3px solid #c4a882;
@@ -92,6 +137,7 @@
         overflow: hidden;
         box-shadow: 5px 5px 0px #c4a882, 10px 10px 0px #f0e0cc, 12px 12px 0px #c4a882;
         transform: rotate(-2deg);
+        z-index: 2;
     }
 
     .foto-frame img {
@@ -100,12 +146,45 @@
         object-fit: cover;
     }
 
+    /* Decoraço~es em volta da foto */
+    .deco-foto-1 {
+        top: -10px;
+        left: 175px;
+        width: 55px;
+        height: 55px;
+        animation: flutuar 5s ease-in-out infinite;
+    }
+
+    .deco-foto-2 {
+        top: 195px;
+        left: -15px;
+        width: 45px;
+        height: 45px;
+        animation: flutuar2 4s ease-in-out infinite;
+    }
+
+    .deco-foto-3 {
+        top: 270px;
+        left: 145px;
+        width: 50px;
+        height: 50px;
+        animation: flutuar 6s ease-in-out infinite;
+    }
+
+    .deco-foto-4 {
+        top: 95px;
+        left: -15px;
+        width: 40px;
+        height: 40px;
+        animation: flutuar2 5s ease-in-out infinite;
+    }
+
     .ficha-info {
-        margin-top: 20px;
         padding: 12px;
         background: #f5ede0;
         border: 1px dashed #c4a882;
         transform: rotate(1deg);
+        margin-top: 320px;
     }
 
     .ficha-linha {
@@ -114,10 +193,6 @@
         padding: 4px 0;
         border-bottom: 1px dotted #e0c9b0;
         font-size: 16px;
-    }
-
-    .ficha-linha:last-child {
-        border-bottom: none;
     }
 
     .ficha-titulo {
@@ -194,10 +269,45 @@
     .citacao-autor {
         display: block;
         font-family: 'Yoster', monospace;
-        font-size: 14px;
+        font-size: 16px;
         color: #8b6347;
         margin-top: 10px;
         text-transform: uppercase;
+    }
+
+    .projeto-box {
+        background: #f5ede0;
+        border: 2px solid #c4a882;
+        padding: 20px 25px;
+        margin-bottom: 15px;
+        box-shadow: 4px 4px 0px #e0c9b0;
+    }
+
+    .projeto-box h3 {
+        font-family: 'RomanceA', serif;
+        font-size: 18px;
+        color: #8b6347;
+        margin-bottom: 10px;
+    }
+
+    .projeto-box p {
+        font-size: 18px;
+        color: #3d2b1f;
+    }
+
+    .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 20px;
+    }
+
+    .tag {
+        background: #c4a882;
+        color: #3d2b1f;
+        font-family: 'Yoster', monospace;
+        font-size: 16px;
+        padding: 4px 12px;
     }
 
     .guestbook {
@@ -209,6 +319,7 @@
         border: 2px solid #c4a882;
         padding: 25px;
         margin-bottom: 30px;
+        box-shadow: 4px 4px 0px #e0c9b0;
     }
 
     .gb-form h3 {
@@ -254,7 +365,7 @@
         cursor: pointer;
     }
 
-    .gb-mensagem-status {
+    .gb-status {
         font-family: 'Yoster', monospace;
         font-size: 16px;
         color: #8b6347;
@@ -306,8 +417,22 @@
     <div class="sobre-principal">
 
         <div class="foto-colagem">
+
             <div class="foto-frame">
-                <img src="../assets/img/janelas/sobre/marcellyevaquinha.png" alt="Marcelly">
+                <img src="../assets/img/janelas/sobre/marcellyevaquinha.png">
+            </div>
+
+            <div class="deco deco-foto-1">
+                <img src="../assets/img/janelas/sobre/peixe.png" alt="Peixe dourado">
+            </div>
+            <div class="deco deco-foto-2">
+                <img src="../assets/img/janelas/sobre/trevo.png" alt="Trevo">
+            </div>
+            <div class="deco deco-foto-3">
+                <img src="../assets/img/janelas/sobre/clippy.png" alt="Clippy">
+            </div>
+            <div class="deco deco-foto-4">
+                <img src="../assets/img/janelas/sobre/gato.png" alt="Gato">
             </div>
 
             <div class="ficha-info">
@@ -320,8 +445,8 @@
                     <span>1CCOA - SPTECH</span>
                 </div>
                 <div class="ficha-linha">
-                    <span class="ficha-titulo">Gosto de</span>
-                    <span>tecnologia, old-web, curadoria, gatos</span>
+                    <span class="ficha-titulo">Amo</span>
+                    <span>tecnologia, old-web, Reshals, curadoria, gatos</span>
                 </div>
             </div>
         </div>
@@ -347,13 +472,17 @@
         <p class="secao-subtitulo">:·. Gabinete das maravilhas .·:</p>
 
         <div class="caixa">
-            <em>Wunderkammer</em> vem do alemão e significa "câmara das maravilhas". Era o nome dado para coleções
-            particulares que nobres e estudiosos montavam entre os séculos XVI e XVII.
+            <em>Wunderkammer</em> vem do alemão e significa "câmara das maravilhas" ou "gabinete de curiosidades". Era o
+            nome dado para coleções particulares que nobres e estudiosos montavam entre os séculos XVI e XVII. Antes dos
+            museus existirem como conhecemos hoje, essas câmaras eram o jeito que as pessoas tinham de organizar e
+            exibir tudo aquilo que as impressionava.
         </div>
 
         <div class="caixa">
             O que tornava o Wunderkammer único não eram os seus itens, e sim <em>como</em> ele era organizado, com
-            lógica afetiva do seu dono.
+            lógica afetiva do seu dono. Não havia um padrão. Cada coleção retratava a mente do criador expondo suas
+            obsessões, seus tesouros e sua visão de mundo. Dois colecionadores podiam ter os mesmos objetos e criar
+            gabinetes completamente diferentes.
         </div>
 
         <div class="citacao">
@@ -364,7 +493,9 @@
 
         <div class="caixa">
             O Wunderkammer digital que você está explorando agora segue essa mesma lógica. As categorias aqui não
-            existem porque são as mais populares, elas estão aqui porque são as que me formaram como sou.
+            existem porque são as mais populares, elas estão aqui porque são as que me formaram como sou. Cada post não
+            é uma wiki do assunto, é a minha visão específica com as minhas experiências aplicadas em cima do que
+            pesquisei e consumi.
         </div>
     </div>
 
@@ -374,16 +505,34 @@
         <h2 class="secao-titulo">Sobre o projeto</h2>
         <p class="secao-subtitulo">:·. Como o projeto nasceu .·:</p>
 
-        <div class="caixa">
+        <div class="projeto-box">
             <h3>Contexto estudantil</h3>
-            <p>O Wunderkammer nasceu como um projeto individual da faculdade e o objetivo era aplicar todo conteúdo do
-                primeiro semestre.</p>
+            <p>O Wunderkammer nasceu como um projeto individual da faculdade de Ciências da computação e o objetivo era
+                aplicar todo conteúdo do primeiro semestre, e o tema devia ser sobre algo que nos importasse de verdade.
+                Eu escolhi curadoria.</p>
         </div>
 
-        <div class="caixa">
+        <div class="projeto-box">
             <h3>Tema</h3>
-            <p>Por muito tempo, eu pensei ser impossível ser uma pessoa única. Somos inteiramente feitos de referências.
-                Nossa personalidade é uma colagem de tudo que absorvemos ao longo da vida.</p>
+            <p>Por muito tempo, eu pensei ser impossível ser uma pessoa única. E que pra ser assim eu precisava ser 100%
+                autêntica, sem parecer com ninguém. Hoje, sei que isso é mentira. Somos inteiramente feitos de
+                referências. Nossa personalidade é uma colagem de tudo que absorvemos ao longo da vida. O que nos torna
+                únicos não é originalidade pura, mas o olhar específico que cada um aplica sobre essas referências.
+                Sendo essa curadoria, a chave pra nos encontrarmos de verdade.</p>
+        </div>
+
+        <div class="projeto-box">
+            <h3>Visual</h3>
+            <p>A escolha do formato de OS não foi aleatória. A internet antiga era um lugar onde cada pessoa podia
+                construir uma presença digital completamente personalizada.</p>
+        </div>
+
+        <div class="tags">
+            <span class="tag">#curadoria</span>
+            <span class="tag">#oldweb</span>
+            <span class="tag">#wunderkammer</span>
+            <span class="tag">#pesquisa&inovação</span>
+            <span class="tag">#ping2semestre</span>
         </div>
     </div>
 
@@ -391,27 +540,27 @@
 
     <div class="guestbook">
         <h2 class="secao-titulo" style="margin-bottom: 5px;">Guestbook</h2>
-        <p class="secao-subtitulo">✦ deixe uma mensagem no site ✦</p>
+        <p class="secao-subtitulo">✦ Deixe uma mensagem no site ✦</p>
 
         <div class="gb-form">
-            <h3>assinar o livro de visitas</h3>
+            <h3>Assinar o livro de visitas</h3>
 
             <div class="gb-campo">
-                <label for="gb-nome">seu nome</label>
-                <input type="text" id="gb-nome" maxlength="60" placeholder="como posso te chamar?">
+                <label for="gb-nome">Seu nome</label>
+                <input type="text" id="gb-nome" placeholder="Como posso te chamar?">
             </div>
 
             <div class="gb-campo">
-                <label for="gb-msg">mensagem</label>
-                <textarea id="gb-msg" rows="4" maxlength="300" placeholder="deixe sua mensagem aqui..."></textarea>
+                <label for="gb-msg">Mensagem</label>
+                <textarea id="gb-msg" rows="4" placeholder="Deixe sua mensagem aqui..."></textarea>
             </div>
 
-            <button class="gb-btn" onclick="enviarGuestbook()">✦ assinar ✦</button>
-            <p class="gb-mensagem-status" id="gb-status"></p>
+            <button class="gb-btn" onclick="enviarGuestbook()">✦ Enviar ✦</button>
+            <p class="gb-status" id="gb-status"></p>
         </div>
 
         <div class="gb-lista" id="gb-lista">
-            <p style="font-family: 'Yoster', monospace; font-size: 16px; color: #8b6347;">carregando mensagens...</p>
+            <p style="font-family: 'Yoster', monospace; font-size: 16px; color: #8b6347;">Carregando mensagens...</p>
         </div>
     </div>
 
