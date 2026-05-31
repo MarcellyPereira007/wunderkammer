@@ -94,14 +94,20 @@ INSERT INTO maravilha (titulo, descricao, caminho_capa, caminho_arquivo) VALUES
 'Sandman é uma HQ escrita por Neil Gaiman e publicada pela DC Comics (via selo Vertigo) entre 1989 e 1996. Conta sobre Sonho (ou Morfeu), um dos sete Perpétuos, entidades imortais que personificam aspectos fundamentais da vida',
 '../assets/img/posts/capas/sandman.jpg',
 '../janelas/posts/sandman.html'),
-('Dicas de pesca','Saiba como montar seu primeiro kit de pesca, itens indispensáveis, itens proibidos, técnicas de pesca, iscas coringa, quais são os nós mais utilizados, como brigar com o peixe e as etiquetas básicas de um pescador',
+('Dicas de pesca',
+'Saiba como montar seu primeiro kit de pesca, itens indispensáveis, itens proibidos, técnicas de pesca, iscas coringa, quais são os nós mais utilizados, como brigar com o peixe e as etiquetas básicas de um pescador',
 '../assets/img/posts/capas/pesca.jpg',
-'../janelas/posts/pesca.html');
+'../janelas/posts/pesca.html'),
+('Gratidão',
+'Agradecimentos as pessoas que fizeram parte dessa etapa de criação do projeto e estiveram me apoiando.',
+'../assets/img/posts/capas/gratidao.png',
+'../janelas/posts/agradecimentos.html');
 
 INSERT INTO maravilha_categoria (fk_maravilha, fk_categoria) VALUES (1,10);
 INSERT INTO maravilha_categoria (fk_maravilha, fk_categoria) VALUES (2,4);
 INSERT INTO maravilha_categoria (fk_maravilha, fk_categoria) VALUES (3,11);
 INSERT INTO maravilha_categoria (fk_maravilha, fk_categoria) VALUES (3,15);
+INSERT INTO maravilha_categoria (fk_maravilha, fk_categoria) VALUES (4,13);
 
 -- Mostrar nome da maravilha, nome da categoria
 SELECT 
