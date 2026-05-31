@@ -268,6 +268,7 @@ a:hover,
   background-repeat: no-repeat;
   background-position: center;
   overflow: hidden;
+  isolation: isolate;
 }
 
 .headerWunderkammer {
