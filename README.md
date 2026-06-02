@@ -41,27 +41,39 @@
 ### Comandos de inicialização
 Para rodar o sistema localmente, execute no terminal:
 
-  <img src="https://web.archive.org/web/20091027102959if_/http://geocities.com/deltacephei/oggetti/build.gif" />
-
-<!--```bash
+```bash
 # Clone o repositório
 git clone [https://github.com/MarcellyPereira007/wunderkammer.git](https://github.com/MarcellyPereira007/wunderkammer.git)
 
 # Entre no diretório
 cd wunderkammer
 
-# Instale os módulos do sistema
-npm install
+# Crie o banco de dados de acordo com
+\wunderkammer\src\database\wunderkammer.sql
 
-# Inicie o mimiomia-kernel
+# Crie o .env com
+AMBIENTE_PROCESSO=producao
+
+DB_HOST='ip'
+DB_DATABASE='wunderkammer'
+DB_USER='usuarioaqui'
+DB_PASSWORD='senhaaqui'
+DB_PORT=3307 # Use 3307 para redirecionamento de portas da VM ou 3306 para banco local
+APP_PORT=8080
+APP_HOST=localhost
+# importante: caso sua senha contenha caracteres especiais, insira-a entre 'aspas'
+
+# Instale os módulos do sistema
+npm i
+
+# Inicie o servidor
 npm start
-``` -->
+``` 
 
 ---
 
 <div align="center">
   <br>
-  <img src="https://cyber.dabamos.de/88x31/anybrowser1.gif">
   <img src="https://dl.glitter-graphics.com/pub/838/838067g53k9pso7x.gif">
   <img src="https://dl.glitter-graphics.com/pub/1563/1563183dv7m2jhsv2.gif">
   <img src="https://dl.glitter-graphics.com/pub/910/910870oyhpju7gru.gif">
